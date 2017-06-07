@@ -7,17 +7,15 @@ real world situation using idealized models.
 Technology used: JavaFx.
 
 
-Project Description: This specifies the basic requirements of the project.
-User Stories: This describes all the user stories pertaining to this project.
-input: This directory has a sample showing how the input will be for this application.
-tests: This directory has test cases (JUint) for testing the features and functionalities of the application.
+Project Description: This specifies the basic requirements of the project. <br />
+User Stories: This describes all the user stories pertaining to this project. <br />
+input: This directory has a sample showing how the input will be for this application. <br />
+tests: This directory has test cases (JUint) for testing the features and functionalities of the application. <br />
 
+<br />
 Team Members:
 
-Chirag Arun Yeole
-
-Deepti Suresh Chavan
-
-Gayatri Patil
-
-Poojitha Dharmavaram
+Chirag Arun Yeole <br />
+Deepti Suresh Chavan <br />
+Gayatri Patil <br />
+Poojitha Dharmavaram <br />
