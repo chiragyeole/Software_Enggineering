@@ -10,8 +10,8 @@ Team Members:
 
 Chirag Arun Yeole
 
-Deepthi Suresh Chavan
+Deepti Suresh Chavan
 
-Gayathri Patil
+Gayatri Patil
 
 Poojitha Dharmavaram
