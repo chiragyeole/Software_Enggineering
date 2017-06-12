@@ -1,6 +1,0 @@
-First assumption :: Reason1
-Second assumption :: Correct
-Third assumption :: Correct
-Fourth assumption :: Correct
-Fifth assumption :: Reason2
-Sixth assumption :: Reason3
