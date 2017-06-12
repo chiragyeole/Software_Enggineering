@@ -1,1 +1,0 @@
-This folder has executable files for different platforms.
