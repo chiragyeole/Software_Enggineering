@@ -1,1 +1,0 @@
-This folder contains all the test scenarios for the application.
