@@ -31,7 +31,7 @@ public class AssumptionsTableView  {
     
     
     public  TableView<AssumptionsDAO> table = new TableView<AssumptionsDAO>();
-    public TextArea content = new TextArea("");
+    //public TextArea content = new TextArea("");
   
     private AssumptionsTableModel model = new AssumptionsTableModel();
     
@@ -71,9 +71,10 @@ public class AssumptionsTableView  {
          table.setItems(model.assumptionsList);
          table.getColumns().addAll(chCol,assumption);
          table.setPrefHeight(200);
+         table.setPrefWidth(500);
          table.setTableMenuButtonVisible(true);
     
-         
+         /*
          table.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
@@ -84,6 +85,7 @@ public class AssumptionsTableView  {
             
             
         });
+*/
     }
 
 }

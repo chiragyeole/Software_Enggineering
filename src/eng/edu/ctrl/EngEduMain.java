@@ -26,6 +26,7 @@ public class EngEduMain extends Application {
         AssumptionsTableView tbl = new AssumptionsTableView();
         tbl.createTable();
       
+        /*
         HBox header = new HBox();
         HBox hb = new HBox();
         
@@ -33,11 +34,12 @@ public class EngEduMain extends Application {
         tbl.content.setPrefSize(500, 100);
         tbl.content.setWrapText(true);
         hb.getChildren().add(tbl.content);
+        */
         
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
-        vbox.getChildren().addAll(header, tbl.table,hb);
-        vbox.setPadding(new Insets(270, 10, 10, 10));
+        vbox.getChildren().addAll(tbl.table);
+        vbox.setPadding(new Insets(410, 10, 10, 10));
    
         Group grp = new Group();
         grp.getChildren().addAll(mainPane, vbox);

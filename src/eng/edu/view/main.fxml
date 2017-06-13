@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.canvas.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.QuestionController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="739.0" prefWidth="1404.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.QuestionController">
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="200.0" styleClass="HBox" VBox.vgrow="NEVER">
-         <children>
-            <Label contentDisplay="RIGHT" prefHeight="17.0" prefWidth="53.0" text="Score:0" textFill="#ebeae5" />
-         </children>
          <VBox.margin>
             <Insets />
          </VBox.margin>
@@ -31,27 +30,24 @@
                                     
                                  </children>
                               </Pane>
-                              <Pane prefHeight="157.0" prefWidth="174.0">
+                              <Pane prefHeight="323.0" prefWidth="407.0">
                                  <children>
-                                    <ImageView fx:id="realWorldImage"  fitHeight="131.0" fitWidth="174.0" layoutY="13.0">
-                                       
-                                    </ImageView>
+                                    <ImageView fx:id="realWorldImage" fitHeight="419.0" fitWidth="646.0" layoutY="39.0" preserveRatio="true">
+                                       <effect>
+                                          <Blend />
+                                       </effect></ImageView>
                                  </children>
                               </Pane>
-                              <ImageView fx:id="idealizedImage" fitHeight="121.0" fitWidth="186.0" layoutX="363.0" layoutY="10.0">
+                              <ImageView fx:id="idealizedImage" fitHeight="410.0" fitWidth="618.0" layoutX="691.0" layoutY="49.0" preserveRatio="true">
                                  
                               </ImageView>
                               
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="28.0" prefWidth="396.0">
-                           <children>
-                              <Label layoutX="-3.0" layoutY="6.0" prefHeight="17.0" prefWidth="396.0" text="Select appropriate assumptions to reach Idealized model" />
-                           </children>
-                        </AnchorPane>
+                        <AnchorPane prefHeight="28.0" prefWidth="396.0" />
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button layoutX="22.0" layoutY="107.0" mnemonicParsing="false" text="Submit" />
+                              <Button contentDisplay="CENTER" layoutX="691.0" layoutY="137.0" mnemonicParsing="false" text="Submit" textAlignment="CENTER" />
                            </children>
                         </AnchorPane>
                      </children></VBox>
