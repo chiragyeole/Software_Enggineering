@@ -9,7 +9,6 @@ Technology used: JavaFx.
 
 Project Description: This specifies the basic requirements of the project. <br />
 User Stories: This describes all the user stories pertaining to this project. <br />
-tests: This directory has test cases (JUnit) for testing the features and functionalities of the application. <br />
 src: This directory has the application logic <br /> 
 
 <br />
