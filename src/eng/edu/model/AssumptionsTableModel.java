@@ -29,20 +29,22 @@ public class AssumptionsTableModel {
         String basePath = System.getProperty("user.home");
         assumptionsTxt = basePath + "/questions/assumptions1.txt";
 
-        BufferedReader br = null;
-        FileReader fr = null;
+        BufferedReader br;
 
         try {
 
-            fr = new FileReader(assumptionsTxt);
-            br = new BufferedReader(fr);
-
-            String sCurrentLine;
-
+            String currentLine;
             br = new BufferedReader(new FileReader(assumptionsTxt));
 
-            while ((sCurrentLine = br.readLine()) != null) {
-                assumptionsList.add(new AssumptionsDAO(sCurrentLine, 1));
+            while ((currentLine = br.readLine()) != null) {
+                //text and result is spearated by a | in the .txt file
+                String[] temp = currentLine.split("\\|");
+                //get the assumption text
+                String aTxt = temp[0].trim(); 
+                //whether the assumption is correct or no
+                //1 - correct and 0 - wrong
+                int res = Integer.parseInt(temp[1].trim());     
+                assumptionsList.add(new AssumptionsDAO(aTxt, res));
             }
 
         } catch (IOException e) {

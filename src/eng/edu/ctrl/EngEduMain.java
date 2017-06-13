@@ -25,16 +25,6 @@ public class EngEduMain extends Application {
         //assumptions are listed in table view
         AssumptionsTableView tbl = new AssumptionsTableView();
         tbl.createTable();
-      
-        /*
-        HBox header = new HBox();
-        HBox hb = new HBox();
-        
-        tbl.content.setEditable(false);
-        tbl.content.setPrefSize(500, 100);
-        tbl.content.setWrapText(true);
-        hb.getChildren().add(tbl.content);
-        */
         
         final VBox vbox = new VBox();
         vbox.setSpacing(5);

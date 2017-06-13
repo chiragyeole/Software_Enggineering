@@ -14,18 +14,16 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.util.Callback;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.EventHandler;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 /**
  *
  * @author deeptichavan
  * 
  * This class populates the assumptions on the screen
- * assumptionsList has the list of assumptions which are read from the txt file
+ * assumptionsList has the list of assumptions which are read from the .txt file
  */
 public class AssumptionsTableView  {
     
@@ -33,31 +31,20 @@ public class AssumptionsTableView  {
     public  TableView<AssumptionsDAO> table = new TableView<AssumptionsDAO>();
     //public TextArea content = new TextArea("");
   
-    private AssumptionsTableModel model = new AssumptionsTableModel();
+    public AssumptionsTableModel model = new AssumptionsTableModel();
     
+    public TableColumn chCol = new TableColumn("Checked");
     
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public void createTable(){
-        
-         TableColumn chCol = new TableColumn("Checked");
-         
+      
          chCol.setCellValueFactory( new Callback<CellDataFeatures<AssumptionsDAO, CheckBox>, ObservableValue<CheckBox>>() {
 
              @Override
-             public ObservableValue<CheckBox> call(
-                     CellDataFeatures<AssumptionsDAO, CheckBox> arg0) {
-                 AssumptionsDAO user = arg0.getValue();
+             public ObservableValue<CheckBox> call(CellDataFeatures<AssumptionsDAO, CheckBox> arg0) {
                  CheckBox checkBox = new CheckBox();
-                 /*
-                 for (Long value : model.checkedMessages) {
-                    if(value.intValue()==user.isCorrect ){
-                        checkBox.selectedProperty().setValue(Boolean.TRUE);
-                    }
-                }*/
-                 
-                 
-                 
-                 return new SimpleObjectProperty<CheckBox>(checkBox);
+                
+                 return new SimpleObjectProperty<>(checkBox);
              }
          
          
@@ -73,20 +60,10 @@ public class AssumptionsTableView  {
          table.setPrefHeight(200);
          table.setPrefWidth(500);
          table.setTableMenuButtonVisible(true);
-    
-         /*
-         table.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent event) {
-                AssumptionsDAO a =   table.getSelectionModel().getSelectedItem();
-                content.setText(a.getAssumption());
-            }
-            
-            
-        });
-*/
+         table.setId("assumptionsTable");
+         table.getSelectionModel().setSelectionMode(
+            SelectionMode.MULTIPLE
+            );
     }
-
 }
 

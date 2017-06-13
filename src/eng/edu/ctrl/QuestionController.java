@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -20,7 +21,7 @@ import javafx.util.Duration;
 public class QuestionController {
 
     @FXML
-    private Button btnMenuBar;
+    private Button submitId;
 
     @FXML
     private Button openFrm2;
@@ -76,5 +77,11 @@ public class QuestionController {
         ft.play();
         return v;
     }
+    
+     @FXML protected void handleSubmitButtonAction(ActionEvent event) {
+       //actiontarget.setText("Sign in button pressed");
+       ReasonPageController reasonPageController = new ReasonPageController();
+       reasonPageController.verifyAnswer(submitId.getScene());
+   }
 
-}
+}  

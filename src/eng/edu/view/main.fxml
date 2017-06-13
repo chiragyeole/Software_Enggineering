@@ -47,7 +47,7 @@
                         <AnchorPane prefHeight="28.0" prefWidth="396.0" />
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button contentDisplay="CENTER" layoutX="691.0" layoutY="137.0" mnemonicParsing="false" text="Submit" textAlignment="CENTER" />
+                              <Button fx:id="submitId" contentDisplay="CENTER" layoutX="691.0" layoutY="137.0" mnemonicParsing="false" text="Submit" textAlignment="CENTER" onAction="#handleSubmitButtonAction"/>
                            </children>
                         </AnchorPane>
                      </children></VBox>
