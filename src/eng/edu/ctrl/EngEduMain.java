@@ -12,39 +12,55 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import eng.edu.view.AssumptionsDisplayView;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
+import javafx.scene.layout.AnchorPane;
 
 public class EngEduMain extends Application {
+
     
     @Override
     public void start(Stage primaryStage) throws IOException {
         // load main form in to VBox (Root)
         VBox mainPane = (VBox) FXMLLoader.load( getClass().getResource("/eng/edu/view/main.fxml" ) );
+        SplitPane split = (SplitPane)mainPane.getChildren().get(1);
+        AnchorPane anchor = (AnchorPane) split.getItems().get(0);
+        VBox vbox1 = (VBox)anchor.getChildren().get(0);
+        ScrollPane scroll = (ScrollPane) vbox1.getChildren().get(2);
         
-        primaryStage.setTitle("Engineering Educators");
         
         //get all the checkboxes
         AssumptionsDisplayView adv = new AssumptionsDisplayView();
         adv.displayAssumptions();
-        
+      
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
-        vbox.setPadding(new Insets(410, 10, 10, 10));
+        vbox.setPadding(new Insets(10, 10, 10, 20));
+        
         
         //add these checkboxes to the vbox
         int i;
         for(i = 0; i < adv.checkBoxes.size(); i++){
-            vbox.getChildren().add(adv.checkBoxes.get(i));
+            System.out.println("Iteration" + i);
+            final HBox hbox = new HBox();
+            vbox.getChildren().add(hbox);
+            hbox.getChildren().addAll(adv.labels.get(i),adv.checkBoxes.get(i));
+            
+            //hbox.getChildren().clear();
         }
-        
+        //add vbox to scroll pane
+        scroll.setContent(vbox);      
         
         //group the images and checkboxes together
         Group grp = new Group();
         grp.getChildren().addAll(mainPane, vbox);
         
-        primaryStage.setScene(new Scene(grp, 500, 250));
-       
-        // make the main form fit to the screen
-        primaryStage.setMaximized(true);    
+        
+        primaryStage.setTitle("Engineering Educators");
+        primaryStage.setScene(new Scene(grp));     
+        primaryStage.setMaximized(true);    // make the main form fit to the screen
         primaryStage.show(); 
         
     }
