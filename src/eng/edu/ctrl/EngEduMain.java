@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import eng.edu.view.AssumptionsTableView;
+import eng.edu.view.AssumptionsDisplayView;
 
 public class EngEduMain extends Application {
     
@@ -22,21 +22,29 @@ public class EngEduMain extends Application {
         
         primaryStage.setTitle("Engineering Educators");
         
-        //assumptions are listed in table view
-        AssumptionsTableView tbl = new AssumptionsTableView();
-        tbl.createTable();
+        //get all the checkboxes
+        AssumptionsDisplayView adv = new AssumptionsDisplayView();
+        adv.displayAssumptions();
         
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
-        vbox.getChildren().addAll(tbl.table);
         vbox.setPadding(new Insets(410, 10, 10, 10));
-   
+        
+        //add these checkboxes to the vbox
+        int i;
+        for(i = 0; i < adv.checkBoxes.size(); i++){
+            vbox.getChildren().add(adv.checkBoxes.get(i));
+        }
+        
+        
+        //group the images and checkboxes together
         Group grp = new Group();
         grp.getChildren().addAll(mainPane, vbox);
         
         primaryStage.setScene(new Scene(grp, 500, 250));
        
-        primaryStage.setMaximized(false);    // make the main form fit to the screen
+        // make the main form fit to the screen
+        primaryStage.setMaximized(true);    
         primaryStage.show(); 
         
     }

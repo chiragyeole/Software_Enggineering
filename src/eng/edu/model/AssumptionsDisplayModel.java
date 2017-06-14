@@ -19,12 +19,12 @@ import javafx.collections.ObservableList;
  * This class reads the assumptions text file and stores them in a list,
  * which is then displayed from the AssumptionsTableView class
  */
-public class AssumptionsTableModel {
+public class AssumptionsDisplayModel {
 
     public String assumptionsTxt;
     public ObservableList<AssumptionsDAO> assumptionsList = FXCollections.observableArrayList();
 
-    public AssumptionsTableModel() {
+    public AssumptionsDisplayModel() {
 
         String basePath = System.getProperty("user.home");
         assumptionsTxt = basePath + "/questions/assumptions1.txt";

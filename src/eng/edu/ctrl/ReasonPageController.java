@@ -5,13 +5,16 @@
  */
 package eng.edu.ctrl;
 
-import eng.edu.view.AssumptionsTableView;
+import eng.edu.view.AssumptionsDisplayView;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
@@ -32,17 +35,17 @@ public class ReasonPageController implements Initializable {
     
     public void verifyAnswer(Scene scene){
         
-        ObservableList<Integer> response = getStudentsResponse(scene);
+        ArrayList<Integer> response = getStudentsResponse(scene);
         System.out.println("response :: " + response);
         
-        AssumptionsTableView atv = new AssumptionsTableView();
+        AssumptionsDisplayView atv = new AssumptionsDisplayView();
         
         ArrayList<String> incorrectResponse = new ArrayList<>();
         int i;
         for(i = 0; i < response.size(); i++){
             String txt = atv.model.assumptionsList.get(response.get(i)).assumption;
             int res = atv.model.assumptionsList.get(response.get(i)).isCorrect;
-            //System.out.println(txt + " :: " + res);
+            
             if(res == 0){
                 incorrectResponse.add(txt);
             }
@@ -52,11 +55,28 @@ public class ReasonPageController implements Initializable {
     }
     
     
-    public ObservableList<Integer> getStudentsResponse(Scene scene){
+    /*
+    * get the option numbers that the student selected
+    */
+    public ArrayList<Integer> getStudentsResponse(Scene scene){
         
-        TableView tv = (TableView) scene.lookup("#assumptionsTable");
+        AssumptionsDisplayView atv = new AssumptionsDisplayView();
         
-        ObservableList<Integer> response = tv.getSelectionModel().getSelectedIndices();
+        ArrayList<Integer> response = new ArrayList<>();
+        int listSize = atv.model.assumptionsList.size();
+        
+        int i;
+        for(i = 0; i < listSize; i++){
+            String id = "#checkbox" + i;
+            CheckBox cb = (CheckBox)scene.lookup(id);
+            
+            if(cb.isSelected()){
+                response.add(i);
+            }
+            
+        }
+        
+        System.out.println("Student's response :: " + response);
         return response;
     }
 }
