@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import java.util.Random;
 
 public class QuestionController {
 
@@ -40,14 +41,18 @@ public class QuestionController {
     @FXML
     private ImageView idealizedImage;
     
+    public static int n;
+    
     public void initialize() throws MalformedURLException { 
         
-        
+        Random rand = new Random();
+        n = rand.nextInt(2)+1;
+        System.out.println("n:"+n);
         
         /*
         * real world image stored in users home location is displayed from here.
         */
-        String path = getPath("RealWorld", 1, ".png");
+        String path = getPath("RealWorld", n, ".png");
         Image imageReal = new Image(path);        
         realWorldImage.setImage(imageReal);
         
@@ -55,7 +60,7 @@ public class QuestionController {
         /*
         * Idealized model image stored in users home location is displayed from here.
         */
-        path = getPath("IdealizedModel", 1, ".png");
+        path = getPath("IdealizedModel", n, ".png");
         Image imageIdeal = new Image(path);        
         idealizedImage.setImage(imageIdeal);
 

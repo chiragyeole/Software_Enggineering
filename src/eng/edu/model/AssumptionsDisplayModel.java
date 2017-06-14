@@ -29,7 +29,9 @@ public class AssumptionsDisplayModel {
 
        
         QuestionController qc = new QuestionController();
-        assumptionsTxt = qc.getPath("assumptions", 1, ".txt");
+        int n1 = QuestionController.n;
+        System.out.println("n1: "+n1);
+        assumptionsTxt = qc.getPath("assumptions", n1, ".txt");
         String[] split = assumptionsTxt.split(":");
         assumptionsTxt = split[1];
         
