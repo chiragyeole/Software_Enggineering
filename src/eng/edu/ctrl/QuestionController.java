@@ -31,7 +31,7 @@ public class QuestionController {
 
     @FXML
     private VBox dataPane;
-    
+      
     @FXML
     private ImageView realWorldImage ;
 
@@ -40,26 +40,33 @@ public class QuestionController {
     
     public void initialize() throws MalformedURLException { 
         
+        
+        
         /*
         * real world image stored in users home location is displayed from here.
         */
-        String basePath = System.getProperty("user.home");
-        File fileReal = new File(basePath + "/questions/RealWorld1.png");
-        System.out.println(fileReal.toURI().toString());
-        Image imageReal = new Image(fileReal.toURI().toString());        
+        String path = getPath("RealWorld", 1, ".png");
+        Image imageReal = new Image(path);        
         realWorldImage.setImage(imageReal);
         
         
         /*
         * Idealized model image stored in users home location is displayed from here.
         */
-        File fileIdeal = new File(basePath + "/questions/IdealizedModel1.png");
-        System.out.println(fileIdeal.toURI().toString());
-        Image imageIdeal = new Image(fileIdeal.toURI().toString());        
+        path = getPath("IdealizedModel", 1, ".png");
+        Image imageIdeal = new Image(path);        
         idealizedImage.setImage(imageIdeal);
 
     }
     
+    
+    public String getPath(String imageType, int number, String fileType){
+        
+        String basePath = System.getProperty("user.home");
+        File file = new File(basePath + "/questions/" + imageType + number + fileType);
+        
+        return file.toURI().toString();
+    }
        
     public void setDataPane(Node node) {
         // update VBox with new form(FXML) depends on which button is clicked

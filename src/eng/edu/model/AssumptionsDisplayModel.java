@@ -6,6 +6,7 @@
 package eng.edu.model;
 
 import eng.edu.ctrl.AssumptionsDAO;
+import eng.edu.ctrl.QuestionController;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -26,9 +27,12 @@ public class AssumptionsDisplayModel {
 
     public AssumptionsDisplayModel() {
 
-        String basePath = System.getProperty("user.home");
-        assumptionsTxt = basePath + "/questions/assumptions1.txt";
-
+       
+        QuestionController qc = new QuestionController();
+        assumptionsTxt = qc.getPath("assumptions", 1, ".txt");
+        String[] split = assumptionsTxt.split(":");
+        assumptionsTxt = split[1];
+        
         BufferedReader br;
 
         try {
@@ -41,6 +45,11 @@ public class AssumptionsDisplayModel {
                 String[] temp = currentLine.split("\\|");
                 //get the assumption text
                 String aTxt = temp[0].trim(); 
+                /*
+                String bigTxt = temp[0].trim(); 
+                for(int i = 0; i < bigTxt.length(); i++){
+                    
+                }*/
                 //whether the assumption is correct or no
                 //1 - correct and 0 - wrong
                 int res = Integer.parseInt(temp[1].trim());     
