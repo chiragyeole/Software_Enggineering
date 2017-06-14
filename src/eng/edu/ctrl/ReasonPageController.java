@@ -6,6 +6,7 @@
 package eng.edu.ctrl;
 
 import eng.edu.view.AssumptionsDisplayView;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +15,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * FXML Controller class
@@ -37,6 +41,9 @@ public class ReasonPageController implements Initializable {
         
         ArrayList<Integer> response = getStudentsResponse(scene);
         System.out.println("response :: " + response);
+        String basePath = System.getProperty("user.home");
+        File fileReal = new File(basePath + "/questions/correct.png");
+        File fileReal1 = new File(basePath + "/questions/cross.png");
         
         AssumptionsDisplayView atv = new AssumptionsDisplayView();
         
@@ -48,6 +55,27 @@ public class ReasonPageController implements Initializable {
             
             if(res == 0){
                 incorrectResponse.add(txt);
+                //Image image = new Image(getClass().getResourceAsStream("labels.jpg"));
+                
+                String id = "#label" + response.get(i);
+                Label lb = (Label)scene.lookup(id);
+                lb.setVisible(true);
+                ImageView cross = new ImageView(fileReal1.toURI().toString());
+                cross.setFitHeight(15);
+                cross.setFitWidth(15);
+                lb.setGraphic(cross);
+                //lb.setText("Incorrect");
+            }
+            else
+            {
+             String id = "#label" + response.get(i);   
+             Label lb = (Label)scene.lookup(id);
+             lb.setVisible(true);
+              ImageView correct = new ImageView(fileReal.toURI().toString());
+              correct.setFitHeight(15);
+               correct.setFitWidth(15);
+                lb.setGraphic(correct);
+             //lb.setText("Correct");
             }
         }
         

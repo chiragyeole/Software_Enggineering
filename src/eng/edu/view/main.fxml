@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.SplitPane?>
@@ -10,9 +16,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="739.0" prefWidth="1404.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.QuestionController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="851.0" prefWidth="1404.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.QuestionController">
    <children>
-      <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="200.0" styleClass="HBox" VBox.vgrow="NEVER">
+      <HBox alignment="CENTER_RIGHT" prefHeight="106.0" prefWidth="1404.0" styleClass="HBox" VBox.vgrow="NEVER">
          <VBox.margin>
             <Insets />
          </VBox.margin>
@@ -44,12 +50,17 @@
                               
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="28.0" prefWidth="396.0" />
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane prefHeight="28.0" prefWidth="396.0">
                            <children>
-                              <Button fx:id="submitId" contentDisplay="CENTER" layoutX="691.0" layoutY="137.0" mnemonicParsing="false" text="Submit" textAlignment="CENTER" onAction="#handleSubmitButtonAction"/>
-                           </children>
-                        </AnchorPane>
+                              <Label layoutY="6.0" text="Select appropriate assumptions to reach idealized Model" />
+                           </children></AnchorPane>
+                            <ScrollPane prefHeight="400.0" prefWidth="1382.0" >
+                          <content>
+                            <AnchorPane fx:id="anchor1" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="1382.0"  />
+                          </content>
+                        </ScrollPane>
+                       
+                        <Button fx:id="submitId" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSubmitButtonAction" text="Submit" textAlignment="CENTER" />
                      </children></VBox>
                </children>
             </AnchorPane>
