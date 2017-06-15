@@ -47,11 +47,7 @@ public class AssumptionsDisplayModel {
                 String[] temp = currentLine.split("\\|");
                 //get the assumption text
                 String aTxt = temp[0].trim(); 
-                /*
-                String bigTxt = temp[0].trim(); 
-                for(int i = 0; i < bigTxt.length(); i++){
-                    
-                }*/
+                
                 //whether the assumption is correct or no
                 //1 - correct and 0 - wrong
                 int res = Integer.parseInt(temp[1].trim());     

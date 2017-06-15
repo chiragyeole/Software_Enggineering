@@ -31,6 +31,7 @@ public class AssumptionsDisplayView  {
     public ArrayList<Label> labels = new ArrayList<>();
     String basePath = System.getProperty("user.home");
     File fileReal = new File(basePath + "/questions/correct.png");
+    
     public void displayAssumptions(){
         
         int i;
