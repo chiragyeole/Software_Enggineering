@@ -32,7 +32,7 @@ public class AssumptionsDisplayModel {
         int n1 = QuestionController.n;
         System.out.println("n1: "+n1);
         assumptionsTxt = qc.getPath("assumptions", n1, ".txt");
-        String[] split = assumptionsTxt.split(":");
+        String[] split = assumptionsTxt.split("file:");
         assumptionsTxt = split[1];
         
         BufferedReader br;

@@ -58,7 +58,7 @@ public class ReasonPageController implements Initializable {
         //get what options did the student select
         ArrayList<Integer> response = getStudentsResponse(scene);
         System.out.println("response :: " + response);
-        
+
         String basePath = System.getProperty("user.home");
         File correctImg = new File(basePath + "/questions/correct.png");
         File wrongImg = new File(basePath + "/questions/cross.png");
@@ -70,7 +70,7 @@ public class ReasonPageController implements Initializable {
         int i;
         for (i = 0; i < response.size(); i++) {
             String txt = atv.model.assumptionsList.get(response.get(i)).assumption;
-            
+
             //verify against the correct result
             //response --> what student selected
             //assumptionList --> whether the selected option is right or no
@@ -79,31 +79,31 @@ public class ReasonPageController implements Initializable {
             if (res == 0) {
                 incorrectResponse.add(txt);
                 displayOptionIcon(response.get(i), wrongImg.toURI().toString(), scene);
-            } else {  
+            } else {
                 displayOptionIcon(response.get(i), correctImg.toURI().toString(), scene);
             }
         }
-        
+
         displayScore(incorrectResponse, scene, response);
-        
+
         System.out.println("Incorrest list :: " + incorrectResponse);
 
         return incorrectResponse;
     }
 
-    public void displayOptionIcon(int no, String img, Scene scene){
-        
+    public void displayOptionIcon(int no, String img, Scene scene) {
+
         String id = "#label" + no;
-                Label lb = (Label) scene.lookup(id);
-                lb.setVisible(true);
-                ImageView iv = new ImageView(img);
-                iv.setFitHeight(15);
-                iv.setFitWidth(15);
-                lb.setGraphic(iv);
+        Label lb = (Label) scene.lookup(id);
+        lb.setVisible(true);
+        ImageView iv = new ImageView(img);
+        iv.setFitHeight(15);
+        iv.setFitWidth(15);
+        lb.setGraphic(iv);
     }
-    
-    public void displayScore(ArrayList<String> incorrectResponse, Scene scene, ArrayList<Integer> response){
-        
+
+    public void displayScore(ArrayList<String> incorrectResponse, Scene scene, ArrayList<Integer> response) {
+
         //dummy logic for score
         if (incorrectResponse.isEmpty()) {
             Label lb1 = (Label) scene.lookup("#score");
@@ -116,8 +116,7 @@ public class ReasonPageController implements Initializable {
             lb1.setText("Score: 2");
         }
     }
-    
-    
+
     /*
     * get the option numbers that the student selected
      */
