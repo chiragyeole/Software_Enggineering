@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author deeptichavan
+ * @author poojithadharmavaram
  */
 public class AssumptionsDAOTest {
     
@@ -40,55 +40,56 @@ public class AssumptionsDAOTest {
     /**
      * Test of getAssumption method, of class AssumptionsDAO.
      */
-    @org.junit.Test
+    @Test
     public void testGetAssumption() {
         System.out.println("getAssumption");
-        AssumptionsDAO instance = null;
-        String expResult = "";
+        AssumptionsDAO instance = new AssumptionsDAO("This is a correct assumption",1);
+        String expResult = "This is a correct assumption";
         String result = instance.getAssumption();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
      * Test of setAssumption method, of class AssumptionsDAO.
      */
-    @org.junit.Test
+    @Test
     public void testSetAssumption() {
         System.out.println("setAssumption");
-        String assumption = "";
-        AssumptionsDAO instance = null;
+        String assumption = "This is a modified correct assumption";
+        AssumptionsDAO instance = new AssumptionsDAO("This is a correct assumption",1);
         instance.setAssumption(assumption);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       assertEquals(assumption, instance.getAssumption());
     }
 
     /**
      * Test of getIsCorrect method, of class AssumptionsDAO.
      */
-    @org.junit.Test
+    @Test
     public void testGetIsCorrect() {
         System.out.println("getIsCorrect");
-        AssumptionsDAO instance = null;
+        AssumptionsDAO instance = new AssumptionsDAO("This is an incorrect assumption",0);
         int expResult = 0;
         int result = instance.getIsCorrect();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
      * Test of setIsCorrect method, of class AssumptionsDAO.
      */
-    @org.junit.Test
+    @Test
     public void testSetIsCorrect() {
         System.out.println("setIsCorrect");
         int isCorrect = 0;
-        AssumptionsDAO instance = null;
+        AssumptionsDAO instance = new AssumptionsDAO("This is an incorrect assumption",1);
         instance.setIsCorrect(isCorrect);
+        assertEquals(isCorrect, instance.getIsCorrect());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
     
 }
