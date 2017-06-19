@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -13,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="851.0" prefWidth="1404.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.QuestionController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1300.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.QuestionController">
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="106.0" prefWidth="1404.0" styleClass="HBox" VBox.vgrow="NEVER">
          <VBox.margin>
@@ -58,7 +65,7 @@
                            <children>
                               <Label layoutY="6.0" text="Select appropriate assumptions to reach idealized Model" />
                            </children></AnchorPane>
-                            <ScrollPane prefHeight="400.0" prefWidth="1382.0">
+                            <ScrollPane fx:id="scrollPane" prefHeight="400.0" prefWidth="1382.0">
                           <content>
                             <AnchorPane fx:id="anchor1" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="1382.0" />
                           </content>
