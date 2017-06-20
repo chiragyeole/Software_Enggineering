@@ -31,11 +31,9 @@ public class ReasonPageController implements Initializable {
     ArrayList<String> correctReasons = new ArrayList<>();
     public static HashMap<Integer, String> selectedReasons = new HashMap<>();
     public String reasonsTxt;
-    ArrayList<String> incorrectResponse = new ArrayList<>();
-    public static ArrayList<Integer> response ;
+    public static ArrayList<Integer> response;
     public static int aaumptionListSize;
-    int numberOfResponse;
-    
+
     /**
      * Initializes the controller class.
      */
@@ -44,7 +42,7 @@ public class ReasonPageController implements Initializable {
         // TODO
     }
 
-    public ReasonPageController verifyAnswer(Scene scene) {
+    public ArrayList<String> verifyAnswer(Scene scene) {
 
         //get what options did the student select
         response = getStudentsResponse(scene);
@@ -78,10 +76,10 @@ public class ReasonPageController implements Initializable {
 
         System.out.println("Incorrest list :: " + incorrectResponse);
 
-        ReasonPageController reasonPageController = new ReasonPageController();
-        reasonPageController.incorrectResponse = incorrectResponse;
-        reasonPageController.numberOfResponse = response.size();
-        return reasonPageController;
+//        ReasonPageController reasonPageController = new ReasonPageController();
+//        reasonPageController.incorrectResponse = incorrectResponse;
+//        reasonPageController.numberOfResponse = response.size();
+        return incorrectResponse;
     }
 
     public void displayOptionIcon(int no, String img, Scene scene) {
@@ -135,156 +133,58 @@ public class ReasonPageController implements Initializable {
         return response;
     }
 
-    public HashMap readAllReasonsFromFile() {
-        System.out.println("deepti");
-
-        //String basePath = System.getProperty("user.home");
-        //reasonsTxt = basePath + "/questions/reasons1.txt";
-        
-        
-        int n1 = QuestionController.n;
-        System.out.println("n1: "+n1);
-        File file = new File(basePath + baseDirectory + "q" + n1 + "/" + "reasons" + n1 + ".txt");
-        reasonsTxt = file.toURI().toString();
-        String[] split = reasonsTxt.split("file:");
-        reasonsTxt = split[1];
-
+    public BufferedReader getFileReader() {
         BufferedReader bufferedReader = null;
-        FileReader fileReader = null;
-        HashMap<String, ArrayList> assumptionsReasonsMap = new HashMap<String, ArrayList>();
-
-        String currentAssumption = new String();
-
         try {
 
-            fileReader = new FileReader(reasonsTxt);
-            bufferedReader = new BufferedReader(fileReader);
-            String CurrentLine;
+            int n1 = QuestionController.n;
+            System.out.println("n1: " + n1);
+            File file = new File(basePath + baseDirectory + "q" + n1 + "/" + "reasons" + n1 + ".txt");
+            reasonsTxt = file.toURI().toString();
+            String[] split = reasonsTxt.split("file:");
+            reasonsTxt = split[1];
 
-            System.out.println(reasonsTxt);
             bufferedReader = new BufferedReader(new FileReader(reasonsTxt));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return bufferedReader;
+    }
+
+    public HashMap readAllReasonsFromFile(BufferedReader bufferedReader) {
+        HashMap<String, ArrayList> assumptionsReasonsMap = new HashMap<String, ArrayList>();
+        try {
+            String currentAssumption = new String();
+            String CurrentLine;
             int count = 0;
-
             while ((CurrentLine = bufferedReader.readLine()) != null) {
-
-                System.out.println(CurrentLine);
                 ArrayList<String> reasons = new ArrayList<>();
                 if (count % 2 == 0) {
                     currentAssumption = CurrentLine;
                 } else {
-                    boolean flag = false;
-                    String[] temp = null;
-
+                    String[] temp = {CurrentLine};
                     if (CurrentLine.contains(";")) {
                         temp = CurrentLine.split(";");
-                    } else {
-                        flag = true;
                     }
 
-                    if (flag == true) {
-                        String lastReason = CurrentLine;
-                        String temp1[] = lastReason.split("\\|");
-                        correctReasons.add(temp1[1]);
-                        reasons.add(temp1[0]);
-                    } else {
-                        for (int i = 0; i < temp.length; i++) {
-                            if (i == temp.length - 1) {
-                                String lastReason = temp[i];
-                                String temp1[] = lastReason.split("\\|");
-                                correctReasons.add(temp1[1]);
-                                reasons.add(temp1[0]);
-                            } else {
-                                reasons.add(temp[i]);
-                            }
+                    for (int i = 0; i < temp.length; i++) {
+                        if (temp[i].contains("\\|")) {
+                            String lastReason = temp[i];
+                            String temp1[] = lastReason.split("\\|");
+                            correctReasons.add(temp1[1]);
+                            reasons.add(temp1[0]);
+                        } else {
+                            reasons.add(temp[i]);
                         }
                     }
-
                     assumptionsReasonsMap.put(currentAssumption, reasons);
                 }
                 count++;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return assumptionsReasonsMap;
     }
-
-//    public void getReasonsForIncorrectassumptions(ArrayList<String> incorrectAssumptionsList, HashMap<String, ArrayList> assumptionReasonsMap) throws Exception {
-//
-//        ArrayList<GridPane> gridPaneList = new ArrayList<>();
-//        ArrayList<ToggleGroup> toggleGroupList = new ArrayList<>();
-//        for (int i = 0; i < incorrectAssumptionsList.size(); i++) {
-//            GridPane gridPane = new GridPane();
-//            Label currentIncorrectAssumption = new Label(incorrectAssumptionsList.get(i));
-//            ArrayList<String> reasons = assumptionReasonsMap.get(incorrectAssumptionsList.get(i));
-//            gridPane.add(currentIncorrectAssumption, 0, 0);
-//
-//            final ToggleGroup group = new ToggleGroup();
-//
-//            for (int j = 0; j < reasons.size(); j++) {
-//                RadioButton radiobutton = new RadioButton(reasons.get(j));
-//                radiobutton.setUserData(reasons.get(j));
-//                radiobutton.setToggleGroup(group);
-//                gridPane.add(radiobutton, 0, j + 1);
-//            }
-//            gridPaneList.add(gridPane);
-//            toggleGroupList.add(group);
-//        }
-//
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/eng/edu/view/ReasonPage.fxml"));
-//        Parent root1 = (Parent) fxmlLoader.load();
-//        Stage stage = new Stage();
-//        stage.initModality(Modality.APPLICATION_MODAL);
-//        stage.initStyle(StageStyle.UNDECORATED);
-//        stage.setTitle("Reasons Page");
-//
-//        Group grp = new Group();
-//        grp.getChildren().add(root1);
-//        VBox vBox = new VBox();
-//        vBox.setSpacing(10.0);
-//        vBox.setPadding(new Insets(25, 5, 5, 20));
-//        for (int i = 0; i < gridPaneList.size(); i++) {
-//            vBox.getChildren().add(gridPaneList.get(i));
-//        }
-//
-//        grp.getChildren().add(vBox);
-//
-//        stage.setScene(new Scene(grp));
-//        stage.show();
-//
-//        for (int i = 0; i < toggleGroupList.size(); i++) {
-//            ToggleGroup group = toggleGroupList.get(i);
-//            group.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) -> {
-//                if (group.getSelectedToggle() != null) {
-//                    String selectedReason = group.getSelectedToggle().getUserData().toString();
-//                    int groupNumber = toggleGroupList.indexOf(group);
-//                    selectedReasons.put(groupNumber, selectedReason);
-//                }
-//            });
-//
-//        }
-//
-//        System.out.println("map size here " + selectedReasons.size());
-//    }
-
-//    public void checkValidReasons(ActionEvent event) {
-//        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-//    }
-//
-//    public void verifySelectedReasons(ArrayList<String> correctReasons) {
-//        for (int i = 0; i < selectedReasons.size(); i++) {
-//            System.out.println("hii " + selectedReasons.get(0));
-//            if (selectedReasons.keySet().contains(i)) {
-//                String selectedReason = selectedReasons.get(i);
-//                String correspondingCorrectReason = correctReasons.get(i);
-//                if (selectedReason.equals(correspondingCorrectReason)) {
-//                    System.out.println("correct");
-//                } else {
-//                    System.out.println("incorrect");
-//                }
-//            }
-//        }
-//    }
 
 }
