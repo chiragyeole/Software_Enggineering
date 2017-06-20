@@ -44,8 +44,9 @@ public class ReasonPageController implements Initializable {
     ArrayList<String> correctReasons = new ArrayList<>();
     public static HashMap<Integer, String> selectedReasons = new HashMap<>();
     public String reasonsTxt;
-    ArrayList<String> incorrectResponse = new ArrayList<>();
-    int numberOfResponse;
+    ArrayList<Integer> response;
+//    ArrayList<String> incorrectResponse = new ArrayList<>();
+//    int numberOfResponse;
 
     /**
      * Initializes the controller class.
@@ -55,10 +56,10 @@ public class ReasonPageController implements Initializable {
         // TODO
     }
 
-    public ReasonPageController verifyAnswer(Scene scene) {
+    public ArrayList<String> verifyAnswer(Scene scene) {
 
         //get what options did the student select
-        ArrayList<Integer> response = getStudentsResponse(scene);
+        response = getStudentsResponse(scene);
         System.out.println("response :: " + response);
         
         String basePath = System.getProperty("user.home");
@@ -89,10 +90,10 @@ public class ReasonPageController implements Initializable {
         
         System.out.println("Incorrest list :: " + incorrectResponse);
 
-        ReasonPageController reasonPageController = new ReasonPageController();
-        reasonPageController.incorrectResponse = incorrectResponse;
-        reasonPageController.numberOfResponse = response.size();
-        return reasonPageController;
+//        ReasonPageController reasonPageController = new ReasonPageController();
+//        reasonPageController.incorrectResponse = incorrectResponse;
+//        reasonPageController.numberOfResponse = response.size();
+        return incorrectResponse;
     }
 
     public void displayOptionIcon(int no, String img, Scene scene){
@@ -146,71 +147,55 @@ public class ReasonPageController implements Initializable {
         System.out.println("Student's response :: " + response);
         return response;
     }
-
-    public HashMap readAllReasonsFromFile() {
-        System.out.println("deepti");
-
-        String basePath = System.getProperty("user.home");
-        reasonsTxt = basePath + "/questions/reasons.txt";
-
+    
+    public BufferedReader getFileReader(){
         BufferedReader bufferedReader = null;
-        FileReader fileReader = null;
+        try{
+            String basePath = System.getProperty("user.home");
+            reasonsTxt = basePath + "/questions/reasons.txt";
+            bufferedReader = new BufferedReader(new FileReader(reasonsTxt));       
+        }
+        catch(Exception exception){
+            exception.printStackTrace();
+        }
+        return bufferedReader;
+    }
+
+    public HashMap readAllReasonsFromFile(BufferedReader bufferedReader) {
         HashMap<String, ArrayList> assumptionsReasonsMap = new HashMap<String, ArrayList>();
-
-        String currentAssumption = new String();
-
-        try {
-
-            fileReader = new FileReader(reasonsTxt);
-            bufferedReader = new BufferedReader(fileReader);
-            String CurrentLine;
-
-            System.out.println(reasonsTxt);
-            bufferedReader = new BufferedReader(new FileReader(reasonsTxt));
+        try
+	{    
+            String currentAssumption = new String();           
+            String CurrentLine;           
             int count = 0;
-
             while ((CurrentLine = bufferedReader.readLine()) != null) {
-
-                System.out.println(CurrentLine);
-                ArrayList<String> reasons = new ArrayList<>();
-                if (count % 2 == 0) {
+		ArrayList<String> reasons = new ArrayList<>();
+		if (count % 2 == 0) {
                     currentAssumption = CurrentLine;
-                } else {
-                    boolean flag = false;
-                    String[] temp = null;
-
+		} else {
+                    String[] temp = {CurrentLine};
                     if (CurrentLine.contains(";")) {
-                        temp = CurrentLine.split(";");
-                    } else {
-                        flag = true;
-                    }
+			temp = CurrentLine.split(";");
+                    } 
 
-                    if (flag == true) {
-                        String lastReason = CurrentLine;
-                        String temp1[] = lastReason.split("\\|");
-                        correctReasons.add(temp1[1]);
-                        reasons.add(temp1[0]);
-                    } else {
-                        for (int i = 0; i < temp.length; i++) {
-                            if (i == temp.length - 1) {
-                                String lastReason = temp[i];
-                                String temp1[] = lastReason.split("\\|");
-                                correctReasons.add(temp1[1]);
-                                reasons.add(temp1[0]);
-                            } else {
-                                reasons.add(temp[i]);
-                            }
-                        }
+                    for (int i = 0; i < temp.length; i++) {
+			if (temp[i].contains("\\|")) {
+                            String lastReason = temp[i];
+                            String temp1[] = lastReason.split("\\|");
+                            correctReasons.add(temp1[1]);
+                            reasons.add(temp1[0]);
+                        } else {
+                            reasons.add(temp[i]);
+			}
                     }
-
                     assumptionsReasonsMap.put(currentAssumption, reasons);
                 }
-                count++;
+		count++;
             }
-
-        } catch (Exception e) {
+	}
+	catch(Exception e){
             e.printStackTrace();
-        }
+	}
         return assumptionsReasonsMap;
     }
 

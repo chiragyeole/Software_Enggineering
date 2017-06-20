@@ -5,6 +5,7 @@ package eng.edu.ctrl;
 
 //import static eng.edu.ctrl.ReasonPageController.selectedReasons;
 import eng.edu.view.AssumptionsDisplayView;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -21,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import java.util.Random;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -30,6 +32,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class QuestionController {
 
@@ -47,13 +50,11 @@ public class QuestionController {
     private Button submitId;
     
     @FXML
-    public ScrollPane scrollPane;
+    public  ScrollPane scrollPane;
     
-    public Button okButton;
-    int clicked =0;
-    boolean responseSelected = false;
-    ArrayList<ToggleGroup> toggleGroupList = new ArrayList<>(); 
-    ArrayList<String> incorrectAssumptionsList = new ArrayList<String>();
+    public static boolean isAssumptionListener = true;
+    public static ArrayList<ToggleGroup> toggleGroupList = new ArrayList<>(); 
+    public static ArrayList<String> incorrectlyAnsweredAssumptionsList = new ArrayList<String>();
     
     public void initialize() throws MalformedURLException {
 
@@ -73,7 +74,6 @@ public class QuestionController {
         path = getPath("IdealizedModel", n, ".png");
         Image imageIdeal = new Image(path);
         idealizedImage.setImage(imageIdeal);
-
     }
 
     public String getPath(String imageType, int number, String fileType) {
@@ -100,9 +100,9 @@ public class QuestionController {
         return v;
     }
 
-    //Pops up a dialogue box to indicate that user needs to select atleast one assumption
+      //Pops up a dialogue box to indicate that user needs to select atleast one assumption
     public void showPopupForSelectingAtleastOneAssumption(){      
-        Alert alert = new Alert(AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(
@@ -113,7 +113,7 @@ public class QuestionController {
         alert.setHeaderText(null);
         alert.setContentText("Please select atleast one option!");
         alert.showAndWait();
-}
+    }
     
     //Pops up a dialogue box to indicate that user needs to give reasons for all incorrect assumptions seleted previously
     public void showPopupForSelectingAllReasons(){      
@@ -130,46 +130,9 @@ public class QuestionController {
         alert.showAndWait();
     }
     
-    public void displayReasons(HashMap<String, ArrayList> incorrectAssumptionReasonsMap){
-        AssumptionsDisplayView adv = new AssumptionsDisplayView();
-        adv.displayAssumptions();          
-            
-        final VBox vbox = new VBox();
-        vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10, 10, 10, 20));    
-        
-        int count = 0;            
-        int i;
-        for(i = 0; i < adv.checkBoxes.size(); i++){
-            if(incorrectAssumptionReasonsMap.keySet().contains(adv.checkBoxes.get(i).getText())){
-                ArrayList<String> reasons = incorrectAssumptionReasonsMap.get(incorrectAssumptionsList.get(count));
-               
-                final VBox vbox1 = new VBox();
-                final HBox hbox = new HBox();
-                vbox.getChildren().addAll(hbox, vbox1);            
-                hbox.getChildren().addAll(adv.labels.get(i),adv.checkBoxes.get(i));
-                
-                final ToggleGroup group = new ToggleGroup();
-                for (int j = 0; j < reasons.size(); j++) {
-                    RadioButton radioButton = new RadioButton(reasons.get(j));
-                    radioButton.setUserData(reasons.get(j));
-                    vbox1.getChildren().add(radioButton);
-                    vbox1.setMargin(radioButton, new Insets(0, 0, 0, 50));
-                    radioButton.setToggleGroup(group);
-                }
-                toggleGroupList.add(group);              
-                count++;    
-            }
-            else{
-                final HBox hbox = new HBox();
-                vbox.getChildren().add(hbox);
-                hbox.getChildren().addAll(adv.labels.get(i),adv.checkBoxes.get(i));
-            }
-        }       
-        scrollPane.setContent(vbox);
-    }
     
-    public void checkIfAllReasonsAreSelected(ActionEvent event){
+    
+    public boolean checkIfAllReasonsAreSelected(){
         int numberOfselectedReasons = 0;
         for (int i = 0; i < toggleGroupList.size(); i++) {
             ToggleGroup group = toggleGroupList.get(i);
@@ -178,50 +141,50 @@ public class QuestionController {
             }
         }           
         if(numberOfselectedReasons!=toggleGroupList.size()){
-            showPopupForSelectingAllReasons();
+            return false;
         }
         else{
-            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+            return true;
         } 
     }
+    
+    public static void closeWindow(ActionEvent event){
+        Button button = (Button)(event.getSource());    
+        Window window = button.getScene().getWindow();
+        Stage stage = (Stage)window;             
+        stage.close();
+    }
+    
    
     //handles the steps after clicking the submit button
     @FXML
-    public void handleSubmitButtonAction(ActionEvent event) throws IOException {               
-        int numberOfResponse = 0;       
-        if(responseSelected==false){
-            ReasonPageController reasonPageController = new ReasonPageController();
-            reasonPageController = reasonPageController.verifyAnswer(submitId.getScene());
-            incorrectAssumptionsList = reasonPageController.incorrectResponse;
-            numberOfResponse = reasonPageController.numberOfResponse;
-            if(numberOfResponse==0){              
-                showPopupForSelectingAtleastOneAssumption();
-                return;
-            }
-             else{
-                responseSelected = true;
-            }
-        }                     
-        clicked++;
+    public void handleSubmitButtonAction(ActionEvent event) throws IOException {
         
-        if(incorrectAssumptionsList.isEmpty()){
-             ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-        }
-        
-        else if(clicked>=2){
-            checkIfAllReasonsAreSelected(event);
-        }
-        
-        else{               
-            ReasonPageController reasonPageController = new ReasonPageController();
-            HashMap<String, ArrayList> assumptionReasonsMap = reasonPageController.readAllReasonsFromFile();
-            HashMap<String, ArrayList> incorrectAssumptionReasonsMap = new HashMap<String, ArrayList>();
-            for(int i=0; i<incorrectAssumptionsList.size(); i++){
-                if(assumptionReasonsMap.keySet().contains(incorrectAssumptionsList.get(i))){
-                    incorrectAssumptionReasonsMap.put(incorrectAssumptionsList.get(i), assumptionReasonsMap.get(incorrectAssumptionsList.get(i)));
+        if(isAssumptionListener){
+            AssumptionsListener assumptionsListener = new AssumptionsListener();
+            boolean isAnswerSelected = assumptionsListener.checkIfAssumptionsMarked(event, submitId);
+            if(isAnswerSelected){
+                isAssumptionListener = false;
+                if(incorrectlyAnsweredAssumptionsList.isEmpty()){
+                    QuestionController.closeWindow(event);
                 }
-            }        
-            displayReasons(incorrectAssumptionReasonsMap);
+                else{
+                    ReasonsListener reasonsListener = new ReasonsListener();
+                    reasonsListener.reasonsListener(incorrectlyAnsweredAssumptionsList, submitId.getScene());
+                }
+            }
+            else{
+                showPopupForSelectingAtleastOneAssumption();
+            }
+        }
+        else{
+            boolean result = checkIfAllReasonsAreSelected();
+            if(result){
+                closeWindow(event);
+            }
+            else{
+                showPopupForSelectingAllReasons();
+            }
         }
     }
     
