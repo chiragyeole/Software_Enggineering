@@ -20,7 +20,7 @@ import javafx.scene.paint.Color;
  *
  * @author deeptichavan
  * 
- * Modified by Chirag
+ * Modified by Gayatri
  * This class generates assumptions as CheckBoxes
  */
 public class AssumptionsDisplayView  {

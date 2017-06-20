@@ -5,6 +5,8 @@
  */
 package eng.edu.ctrl;
 
+import static eng.edu.utilities.Utilities.baseDirectory;
+import static eng.edu.utilities.Utilities.basePath;
 import eng.edu.view.AssumptionsDisplayView;
 import java.io.File;
 import java.io.FileReader;
@@ -18,21 +20,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import java.io.BufferedReader;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -44,7 +31,11 @@ public class ReasonPageController implements Initializable {
     ArrayList<String> correctReasons = new ArrayList<>();
     public static HashMap<Integer, String> selectedReasons = new HashMap<>();
     public String reasonsTxt;
-
+    ArrayList<String> incorrectResponse = new ArrayList<>();
+    public static ArrayList<Integer> response ;
+    public static int aaumptionListSize;
+    int numberOfResponse;
+    
     /**
      * Initializes the controller class.
      */
@@ -53,10 +44,10 @@ public class ReasonPageController implements Initializable {
         // TODO
     }
 
-    public ArrayList<String> verifyAnswer(Scene scene) {
+    public ReasonPageController verifyAnswer(Scene scene) {
 
         //get what options did the student select
-        ArrayList<Integer> response = getStudentsResponse(scene);
+        response = getStudentsResponse(scene);
         System.out.println("response :: " + response);
 
         String basePath = System.getProperty("user.home");
@@ -75,7 +66,6 @@ public class ReasonPageController implements Initializable {
             //response --> what student selected
             //assumptionList --> whether the selected option is right or no
             int res = atv.model.assumptionsList.get(response.get(i)).isCorrect;
-
             if (res == 0) {
                 incorrectResponse.add(txt);
                 displayOptionIcon(response.get(i), wrongImg.toURI().toString(), scene);
@@ -88,7 +78,10 @@ public class ReasonPageController implements Initializable {
 
         System.out.println("Incorrest list :: " + incorrectResponse);
 
-        return incorrectResponse;
+        ReasonPageController reasonPageController = new ReasonPageController();
+        reasonPageController.incorrectResponse = incorrectResponse;
+        reasonPageController.numberOfResponse = response.size();
+        return reasonPageController;
     }
 
     public void displayOptionIcon(int no, String img, Scene scene) {
@@ -125,10 +118,10 @@ public class ReasonPageController implements Initializable {
         AssumptionsDisplayView atv = new AssumptionsDisplayView();
 
         ArrayList<Integer> response = new ArrayList<>();
-        int listSize = atv.model.assumptionsList.size();
+        aaumptionListSize = atv.model.assumptionsList.size();
 
         int i;
-        for (i = 0; i < listSize; i++) {
+        for (i = 0; i < aaumptionListSize; i++) {
             String id = "#checkbox" + i;
             CheckBox cb = (CheckBox) scene.lookup(id);
 
@@ -145,8 +138,16 @@ public class ReasonPageController implements Initializable {
     public HashMap readAllReasonsFromFile() {
         System.out.println("deepti");
 
-        String basePath = System.getProperty("user.home");
-        reasonsTxt = basePath + "/questions/reasons.txt";
+        //String basePath = System.getProperty("user.home");
+        //reasonsTxt = basePath + "/questions/reasons1.txt";
+        
+        
+        int n1 = QuestionController.n;
+        System.out.println("n1: "+n1);
+        File file = new File(basePath + baseDirectory + "q" + n1 + "/" + "reasons" + n1 + ".txt");
+        reasonsTxt = file.toURI().toString();
+        String[] split = reasonsTxt.split("file:");
+        reasonsTxt = split[1];
 
         BufferedReader bufferedReader = null;
         FileReader fileReader = null;
@@ -209,81 +210,81 @@ public class ReasonPageController implements Initializable {
         return assumptionsReasonsMap;
     }
 
-    public void getReasonsForIncorrectassumptions(ArrayList<String> incorrectAssumptionsList, HashMap<String, ArrayList> assumptionReasonsMap) throws Exception {
+//    public void getReasonsForIncorrectassumptions(ArrayList<String> incorrectAssumptionsList, HashMap<String, ArrayList> assumptionReasonsMap) throws Exception {
+//
+//        ArrayList<GridPane> gridPaneList = new ArrayList<>();
+//        ArrayList<ToggleGroup> toggleGroupList = new ArrayList<>();
+//        for (int i = 0; i < incorrectAssumptionsList.size(); i++) {
+//            GridPane gridPane = new GridPane();
+//            Label currentIncorrectAssumption = new Label(incorrectAssumptionsList.get(i));
+//            ArrayList<String> reasons = assumptionReasonsMap.get(incorrectAssumptionsList.get(i));
+//            gridPane.add(currentIncorrectAssumption, 0, 0);
+//
+//            final ToggleGroup group = new ToggleGroup();
+//
+//            for (int j = 0; j < reasons.size(); j++) {
+//                RadioButton radiobutton = new RadioButton(reasons.get(j));
+//                radiobutton.setUserData(reasons.get(j));
+//                radiobutton.setToggleGroup(group);
+//                gridPane.add(radiobutton, 0, j + 1);
+//            }
+//            gridPaneList.add(gridPane);
+//            toggleGroupList.add(group);
+//        }
+//
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/eng/edu/view/ReasonPage.fxml"));
+//        Parent root1 = (Parent) fxmlLoader.load();
+//        Stage stage = new Stage();
+//        stage.initModality(Modality.APPLICATION_MODAL);
+//        stage.initStyle(StageStyle.UNDECORATED);
+//        stage.setTitle("Reasons Page");
+//
+//        Group grp = new Group();
+//        grp.getChildren().add(root1);
+//        VBox vBox = new VBox();
+//        vBox.setSpacing(10.0);
+//        vBox.setPadding(new Insets(25, 5, 5, 20));
+//        for (int i = 0; i < gridPaneList.size(); i++) {
+//            vBox.getChildren().add(gridPaneList.get(i));
+//        }
+//
+//        grp.getChildren().add(vBox);
+//
+//        stage.setScene(new Scene(grp));
+//        stage.show();
+//
+//        for (int i = 0; i < toggleGroupList.size(); i++) {
+//            ToggleGroup group = toggleGroupList.get(i);
+//            group.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) -> {
+//                if (group.getSelectedToggle() != null) {
+//                    String selectedReason = group.getSelectedToggle().getUserData().toString();
+//                    int groupNumber = toggleGroupList.indexOf(group);
+//                    selectedReasons.put(groupNumber, selectedReason);
+//                }
+//            });
+//
+//        }
+//
+//        System.out.println("map size here " + selectedReasons.size());
+//    }
 
-        ArrayList<GridPane> gridPaneList = new ArrayList<>();
-        ArrayList<ToggleGroup> toggleGroupList = new ArrayList<>();
-        for (int i = 0; i < incorrectAssumptionsList.size(); i++) {
-            GridPane gridPane = new GridPane();
-            Label currentIncorrectAssumption = new Label(incorrectAssumptionsList.get(i));
-            ArrayList<String> reasons = assumptionReasonsMap.get(incorrectAssumptionsList.get(i));
-            gridPane.add(currentIncorrectAssumption, 0, 0);
-
-            final ToggleGroup group = new ToggleGroup();
-
-            for (int j = 0; j < reasons.size(); j++) {
-                RadioButton radiobutton = new RadioButton(reasons.get(j));
-                radiobutton.setUserData(reasons.get(j));
-                radiobutton.setToggleGroup(group);
-                gridPane.add(radiobutton, 0, j + 1);
-            }
-            gridPaneList.add(gridPane);
-            toggleGroupList.add(group);
-        }
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/eng/edu/view/ReasonPage.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("Reasons Page");
-
-        Group grp = new Group();
-        grp.getChildren().add(root1);
-        VBox vBox = new VBox();
-        vBox.setSpacing(10.0);
-        vBox.setPadding(new Insets(25, 5, 5, 20));
-        for (int i = 0; i < gridPaneList.size(); i++) {
-            vBox.getChildren().add(gridPaneList.get(i));
-        }
-
-        grp.getChildren().add(vBox);
-
-        stage.setScene(new Scene(grp));
-        stage.show();
-
-        for (int i = 0; i < toggleGroupList.size(); i++) {
-            ToggleGroup group = toggleGroupList.get(i);
-            group.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) -> {
-                if (group.getSelectedToggle() != null) {
-                    String selectedReason = group.getSelectedToggle().getUserData().toString();
-                    int groupNumber = toggleGroupList.indexOf(group);
-                    selectedReasons.put(groupNumber, selectedReason);
-                }
-            });
-
-        }
-
-        System.out.println("map size here " + selectedReasons.size());
-    }
-
-    public void checkValidReasons(ActionEvent event) {
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
-    }
-
-    public void verifySelectedReasons(ArrayList<String> correctReasons) {
-        for (int i = 0; i < selectedReasons.size(); i++) {
-            System.out.println("hii " + selectedReasons.get(0));
-            if (selectedReasons.keySet().contains(i)) {
-                String selectedReason = selectedReasons.get(i);
-                String correspondingCorrectReason = correctReasons.get(i);
-                if (selectedReason.equals(correspondingCorrectReason)) {
-                    System.out.println("correct");
-                } else {
-                    System.out.println("incorrect");
-                }
-            }
-        }
-    }
+//    public void checkValidReasons(ActionEvent event) {
+//        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+//    }
+//
+//    public void verifySelectedReasons(ArrayList<String> correctReasons) {
+//        for (int i = 0; i < selectedReasons.size(); i++) {
+//            System.out.println("hii " + selectedReasons.get(0));
+//            if (selectedReasons.keySet().contains(i)) {
+//                String selectedReason = selectedReasons.get(i);
+//                String correspondingCorrectReason = correctReasons.get(i);
+//                if (selectedReason.equals(correspondingCorrectReason)) {
+//                    System.out.println("correct");
+//                } else {
+//                    System.out.println("incorrect");
+//                }
+//            }
+//        }
+//    }
 
 }

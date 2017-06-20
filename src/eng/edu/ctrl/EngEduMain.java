@@ -20,49 +20,53 @@ import javafx.scene.layout.AnchorPane;
 
 public class EngEduMain extends Application {
 
-    
+    @FXML
+    public ScrollPane scroll;
+    @FXML
+    private Button submitId;
+
+    VBox vbox1;
+    Button submitButton;
+    AssumptionsDisplayView adv;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         // load main form in to VBox (Root)
-        VBox mainPane = (VBox) FXMLLoader.load( getClass().getResource("/eng/edu/view/main.fxml" ) );
-        SplitPane split = (SplitPane)mainPane.getChildren().get(1);
+        VBox mainPane = (VBox) FXMLLoader.load(getClass().getResource("/eng/edu/view/main.fxml"));
+        SplitPane split = (SplitPane) mainPane.getChildren().get(1);
         AnchorPane anchor = (AnchorPane) split.getItems().get(0);
-        VBox vbox1 = (VBox)anchor.getChildren().get(0);
-        ScrollPane scroll = (ScrollPane) vbox1.getChildren().get(2);
-        
-        
+        vbox1 = (VBox) anchor.getChildren().get(0);
+        scroll = (ScrollPane) vbox1.getChildren().get(2);
+        submitButton = (Button) vbox1.getChildren().get(3);
+
         //get all the checkboxes
-        AssumptionsDisplayView adv = new AssumptionsDisplayView();
+        adv = new AssumptionsDisplayView();
         adv.displayAssumptions();
-      
+
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 10, 10, 20));
-        
-        
+
         //add these checkboxes to the vbox
         int i;
-        for(i = 0; i < adv.checkBoxes.size(); i++){
+        for (i = 0; i < adv.checkBoxes.size(); i++) {
             System.out.println("Iteration" + i);
             final HBox hbox = new HBox();
             vbox.getChildren().add(hbox);
-            hbox.getChildren().addAll(adv.labels.get(i),adv.checkBoxes.get(i));
-            
-            //hbox.getChildren().clear();
+            hbox.getChildren().addAll(adv.labels.get(i), adv.checkBoxes.get(i));
         }
         //add vbox to scroll pane
-        scroll.setContent(vbox);      
-        
+        scroll.setContent(vbox);
+
         //group the images and checkboxes together
         Group grp = new Group();
         grp.getChildren().addAll(mainPane, vbox);
-        
-        
+
         primaryStage.setTitle("Engineering Educators");
-        primaryStage.setScene(new Scene(grp));     
+        primaryStage.setScene(new Scene(grp));
         primaryStage.setMaximized(true);    // make the main form fit to the screen
-        primaryStage.show(); 
-        
+        primaryStage.show();
+
     }
 
     /**
@@ -71,5 +75,5 @@ public class EngEduMain extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

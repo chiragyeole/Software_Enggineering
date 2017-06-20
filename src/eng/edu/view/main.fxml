@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1300.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.QuestionController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1300.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.QuestionController">
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="106.0" prefWidth="1404.0" styleClass="HBox" VBox.vgrow="NEVER">
          <VBox.margin>
@@ -56,9 +56,12 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="28.0" prefWidth="396.0">
                            <children>
-                              <Label layoutY="6.0" text="Select appropriate assumptions to reach idealized Model" />
+                              <Label layoutY="6.0" text="Select appropriate assumptions that best fit the idealized model:">
+                                 <font>
+                                    <Font name="Tahoma" size="24.0" />
+                                 </font></Label>
                            </children></AnchorPane>
-                            <ScrollPane prefHeight="400.0" prefWidth="1382.0">
+                            <ScrollPane fx:id="scrollPane" prefHeight="400.0" prefWidth="1382.0">
                           <content>
                             <AnchorPane fx:id="anchor1" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="1382.0" />
                           </content>
