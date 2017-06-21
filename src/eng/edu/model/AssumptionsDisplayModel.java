@@ -5,13 +5,8 @@
  */
 package eng.edu.model;
 
-import eng.edu.ctrl.AssumptionsDAO;
-import eng.edu.ctrl.QuestionController;
 import eng.edu.utilities.Utilities;
-import static eng.edu.utilities.Utilities.baseDirectory;
-import static eng.edu.utilities.Utilities.basePath;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import javafx.collections.FXCollections;
@@ -20,9 +15,9 @@ import javafx.collections.ObservableList;
 /**
  *
  * @author deeptichavan
- * 
- * This class reads the assumptions text file and stores them in a list,
- * which is then displayed from the AssumptionsTableView class
+ *
+ * This class reads the assumptions text file and stores them in a list, which
+ * is then displayed from the AssumptionsTableView class
  */
 public class AssumptionsDisplayModel {
 
@@ -34,7 +29,7 @@ public class AssumptionsDisplayModel {
         assumptionsTxt = Utilities.assumptionsTxt;
         String[] split = assumptionsTxt.split("file:");
         assumptionsTxt = split[1];
-       
+
         BufferedReader br;
 
         try {
@@ -46,11 +41,16 @@ public class AssumptionsDisplayModel {
                 //text and result is spearated by a | in the .txt file
                 String[] temp = currentLine.split("\\|");
                 //get the assumption text
-                String aTxt = temp[0].trim(); 
-                
+                String aTxt = temp[0].trim();
+
                 //whether the assumption is correct or no
-                //1 - correct and 0 - wrong
-                int res = Integer.parseInt(temp[1].trim());     
+                //true - correct and false - wrong
+                boolean res;
+                if ("true".equalsIgnoreCase(temp[1].trim())) {
+                    res = true;
+                } else {
+                    res = false;
+                }
                 assumptionsList.add(new AssumptionsDAO(aTxt, res));
             }
 

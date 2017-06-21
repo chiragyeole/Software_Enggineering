@@ -48,11 +48,12 @@ public class ReasonPageController implements Initializable {
         ArrayList<String> incorrectSelectedResponse = new ArrayList<>();
         int i;
         for (i = 0; i < response.size(); i++) {
-            String txt = atv.model.assumptionsList.get(response.get(i)).assumption;
+            String txt = atv.model.assumptionsList.get(response.get(i)).getAssumption();
 
             //verify against the correct result
-            int res = atv.model.assumptionsList.get(response.get(i)).isCorrect;
-            if (res == 0) {
+            boolean res = atv.model.assumptionsList.get(response.get(i)).getIsCorrect();
+                        
+            if (res == false) {
                 incorrectSelectedResponse.add(txt);
             } 
         }

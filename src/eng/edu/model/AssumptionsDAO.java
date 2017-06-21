@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eng.edu.ctrl;
+package eng.edu.model;
 
 /**
  *
@@ -12,9 +12,9 @@ package eng.edu.ctrl;
 public class AssumptionsDAO {
     
     String assumption;
-    int isCorrect;
+    boolean isCorrect;
 
-    public AssumptionsDAO(String assumption, int isCorrect) {
+    public AssumptionsDAO(String assumption, boolean isCorrect) {
         this.assumption = assumption;
         this.isCorrect = isCorrect;
     }
@@ -27,11 +27,11 @@ public class AssumptionsDAO {
         this.assumption = assumption;
     }
 
-    public int getIsCorrect() {
+    public boolean getIsCorrect() {
         return isCorrect;
     }
 
-    public void setIsCorrect(int isCorrect) {
+    public void setIsCorrect(boolean isCorrect) {
         this.isCorrect = isCorrect;
     }
     

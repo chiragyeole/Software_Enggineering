@@ -11,7 +11,6 @@ import eng.edu.model.AssumptionsDisplayModel;
 import java.io.File;
 import java.util.ArrayList;
 import javafx.scene.control.CheckBox;
-import javafx.scene.text.TextAlignment;
 
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -50,7 +49,6 @@ public class AssumptionsDisplayView  {
             correct.setFitWidth(15);
             label.setGraphic(correct);
             label.setVisible(false);
-            label.setTextFill(Color.web("#0076a3"));
             label.setId("label" + i );
             labels.add(label);
             checkBoxes.add(checkBox);

@@ -5,7 +5,7 @@
  */
 package eng.edu.view;
 
-import eng.edu.ctrl.AssumptionsDAO;
+import eng.edu.model.AssumptionsDAO;
 import eng.edu.ctrl.ReasonPageController;
 import eng.edu.utilities.Utilities;
 import java.io.File;
@@ -37,7 +37,7 @@ public class OptionsResponseView {
             Label lb = (Label) scene.lookup(id);
             lb.setVisible(true);
 
-            if (assumptionsList.get(i).getIsCorrect() == 1) {
+            if (assumptionsList.get(i).getIsCorrect() == true) {
                 img = new File(Utilities.basePath + "/questions/correct.png").toURI().toString();
             } else {
                 img = new File(Utilities.basePath + "/questions/cross.png").toURI().toString();
