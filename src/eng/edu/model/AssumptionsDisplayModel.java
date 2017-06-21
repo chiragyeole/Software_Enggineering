@@ -7,6 +7,7 @@ package eng.edu.model;
 
 import eng.edu.ctrl.AssumptionsDAO;
 import eng.edu.ctrl.QuestionController;
+import eng.edu.utilities.Utilities;
 import static eng.edu.utilities.Utilities.baseDirectory;
 import static eng.edu.utilities.Utilities.basePath;
 import java.io.BufferedReader;
@@ -30,11 +31,7 @@ public class AssumptionsDisplayModel {
 
     public AssumptionsDisplayModel() {
 
-        
-        int n1 = QuestionController.n;
-        System.out.println("n1: "+n1);
-        File file = new File(basePath + baseDirectory + "q" + n1 + "/" + "assumptions" + n1 + ".txt");
-        assumptionsTxt = file.toURI().toString();
+        assumptionsTxt = Utilities.assumptionsTxt;
         String[] split = assumptionsTxt.split("file:");
         assumptionsTxt = split[1];
        

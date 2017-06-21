@@ -5,9 +5,11 @@
  */
 package eng.edu.utilities;
 
+import eng.edu.ctrl.QuestionController;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FilenameFilter;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -21,11 +23,13 @@ public class Utilities {
     public static int min = 1;
     public static int max;
     public int number;
+    public static String assumptionsTxt;
 
     public Utilities() {
 
         max = getNumberOfQuestions();
         number = getRandomQuestion(max);
+        assumptionsTxt = getPath("assumptions", ".txt");
     }
 
     public static int getNumberOfQuestions() {
@@ -37,9 +41,7 @@ public class Utilities {
                 return new File(current, name).isDirectory();
             }
         });
-        System.out.println("@@@@@@@@@@@@@@" + Arrays.toString(directories));
 
-        System.out.println("getNumberOfQuestions :: " + directories.length);
         return directories.length;
     }
 
@@ -48,7 +50,6 @@ public class Utilities {
         Random rand = new Random();
         int quesNo = rand.nextInt(n) + min;
 
-        System.out.println("getRandomQuestion :: " + quesNo);
         return quesNo;
     }
 
@@ -57,4 +58,23 @@ public class Utilities {
         File file = new File(basePath + baseDirectory + "q" + number + "/" + imageType + number + fileType);
         return file.toURI().toString();
     }
+    
+    public static BufferedReader getFileReader() {
+        BufferedReader bufferedReader = null;
+        try {
+
+            int n1 = QuestionController.quesNo;
+            System.out.println("n1: " + n1);
+            File file = new File(basePath + baseDirectory + "q" + n1 + "/" + "reasons" + n1 + ".txt");
+            String reasonsTxt = file.toURI().toString();
+            String[] split = reasonsTxt.split("file:");
+            reasonsTxt = split[1];
+
+            bufferedReader = new BufferedReader(new FileReader(reasonsTxt));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return bufferedReader;
+    }
+
 }
