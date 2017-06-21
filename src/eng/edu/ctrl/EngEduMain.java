@@ -37,11 +37,11 @@ public class EngEduMain extends Application {
         AnchorPane anchor = (AnchorPane) split.getItems().get(0);
         vbox1 = (VBox) anchor.getChildren().get(0);
         scroll = (ScrollPane) vbox1.getChildren().get(2);
-        submitButton = (Button) vbox1.getChildren().get(3);
+        //submitButton = (Button) vbox1.getChildren().get(3);
 
         //get all the checkboxes
         adv = new AssumptionsDisplayView();
-        adv.displayAssumptions();
+        adv.assignAssumptionsToCheckBoxes();
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);

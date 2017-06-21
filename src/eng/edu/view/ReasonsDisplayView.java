@@ -25,7 +25,7 @@ public class ReasonsDisplayView {
     public static void displayReasons(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, ScrollPane scrollPane){
        
         AssumptionsDisplayView adv = new AssumptionsDisplayView();
-        adv.displayAssumptions();  
+        adv.assignAssumptionsToCheckBoxes();  
         
         final VBox vbox = new VBox();
         vbox.setSpacing(5);

@@ -37,7 +37,7 @@ public class ReasonPageController implements Initializable {
         // TODO
     }
 
-    public ArrayList<String> verifyAnswer(Scene scene) {
+    public ArrayList<String> getIncorrectSelectedResponse(Scene scene) {
 
         //get what options did the student select
         response = getStudentsResponse(scene);
