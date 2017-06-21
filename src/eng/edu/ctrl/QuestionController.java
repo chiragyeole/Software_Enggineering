@@ -5,11 +5,10 @@ package eng.edu.ctrl;
 
 //import static eng.edu.ctrl.ReasonPageController.selectedReasons;
 import eng.edu.view.AssumptionsDisplayView;
-import java.io.File;
+import java.util.HashMap;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -17,12 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.collections.ObservableList;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
@@ -30,7 +23,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import eng.edu.utilities.Utilities;
-import javafx.scene.control.CheckBox;
+import eng.edu.view.OptionsResponseView;
 
 public class QuestionController {
 
@@ -43,28 +36,27 @@ public class QuestionController {
     @FXML
     private ImageView idealizedImage;
 
-    public static int n;
+    
     @FXML
     private Button submitId;
 
     @FXML
     public  ScrollPane scrollPane;
     
+    public static int updatedScore;
+    
     public static boolean isAssumptionListener = true;
     public static ArrayList<ToggleGroup> toggleGroupList = new ArrayList<>(); 
     public static ArrayList<String> incorrectlyAnsweredAssumptionsList = new ArrayList<String>();
-
+    public static int quesNo;
+    
     public void initialize() throws MalformedURLException {
-        
-        
-
         /*
         * real world image stored in users home location is displayed from here.
          */
         Utilities u = new Utilities();
-        n = u.number;
+        quesNo = u.number;
         
-        System.out.println("inititalize :: " + n);
         String path = u.getPath("RealWorld", ".png");
         Image imageReal = new Image(path);
         realWorldImage.setImage(imageReal);
@@ -75,94 +67,14 @@ public class QuestionController {
         path = u.getPath("IdealizedModel", ".png");
         Image imageIdeal = new Image(path);
         idealizedImage.setImage(imageIdeal);
-    }
-
-    
+    }   
 
     public void setDataPane(Node node) {
         // update VBox with new form(FXML) depends on which button is clicked
         dataPane.getChildren().setAll(node);
     }
-
-      //Pops up a dialogue box to indicate that user needs to select atleast one assumption
-    public void showPopupForSelectingAtleastOneAssumption(){      
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(
-                getClass().getResource("/eng/edu/view/dialogbox.css").toExternalForm());
-        dialogPane.getStyleClass().add("myDialog");
-
-        alert.setTitle("Warning");
-        alert.setHeaderText(null);
-        alert.setContentText("Please select atleast one option!");
-        alert.showAndWait();
-    }
-
-    //Pops up a dialogue box to indicate that user needs to give reasons for all incorrect assumptions seleted previously
-    public void showPopupForSelectingAllReasons() {
-        Alert alert = new Alert(AlertType.INFORMATION);
-
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(
-                getClass().getResource("/eng/edu/view/dialogbox.css").toExternalForm());
-        dialogPane.getStyleClass().add("myDialog");
-
-        alert.setTitle("Warning");
-        alert.setHeaderText(null);
-        alert.setContentText("Please select reasons for all incorrect assumptions!");
-        alert.showAndWait();
-    }
-
-    public void displayOptionIcon(ObservableList<AssumptionsDAO> assumptionsList, Scene scene) {
-
-        int i;
-        String img;
-        
-        System.out.println("displayOptionIcon :: " + ReasonPageController.response);
-        
-        displayStudentResponse(scene);
-        disableCheckBoxes(scene);
-        
-        for (i = 0; i < assumptionsList.size(); i++) {
-            String id = "#label" + i;
-            Label lb = (Label) scene.lookup(id);
-            lb.setVisible(true);
-
-            if (assumptionsList.get(i).isCorrect == 1) {
-                img = new File(Utilities.basePath + "/questions/correct.png").toURI().toString();
-            } else {
-                img = new File(Utilities.basePath + "/questions/cross.png").toURI().toString();
-            }
-            ImageView iv = new ImageView(img);
-            iv.setFitHeight(15);
-            iv.setFitWidth(15);
-            lb.setGraphic(iv);
-        }
-    }
     
-    public void displayStudentResponse(Scene scene){
-        
-        int i;
-        for (i = 0; i < ReasonPageController.response.size(); i++) {
-            String id = "#checkbox" + ReasonPageController.response.get(i);
-            CheckBox cb = (CheckBox) scene.lookup(id);
-            cb.setSelected(true);
-            cb.setStyle("-fx-font-weight: bold;");
-        }
-        
-    }
     
-    public void disableCheckBoxes(Scene scene){
-        
-        int i;
-        for(i = 0; i < ReasonPageController.aaumptionListSize; i++){
-            String id = "#checkbox" + i;
-            CheckBox cb = (CheckBox) scene.lookup(id);
-            cb.setDisable(true);
-        }
-    }
-
     public boolean checkIfAllReasonsAreSelected(){
         int numberOfselectedReasons = 0;
         for (int i = 0; i < toggleGroupList.size(); i++) {
@@ -192,6 +104,7 @@ public class QuestionController {
     
     public void verifySelectedReasons(ArrayList<String> correctReasonsList){
         ArrayList<Integer> verificationResult = new ArrayList<>();
+        int numberOfWrongReasonsSelected = 0;
         for (int i = 0; i < toggleGroupList.size(); i++) {
             ToggleGroup group = toggleGroupList.get(i);
             if(group.getSelectedToggle()!=null){
@@ -201,13 +114,18 @@ public class QuestionController {
                 }
                 else{
                     verificationResult.add(0);
+                    numberOfWrongReasonsSelected++;
                 }
-                RadioButton radioButton = (RadioButton)group.getSelectedToggle();
-                System.out.println("ID "+radioButton.getId());
-                
+//                RadioButton radioButton = (RadioButton)group.getSelectedToggle();
+//                System.out.println("ID "+radioButton.getId());
+//                
             }
         }  
        System.out.println("verificationResult "+verificationResult);
+       OptionsResponseView optionsResponseView = new OptionsResponseView();
+       int score = optionsResponseView.calculateScore(numberOfWrongReasonsSelected, correctReasonsList.size(), "reasons");
+       updatedScore +=score;
+       optionsResponseView.displayScore(submitId.getScene(), updatedScore);
     }
     
     public static void closeWindow(ActionEvent event){
@@ -221,36 +139,34 @@ public class QuestionController {
     //handles the steps after clicking the submit button
     @FXML
     public void handleSubmitButtonAction(ActionEvent event) throws IOException {
-        
         AssumptionsDisplayView adv = new AssumptionsDisplayView();
+        OptionsResponseView opr = new OptionsResponseView();
+        
         if(isAssumptionListener){
+            ReasonPageController reasonPageController = new ReasonPageController();
+            incorrectlyAnsweredAssumptionsList = reasonPageController.getIncorrectSelectedResponse(submitId.getScene());    
             AssumptionsListener assumptionsListener = new AssumptionsListener();
-            boolean isAnswerSelected = assumptionsListener.checkIfAssumptionsMarked(event, submitId);
+            boolean isAnswerSelected = assumptionsListener.checkIfAssumptionsMarked(event);
             if(isAnswerSelected){
                 isAssumptionListener = false;
                 if(incorrectlyAnsweredAssumptionsList.isEmpty()){
                     QuestionController.closeWindow(event);
-                }
-                else{
+                }else{
                     ReasonsListener reasonsListener = new ReasonsListener();
                     reasonsListener.reasonsListener(incorrectlyAnsweredAssumptionsList, submitId.getScene());
-                    displayOptionIcon(adv.model.assumptionsList, submitId.getScene());
+                    opr.displayOptionIcon(adv.model.assumptionsList, submitId.getScene());
                 }
+            }else{
+                opr.showPopupForSelectingAtleastOneAssumption();
             }
-            else{
-                showPopupForSelectingAtleastOneAssumption();
-            }
-        }
-        else{
+        }else{
             boolean result = checkIfAllReasonsAreSelected();
             if(result){
-//                Scene scene = submitId.getScene();
                 ArrayList<String> correctReasonsList = getCorrectReasonsForIncorrectlySelectedReasons();
                 verifySelectedReasons(correctReasonsList);
                 closeWindow(event);
-            }
-            else{
-                showPopupForSelectingAllReasons();
+            }else{
+                opr.showPopupForSelectingAllReasons();
             }
         }
     }

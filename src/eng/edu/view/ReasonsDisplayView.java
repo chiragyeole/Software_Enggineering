@@ -22,32 +22,43 @@ import javafx.scene.layout.VBox;
  */
 public class ReasonsDisplayView {
     
+    public static ArrayList<String> getReasonsForCurrentAssumption(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, int count){
+        ArrayList<String> reasons = incorrectAssumptionReasonsMap.get(incorrectlyAnsweredAssumptionsList.get(count));
+        return reasons;
+    }
+    
+    public static boolean checkIfReasonsToBeDisplayedForCurrentAssumption(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, AssumptionsDisplayView adv, int i){
+        boolean reasonsToBeDisplayed = false;
+        if(incorrectAssumptionReasonsMap.keySet().contains(adv.checkBoxes.get(i).getText())){
+            reasonsToBeDisplayed = true;
+        }else{
+            reasonsToBeDisplayed = false;
+        }    
+        return reasonsToBeDisplayed; 
+    }
+    
+    
     public static void displayReasons(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, ScrollPane scrollPane){
        
         AssumptionsDisplayView adv = new AssumptionsDisplayView();
-        adv.displayAssumptions();  
+        adv.assignAssumptionsToCheckBoxes();  
         
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10, 10, 10, 20));    
-        
+        vbox.setPadding(new Insets(10, 10, 10, 20));            
         int count = 0;            
-        int i;
-        int t = 0;
-        for(i = 0; i < adv.checkBoxes.size(); i++){
-            if(incorrectAssumptionReasonsMap.keySet().contains(adv.checkBoxes.get(i).getText())){
-                ArrayList<String> reasons = incorrectAssumptionReasonsMap.get(incorrectlyAnsweredAssumptionsList.get(count));
-               
+        for(int i = 0; i < adv.checkBoxes.size(); i++){
+            boolean reasonsToBeDisplayed = checkIfReasonsToBeDisplayedForCurrentAssumption(incorrectAssumptionReasonsMap, adv, i);
+            if(reasonsToBeDisplayed){
+                ArrayList<String> reasons = getReasonsForCurrentAssumption(incorrectAssumptionReasonsMap, count);
+                
                 final VBox vbox1 = new VBox();
                 final HBox hbox = new HBox();
                 vbox.getChildren().addAll(hbox, vbox1);            
-                hbox.getChildren().addAll(adv.labels.get(i),adv.checkBoxes.get(i));
-                
+                hbox.getChildren().addAll(adv.labels.get(i),adv.checkBoxes.get(i));               
                 final ToggleGroup group = new ToggleGroup();
                 for (int j = 0; j < reasons.size(); j++) {
                     RadioButton radioButton = new RadioButton(reasons.get(j));
-                    radioButton.setId("radiobutton"+t);
-                    t++;
                     radioButton.setUserData(reasons.get(j));
                     vbox1.getChildren().add(radioButton);
                     vbox1.setMargin(radioButton, new Insets(0, 0, 0, 50));
@@ -55,14 +66,12 @@ public class ReasonsDisplayView {
                 }
                 toggleGroupList.add(group);              
                 count++;    
-            }
-            else{
+            }else{
                 final HBox hbox = new HBox();
                 vbox.getChildren().add(hbox);
                 hbox.getChildren().addAll(adv.labels.get(i),adv.checkBoxes.get(i));
             }
-        } 
-        
+        }         
         scrollPane.setContent(vbox);
     }
     

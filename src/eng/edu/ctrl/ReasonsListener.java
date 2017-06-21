@@ -5,6 +5,7 @@
  */
 package eng.edu.ctrl;
 
+import eng.edu.utilities.Utilities;
 import eng.edu.view.AssumptionsDisplayView;
 import eng.edu.view.ReasonsDisplayView;
 import java.io.BufferedReader;
@@ -32,7 +33,8 @@ public class ReasonsListener {
     
     public static void reasonsListener(ArrayList<String> incorrectlyAnsweredAssumptionsList, Scene scene){
         ReasonPageController reasonPageController = new ReasonPageController();
-        BufferedReader bufferedReader = reasonPageController.getFileReader();
+        String fileName = "reasons";
+        BufferedReader bufferedReader = Utilities.getFileReader(fileName);
         HashMap<String, ArrayList> assumptionReasonsMap = reasonPageController.readAllReasonsFromFile(bufferedReader);
                  
         HashMap<String, ArrayList> incorrectAssumptionReasonsMap = getReasonsForIncorrectAssumptions(assumptionReasonsMap, incorrectlyAnsweredAssumptionsList);      

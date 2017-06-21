@@ -5,32 +5,25 @@
  */
 package eng.edu.ctrl;
 
+import static eng.edu.ctrl.QuestionController.incorrectlyAnsweredAssumptionsList;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
 
 /**
  *
  * @author Gayatri
  */
-
 public class AssumptionsListener {
-       
-    public boolean checkIfAssumptionsMarked(ActionEvent event,  Button submitId){
-        
-        ReasonPageController reasonPageController = new ReasonPageController();                    
-        QuestionController.incorrectlyAnsweredAssumptionsList = reasonPageController.verifyAnswer(submitId.getScene());
+
+    public boolean checkIfAssumptionsMarked(ActionEvent event) {
+        ReasonPageController reasonPageController = new ReasonPageController();
         int numberOfResponse = reasonPageController.response.size();
-        if(numberOfResponse==0){      
+        if (numberOfResponse == 0) {
             return false;
-        }
-        else
-        {     
+        } else {
             return true;
         }
     }
-    
+ 
 }
