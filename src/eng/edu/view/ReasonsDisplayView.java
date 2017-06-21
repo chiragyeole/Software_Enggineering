@@ -7,6 +7,7 @@ package eng.edu.view;
 
 
 import static eng.edu.ctrl.QuestionController.toggleGroupList;
+import eng.edu.model.AssumptionsDisplayModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.geometry.Insets;
@@ -24,8 +25,9 @@ public class ReasonsDisplayView {
     
     public static void displayReasons(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, ArrayList<String> incorrectlyAnsweredAssumptionsList, ScrollPane scrollPane){
        
-        AssumptionsDisplayView adv = new AssumptionsDisplayView();
-        adv.assignAssumptionsToCheckBoxes();  
+        AssumptionsDisplayModel adm = new AssumptionsDisplayModel();
+        adm.assignAssumptionsToCheckBoxes();  
+        adm.assignLablesToAssumptions();
         
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
@@ -33,14 +35,14 @@ public class ReasonsDisplayView {
         
         int count = 0;            
         int i;
-        for(i = 0; i < adv.checkBoxes.size(); i++){
-            if(incorrectAssumptionReasonsMap.keySet().contains(adv.checkBoxes.get(i).getText())){
+        for(i = 0; i < adm.checkBoxes.size(); i++){
+            if(incorrectAssumptionReasonsMap.keySet().contains(adm.checkBoxes.get(i).getText())){
                 ArrayList<String> reasons = incorrectAssumptionReasonsMap.get(incorrectlyAnsweredAssumptionsList.get(count));
                
                 final VBox vbox1 = new VBox();
                 final HBox hbox = new HBox();
                 vbox.getChildren().addAll(hbox, vbox1);            
-                hbox.getChildren().addAll(adv.labels.get(i),adv.checkBoxes.get(i));
+                hbox.getChildren().addAll(adm.labels.get(i),adm.checkBoxes.get(i));
                 
                 final ToggleGroup group = new ToggleGroup();
                 for (int j = 0; j < reasons.size(); j++) {
@@ -56,7 +58,7 @@ public class ReasonsDisplayView {
             else{
                 final HBox hbox = new HBox();
                 vbox.getChildren().add(hbox);
-                hbox.getChildren().addAll(adv.labels.get(i),adv.checkBoxes.get(i));
+                hbox.getChildren().addAll(adm.labels.get(i),adm.checkBoxes.get(i));
             }
         } 
         

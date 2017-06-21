@@ -7,6 +7,7 @@ package eng.edu.view;
 
 import eng.edu.model.AssumptionsDAO;
 import eng.edu.ctrl.ReasonPageController;
+import eng.edu.model.AssumptionsDisplayModel;
 import eng.edu.utilities.Utilities;
 import java.io.File;
 import java.util.ArrayList;
@@ -54,11 +55,11 @@ public class OptionsResponseView {
 
     public void highlightSelectedOptions(Scene scene) {
 
-        AssumptionsDisplayView adv = new AssumptionsDisplayView();
+        AssumptionsDisplayModel adm = new AssumptionsDisplayModel();
         int i;
         for (i = 0; i < ReasonPageController.response.size(); i++) {
 
-            boolean isCorrect = adv.model.assumptionsList.get(ReasonPageController.response.get(i)).getIsCorrect();
+            boolean isCorrect = adm.assumptionsList.get(ReasonPageController.response.get(i)).getIsCorrect();
             String id = "#checkbox" + ReasonPageController.response.get(i);
             CheckBox cb = (CheckBox) scene.lookup(id);
             cb.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
