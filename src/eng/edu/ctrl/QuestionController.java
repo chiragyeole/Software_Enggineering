@@ -4,7 +4,7 @@
 package eng.edu.ctrl;
 
 //import static eng.edu.ctrl.ReasonPageController.selectedReasons;
-import eng.edu.view.AssumptionsDisplayView;
+import eng.edu.model.AssumptionsDisplayModel;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class QuestionController {
     
     public static boolean isAssumptionListener = true;
     public static ArrayList<ToggleGroup> toggleGroupList = new ArrayList<>(); 
-    public static ArrayList<String> incorrectlyAnsweredAssumptionsList = new ArrayList<String>();
+    
     public static int quesNo;
     
     public void initialize() throws MalformedURLException {
@@ -73,9 +73,9 @@ public class QuestionController {
     }
 
     
-
-    
-    
+    /*
+    *Reasons should be selected for all the incorrectly answered assumptions
+    */
     public boolean checkIfAllReasonsAreSelected(){
         int numberOfselectedReasons = 0;
         for (int i = 0; i < toggleGroupList.size(); i++) {
@@ -104,21 +104,33 @@ public class QuestionController {
     @FXML
     public void handleSubmitButtonAction(ActionEvent event) throws IOException {
         
-        AssumptionsDisplayView adv = new AssumptionsDisplayView();
+        AssumptionsDisplayModel adm = new AssumptionsDisplayModel();
         OptionsResponseView opr = new OptionsResponseView();
+        ReasonPageController rpc = new ReasonPageController();
 
+        //if submit is for assumptions or reasons
         if(isAssumptionListener){
+            
             AssumptionsListener assumptionsListener = new AssumptionsListener();
             boolean isAnswerSelected = assumptionsListener.checkIfAssumptionsMarked(event, submitId);
+            
+            //at least one assumption should be selected
             if(isAnswerSelected){
+                
+                //so that next time the submit is for Reasons
                 isAssumptionListener = false;
+                
+                ArrayList<String> incorrectlyAnsweredAssumptionsList = rpc.getIncorrectSelectedAssumption();
+                
+                //student didn't mark any incorrect assumptions
                 if(incorrectlyAnsweredAssumptionsList.isEmpty()){
                     QuestionController.closeWindow(event);
                 }
                 else{
-                    ReasonsListener reasonsListener = new ReasonsListener();
-                    reasonsListener.reasonsListener(incorrectlyAnsweredAssumptionsList, submitId.getScene());
-                    opr.displayOptionIcon(adv.model.assumptionsList, submitId.getScene());
+                    //give reasons for the incorrectly selected assumptions
+                    ReasonsListener rl = new ReasonsListener();
+                    rl.reasonsListener(incorrectlyAnsweredAssumptionsList, submitId.getScene());
+                    opr.displayOptionIcon(adm.assumptionsList, submitId.getScene());
                 }
             }
             else{

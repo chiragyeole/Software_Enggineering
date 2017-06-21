@@ -5,8 +5,7 @@
  */
 package eng.edu.ctrl;
 
-import eng.edu.view.AssumptionsDisplayView;
-import eng.edu.view.OptionsResponseView;
+import eng.edu.model.AssumptionsDisplayModel;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,30 +36,33 @@ public class ReasonPageController implements Initializable {
         // TODO
     }
 
-    public ArrayList<String> getIncorrectSelectedResponse(Scene scene) {
-
-        //get what options did the student select
-        response = getStudentsResponse(scene);
+    public ReasonPageController(){
         
-        AssumptionsDisplayView atv = new AssumptionsDisplayView();
+    }
+    
+    public ReasonPageController(Scene scene){
+        response = getStudentsResponse(scene);
+    }
+    
+    public ArrayList<String> getIncorrectSelectedAssumption() {
+
+        
+        AssumptionsDisplayModel adm = new AssumptionsDisplayModel();
 
         //get the incorrect assumptions that the student selected
         ArrayList<String> incorrectSelectedResponse = new ArrayList<>();
         int i;
         for (i = 0; i < response.size(); i++) {
-            String txt = atv.model.assumptionsList.get(response.get(i)).getAssumption();
+            String txt = adm.assumptionsList.get(response.get(i)).getAssumption();
 
             //verify against the correct result
-            boolean res = atv.model.assumptionsList.get(response.get(i)).getIsCorrect();
+            boolean res = adm.assumptionsList.get(response.get(i)).getIsCorrect();
                         
             if (res == false) {
                 incorrectSelectedResponse.add(txt);
             } 
         }
-
-        OptionsResponseView opr = new OptionsResponseView();
-        opr.displayScore(incorrectSelectedResponse, scene, response);
-
+        
         return incorrectSelectedResponse;
     }
 
@@ -73,10 +75,10 @@ public class ReasonPageController implements Initializable {
      */
     public ArrayList<Integer> getStudentsResponse(Scene scene) {
 
-        AssumptionsDisplayView atv = new AssumptionsDisplayView();
+        AssumptionsDisplayModel adm = new AssumptionsDisplayModel();
 
         ArrayList<Integer> response = new ArrayList<>();
-        aaumptionListSize = atv.model.assumptionsList.size();
+        aaumptionListSize = adm.assumptionsList.size();
 
         int i;
         for (i = 0; i < aaumptionListSize; i++) {

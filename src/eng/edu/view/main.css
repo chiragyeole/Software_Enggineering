@@ -16,7 +16,6 @@ and open the template in the editor.
     -fx-background-color: cornsilk;
 }
 
-.check-box{
-    -fx-wrap-text:true;
+.check-box:selected .mark {
+    -fx-background-color:blue ;
 }
-

@@ -1,5 +1,6 @@
 package eng.edu.ctrl;
 
+import eng.edu.model.AssumptionsDisplayModel;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -11,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import eng.edu.view.AssumptionsDisplayView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -27,7 +27,8 @@ public class EngEduMain extends Application {
 
     VBox vbox1;
     Button submitButton;
-    AssumptionsDisplayView adv;
+    
+    AssumptionsDisplayModel adm;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -40,8 +41,9 @@ public class EngEduMain extends Application {
         //submitButton = (Button) vbox1.getChildren().get(3);
 
         //get all the checkboxes
-        adv = new AssumptionsDisplayView();
-        adv.assignAssumptionsToCheckBoxes();
+        adm = new AssumptionsDisplayModel();
+        adm.assignAssumptionsToCheckBoxes();
+        adm.assignLablesToAssumptions();
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
@@ -49,11 +51,11 @@ public class EngEduMain extends Application {
 
         //add these checkboxes to the vbox
         int i;
-        for (i = 0; i < adv.checkBoxes.size(); i++) {
+        for (i = 0; i < adm.checkBoxes.size(); i++) {
             System.out.println("Iteration" + i);
             final HBox hbox = new HBox();
             vbox.getChildren().add(hbox);
-            hbox.getChildren().addAll(adv.labels.get(i), adv.checkBoxes.get(i));
+            hbox.getChildren().addAll(adm.labels.get(i), adm.checkBoxes.get(i));
         }
         //add vbox to scroll pane
         scroll.setContent(vbox);

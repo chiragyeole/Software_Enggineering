@@ -5,7 +5,7 @@
  */
 package eng.edu.view;
 
-import static eng.edu.ctrl.QuestionController.incorrectlyAnsweredAssumptionsList;
+
 import static eng.edu.ctrl.QuestionController.toggleGroupList;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
  */
 public class ReasonsDisplayView {
     
-    public static void displayReasons(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, ScrollPane scrollPane){
+    public static void displayReasons(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, ArrayList<String> incorrectlyAnsweredAssumptionsList, ScrollPane scrollPane){
        
         AssumptionsDisplayView adv = new AssumptionsDisplayView();
         adv.assignAssumptionsToCheckBoxes();  

@@ -16,8 +16,7 @@ public class AssumptionsListener {
 
     public boolean checkIfAssumptionsMarked(ActionEvent event, Button submitId) {
 
-        ReasonPageController reasonPageController = new ReasonPageController();
-        QuestionController.incorrectlyAnsweredAssumptionsList = reasonPageController.getIncorrectSelectedResponse(submitId.getScene());
+        ReasonPageController reasonPageController = new ReasonPageController(submitId.getScene());
         int numberOfResponse = reasonPageController.response.size();
         if (numberOfResponse == 0) {
             return false;
