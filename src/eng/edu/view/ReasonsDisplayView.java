@@ -33,6 +33,7 @@ public class ReasonsDisplayView {
         
         int count = 0;            
         int i;
+        int t = 0;
         for(i = 0; i < adv.checkBoxes.size(); i++){
             if(incorrectAssumptionReasonsMap.keySet().contains(adv.checkBoxes.get(i).getText())){
                 ArrayList<String> reasons = incorrectAssumptionReasonsMap.get(incorrectlyAnsweredAssumptionsList.get(count));
@@ -45,6 +46,8 @@ public class ReasonsDisplayView {
                 final ToggleGroup group = new ToggleGroup();
                 for (int j = 0; j < reasons.size(); j++) {
                     RadioButton radioButton = new RadioButton(reasons.get(j));
+                    radioButton.setId("radiobutton"+t);
+                    t++;
                     radioButton.setUserData(reasons.get(j));
                     vbox1.getChildren().add(radioButton);
                     vbox1.setMargin(radioButton, new Insets(0, 0, 0, 50));

@@ -20,6 +20,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import java.io.BufferedReader;
+import java.util.TreeMap;
 
 /**
  * FXML Controller class
@@ -28,7 +29,7 @@ import java.io.BufferedReader;
  */
 public class ReasonPageController implements Initializable {
 
-    ArrayList<String> correctReasons = new ArrayList<>();
+    public static HashMap<String,String> correctReasons = new HashMap<String,String>();
     public static HashMap<Integer, String> selectedReasons = new HashMap<>();
     public String reasonsTxt;
     public static ArrayList<Integer> response;
@@ -168,10 +169,10 @@ public class ReasonPageController implements Initializable {
                     }
 
                     for (int i = 0; i < temp.length; i++) {
-                        if (temp[i].contains("\\|")) {
+                        if (temp[i].contains("|")) {
                             String lastReason = temp[i];
                             String temp1[] = lastReason.split("\\|");
-                            correctReasons.add(temp1[1]);
+                            correctReasons.put(currentAssumption,temp1[1]);
                             reasons.add(temp1[0]);
                         } else {
                             reasons.add(temp[i]);

@@ -5,11 +5,13 @@
         <group>
             <file>file:/C:/Users/Gayatri/Desktop/Repo3/Software_Engineering/src/eng/edu/ctrl/AssumptionsListener.java</file>
             <file>file:/C:/Users/Gayatri/Desktop/Repo3/Software_Engineering/src/eng/edu/view/AssumptionsDisplayView.java</file>
+            <file>file:/C:/Users/Gayatri/Desktop/Repo3/Software_Engineering/nbproject/configs/Run_in_Browser.properties</file>
             <file>file:/C:/Users/Gayatri/Desktop/Repo3/Software_Engineering/src/eng/edu/ctrl/EngEduMain.java</file>
             <file>file:/C:/Users/Gayatri/Desktop/Repo3/Software_Engineering/src/eng/edu/ctrl/ReasonPageController.java</file>
-            <file>file:/C:/Users/Gayatri/Desktop/Repo3/Software_Engineering/src/eng/edu/view/main.fxml</file>
             <file>file:/C:/Users/Gayatri/Desktop/Repo3/Software_Engineering/src/eng/edu/ctrl/ReasonsListener.java</file>
             <file>file:/C:/Users/Gayatri/Desktop/Repo3/Software_Engineering/src/eng/edu/ctrl/QuestionController.java</file>
+            <file>file:/C:/Users/Gayatri/Desktop/Repo3/Software_Engineering/src/eng/edu/view/ReasonsDisplayView.java</file>
+            <file>file:/C:/Users/Gayatri/Desktop/Repo3/Software_Engineering/nbproject/project.properties</file>
             <file>file:/C:/Users/Gayatri/Desktop/Repo3/Software_Engineering/src/eng/edu/model/AssumptionsDisplayModel.java</file>
         </group>
     </open-files>

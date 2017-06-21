@@ -5,28 +5,19 @@ package eng.edu.ctrl;
 
 //import static eng.edu.ctrl.ReasonPageController.selectedReasons;
 import eng.edu.view.AssumptionsDisplayView;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-import java.util.Random;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -35,7 +26,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -93,19 +83,6 @@ public class QuestionController {
         // update VBox with new form(FXML) depends on which button is clicked
         dataPane.getChildren().setAll(node);
     }
-
-    public VBox fadeAnimate(String url) throws IOException {
-        VBox v = (VBox) FXMLLoader.load(getClass().getResource(url));
-        FadeTransition ft = new FadeTransition(Duration.millis(1500));
-        ft.setNode(v);
-        ft.setFromValue(0.1);
-        ft.setToValue(1);
-        ft.setCycleCount(1);
-        ft.setAutoReverse(false);
-        ft.play();
-        return v;
-    }
-
 
       //Pops up a dialogue box to indicate that user needs to select atleast one assumption
     public void showPopupForSelectingAtleastOneAssumption(){      
@@ -168,7 +145,7 @@ public class QuestionController {
         
         int i;
         for (i = 0; i < ReasonPageController.response.size(); i++) {
-            String id = "#checkbox" + i;
+            String id = "#checkbox" + ReasonPageController.response.get(i);
             CheckBox cb = (CheckBox) scene.lookup(id);
             cb.setSelected(true);
             cb.setStyle("-fx-font-weight: bold;");
@@ -202,6 +179,37 @@ public class QuestionController {
         } 
     }
     
+    public ArrayList<String> getCorrectReasonsForIncorrectlySelectedReasons(){
+        HashMap<String,String> correctReasons = ReasonPageController.correctReasons;
+        ArrayList<String> correctReasonsList = new ArrayList<>();
+        for(int i=0; i< incorrectlyAnsweredAssumptionsList.size(); i++){
+            String currentAssumption = incorrectlyAnsweredAssumptionsList.get(i);
+            String currentReason = correctReasons.get(currentAssumption);
+            correctReasonsList.add(currentReason);
+        }
+        return correctReasonsList;
+    }
+    
+    public void verifySelectedReasons(ArrayList<String> correctReasonsList){
+        ArrayList<Integer> verificationResult = new ArrayList<>();
+        for (int i = 0; i < toggleGroupList.size(); i++) {
+            ToggleGroup group = toggleGroupList.get(i);
+            if(group.getSelectedToggle()!=null){
+                String selectedReason = group.getSelectedToggle().getUserData().toString();
+                if(selectedReason.equals(correctReasonsList.get(i))){
+                    verificationResult.add(1);
+                }
+                else{
+                    verificationResult.add(0);
+                }
+                RadioButton radioButton = (RadioButton)group.getSelectedToggle();
+                System.out.println("ID "+radioButton.getId());
+                
+            }
+        }  
+       System.out.println("verificationResult "+verificationResult);
+    }
+    
     public static void closeWindow(ActionEvent event){
         Button button = (Button)(event.getSource());    
         Window window = button.getScene().getWindow();
@@ -215,7 +223,6 @@ public class QuestionController {
     public void handleSubmitButtonAction(ActionEvent event) throws IOException {
         
         AssumptionsDisplayView adv = new AssumptionsDisplayView();
-
         if(isAssumptionListener){
             AssumptionsListener assumptionsListener = new AssumptionsListener();
             boolean isAnswerSelected = assumptionsListener.checkIfAssumptionsMarked(event, submitId);
@@ -237,6 +244,9 @@ public class QuestionController {
         else{
             boolean result = checkIfAllReasonsAreSelected();
             if(result){
+//                Scene scene = submitId.getScene();
+                ArrayList<String> correctReasonsList = getCorrectReasonsForIncorrectlySelectedReasons();
+                verifySelectedReasons(correctReasonsList);
                 closeWindow(event);
             }
             else{
