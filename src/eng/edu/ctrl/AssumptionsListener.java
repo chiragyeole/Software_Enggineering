@@ -16,8 +16,8 @@ import javafx.scene.control.Button;
  */
 public class AssumptionsListener {
 
-    public boolean checkIfAssumptionsMarked(ActionEvent event) {
-        ReasonPageController reasonPageController = new ReasonPageController();
+    public boolean checkIfAssumptionsMarked(ActionEvent event, Button submitId) {
+        ReasonPageController reasonPageController = new ReasonPageController(submitId.getScene());
         int numberOfResponse = reasonPageController.response.size();
         if (numberOfResponse == 0) {
             return false;

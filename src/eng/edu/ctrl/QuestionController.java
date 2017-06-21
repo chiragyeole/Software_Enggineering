@@ -4,8 +4,8 @@
 package eng.edu.ctrl;
 
 //import static eng.edu.ctrl.ReasonPageController.selectedReasons;
-import eng.edu.view.AssumptionsDisplayView;
 import java.util.HashMap;
+import eng.edu.model.AssumptionsDisplayModel;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -45,9 +45,11 @@ public class QuestionController {
     
     public static int updatedScore;
     
+    public static ArrayList<String> incorrectlyAnsweredAssumptionsList;
+    
     public static boolean isAssumptionListener = true;
     public static ArrayList<ToggleGroup> toggleGroupList = new ArrayList<>(); 
-    public static ArrayList<String> incorrectlyAnsweredAssumptionsList = new ArrayList<String>();
+    
     public static int quesNo;
     
     public void initialize() throws MalformedURLException {
@@ -73,8 +75,11 @@ public class QuestionController {
         // update VBox with new form(FXML) depends on which button is clicked
         dataPane.getChildren().setAll(node);
     }
+
     
-    
+    /*
+    *Reasons should be selected for all the incorrectly answered assumptions
+    */
     public boolean checkIfAllReasonsAreSelected(){
         int numberOfselectedReasons = 0;
         for (int i = 0; i < toggleGroupList.size(); i++) {
@@ -139,25 +144,31 @@ public class QuestionController {
     //handles the steps after clicking the submit button
     @FXML
     public void handleSubmitButtonAction(ActionEvent event) throws IOException {
-        AssumptionsDisplayView adv = new AssumptionsDisplayView();
-        OptionsResponseView opr = new OptionsResponseView();
-        
-        if(isAssumptionListener){
-            ReasonPageController reasonPageController = new ReasonPageController();
-            incorrectlyAnsweredAssumptionsList = reasonPageController.getIncorrectSelectedResponse(submitId.getScene());    
+
+        AssumptionsDisplayModel assumptionsDisplayModel = new AssumptionsDisplayModel();
+        OptionsResponseView optionsResponseView = new OptionsResponseView();
+        ReasonPageController reasonPageController = new ReasonPageController();
+
+        //if submit is for assumptions or reasons
+        if(isAssumptionListener){        
             AssumptionsListener assumptionsListener = new AssumptionsListener();
-            boolean isAnswerSelected = assumptionsListener.checkIfAssumptionsMarked(event);
-            if(isAnswerSelected){
-                isAssumptionListener = false;
+            boolean isAnswerSelected = assumptionsListener.checkIfAssumptionsMarked(event, submitId);           
+            //at least one assumption should be selected
+            if(isAnswerSelected){              
+                //so that next time the submit is for Reasons
+                isAssumptionListener = false;              
+                incorrectlyAnsweredAssumptionsList = reasonPageController.getIncorrectSelectedAssumption(submitId);            
+                //student didn't mark any incorrect assumptions
                 if(incorrectlyAnsweredAssumptionsList.isEmpty()){
                     QuestionController.closeWindow(event);
                 }else{
-                    ReasonsListener reasonsListener = new ReasonsListener();
-                    reasonsListener.reasonsListener(incorrectlyAnsweredAssumptionsList, submitId.getScene());
-                    opr.displayOptionIcon(adv.model.assumptionsList, submitId.getScene());
+                    //give reasons for the incorrectly selected assumptions
+                    ReasonsListener rl = new ReasonsListener();
+                    rl.reasonsListener(incorrectlyAnsweredAssumptionsList, submitId.getScene());
+                    optionsResponseView.displayOptionIcon(assumptionsDisplayModel.assumptionsList, submitId.getScene());
                 }
             }else{
-                opr.showPopupForSelectingAtleastOneAssumption();
+                optionsResponseView.showPopupForSelectingAtleastOneAssumption();
             }
         }else{
             boolean result = checkIfAllReasonsAreSelected();
@@ -166,7 +177,7 @@ public class QuestionController {
                 verifySelectedReasons(correctReasonsList);
                 closeWindow(event);
             }else{
-                opr.showPopupForSelectingAllReasons();
+                optionsResponseView.showPopupForSelectingAllReasons();
             }
         }
     }

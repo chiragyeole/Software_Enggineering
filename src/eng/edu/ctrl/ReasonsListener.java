@@ -6,7 +6,6 @@
 package eng.edu.ctrl;
 
 import eng.edu.utilities.Utilities;
-import eng.edu.view.AssumptionsDisplayView;
 import eng.edu.view.ReasonsDisplayView;
 import java.io.BufferedReader;
 import java.util.ArrayList;
@@ -39,6 +38,6 @@ public class ReasonsListener {
                  
         HashMap<String, ArrayList> incorrectAssumptionReasonsMap = getReasonsForIncorrectAssumptions(assumptionReasonsMap, incorrectlyAnsweredAssumptionsList);      
         ScrollPane scrollPane = (ScrollPane)scene.lookup("#scrollPane");
-        ReasonsDisplayView.displayReasons(incorrectAssumptionReasonsMap, scrollPane);
+        ReasonsDisplayView.displayReasons(incorrectAssumptionReasonsMap, incorrectlyAnsweredAssumptionsList, scrollPane);
     }
 }
