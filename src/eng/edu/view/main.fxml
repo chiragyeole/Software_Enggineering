@@ -13,16 +13,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #64D3C3;" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.QuestionController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="1200.0" style="-fx-background-color: #64D3C3;" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.QuestionController">
    <children>
-      <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="1200.0" style="-fx-background-color: #00344D;" styleClass="HBox" VBox.vgrow="NEVER">
+      <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="1200.0" style="-fx-background-color: #00344D;" styleClass="HBox" VBox.vgrow="NEVER">
          <VBox.margin>
             <Insets />
          </VBox.margin>
          <children>
-            <Label fx:id="score" prefHeight="17.0" prefWidth="137.0" text="Score: 0" textFill="#a07c40">
+            <Label fx:id="score" prefHeight="15.0" prefWidth="137.0" text="Score: 0" textFill="#a07c40">
                <font>
-                  <Font name="Tahoma" size="29.0" />
+                  <Font name="Verdana Bold" size="25.0" />
                </font>
             </Label>
          </children>
@@ -30,9 +30,9 @@
             <ColorAdjust />
          </effect>
       </HBox>
-      <SplitPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="1200.0" style="-fx-background-color: #c3c8cd;" VBox.vgrow="ALWAYS">
+      <SplitPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1200.0" style="-fx-background-color: #c3c8cd;" VBox.vgrow="ALWAYS">
         <items>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="1200.0" style="-fx-background-color: #c3c8cd;">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1200.0" style="-fx-background-color: #c3c8cd;">
                <children>
                   <Button fx:id="nextId" contentDisplay="CENTER" layoutX="197.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleNextPage" prefHeight="30.0" prefWidth="72.0" style="-fx-background-color: #00344D;" text="Next" textAlignment="CENTER" textFill="#9e7a41c7" visible="false">
                      <font>
