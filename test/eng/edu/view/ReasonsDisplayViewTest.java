@@ -5,14 +5,8 @@
  */
 package eng.edu.view;
 
-import eng.edu.model.AssumptionsModel;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javafx.scene.control.ScrollPane;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

@@ -34,18 +34,6 @@ public class ScoreComputationTest {
    
     }
 
-    /**
-     * Test of readScoreFile method, of class ScoreComputation.
-     */
-    @Test
-    public void testReadScoreFile() {
-        System.out.println("readScoreFile");
-        ArrayList<Integer> expResult = null;
-        expResult.add(2);
-        expResult.add(-2);
-        ArrayList<Integer> result = ScoreComputation.readScoreFile();
-        assertEquals(expResult, result);
-
-    }
+    
     
 }
