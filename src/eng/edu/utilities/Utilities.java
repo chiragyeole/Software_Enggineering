@@ -56,7 +56,22 @@ public class Utilities {
     public String getPath(String imageType, String fileType) {
 
         File file = new File(basePath + baseDirectory + "q" + number + "/" + imageType + number + fileType);
-        return file.toURI().toString();
+        String filename = file.toURI().toString();
+        String parts[] = filename.split("file:");
+   
+        boolean exists = fileExists(parts[1]);
+        if(exists)
+            return filename;
+        else
+            return null;
+    }
+    
+    public boolean fileExists(String filename)
+    {
+        File varTmpDir = new File(filename);
+        boolean exists = varTmpDir.exists();
+        //System.out.println("exists: "+exists);
+        return exists;
     }
     
     public static BufferedReader getFileReader(String fileName) {
