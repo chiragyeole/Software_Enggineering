@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -24,6 +25,7 @@ public class Utilities {
     public static int max;
     public int number;
     public static String assumptionsTxt;
+    public static ArrayList<Integer> questionAlreadyDone = new ArrayList<>();
 
     public Utilities() {
 
@@ -48,9 +50,20 @@ public class Utilities {
     public static int getRandomQuestion(int n) {
 
         Random rand = new Random();
+        //boolean check = quesAlreadyDone();
         int quesNo = rand.nextInt(n) + min;
 
+        if (questionAlreadyDone.size() != max) {
+            if (questionAlreadyDone.contains(quesNo)) {
+                quesNo = getRandomQuestion(n);
+            } else {
+                System.out.println("Adding ques :: " + quesNo);
+                questionAlreadyDone.add(quesNo);
+            }
+        }
+
         return quesNo;
+
     }
 
     public String getPath(String imageType, String fileType) {
@@ -73,7 +86,7 @@ public class Utilities {
         System.out.println("exists: "+exists);
         return exists;
     }
-    
+
     public static BufferedReader getFileReader(String fileName) {
         BufferedReader bufferedReader = null;
         try {

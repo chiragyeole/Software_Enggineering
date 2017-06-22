@@ -5,6 +5,7 @@
  */
 package eng.edu.utilities;
 
+<<<<<<< HEAD
 import java.io.BufferedReader;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,23 +13,39 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
+=======
+import org.junit.Test;
+import static org.junit.Assert.*;
+>>>>>>> 1da8881684ff6b1d156a99136a3661cca4d2d514
 
 /**
  *
  * @author poojithadharmavaram
  */
 public class UtilitiesTest {
+<<<<<<< HEAD
   
+=======
+   
+>>>>>>> 1da8881684ff6b1d156a99136a3661cca4d2d514
     /**
      * Test of getNumberOfQuestions method, of class Utilities.
      */
     @Test
     public void testGetNumberOfQuestions() {
+<<<<<<< HEAD
         System.out.println("getNumberOfQuestions");
+=======
+         System.out.println("getNumberOfQuestions");
+>>>>>>> 1da8881684ff6b1d156a99136a3661cca4d2d514
         //The number of questions currently is 2.
         int expResult = 2;
         int result = Utilities.getNumberOfQuestions();
         assertEquals(expResult, result);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1da8881684ff6b1d156a99136a3661cca4d2d514
     }
 
     /**
@@ -37,6 +54,10 @@ public class UtilitiesTest {
     @Test
     public void testGetRandomQuestion() {
         System.out.println("getRandomQuestion");
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 1da8881684ff6b1d156a99136a3661cca4d2d514
         int n = 2; // n is the total number of questions.
         int result = Utilities.getRandomQuestion(n);
         
@@ -48,7 +69,10 @@ public class UtilitiesTest {
             withinRange = true;
         
         assertEquals(true,withinRange);
+<<<<<<< HEAD
        
+=======
+>>>>>>> 1da8881684ff6b1d156a99136a3661cca4d2d514
     }
 
     /**
@@ -57,6 +81,7 @@ public class UtilitiesTest {
     @Test
     public void testFileExists() {
         System.out.println("fileExists");
+<<<<<<< HEAD
         String filename = "/Users/deeptichavan/questions/q1/IdealizedModel1.png";
         Utilities instance = new Utilities();
         boolean expResult = true;
@@ -80,4 +105,15 @@ public class UtilitiesTest {
         assertEquals(expResult, result);
 
     }
+=======
+        
+        String filename = "/Users/poojithadharmavaram/questions/q1/IdealizedModel1.png";
+        Utilities instance = new Utilities();
+        boolean expResult = true;
+        boolean result = instance.fileExists(filename);
+        
+        assertEquals(expResult, result);
+    }
+    
+>>>>>>> 1da8881684ff6b1d156a99136a3661cca4d2d514
 }

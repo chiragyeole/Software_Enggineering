@@ -29,7 +29,6 @@ public class ScoreComputation {
             negativeScore = scoreWeightage.get(3);
         }
         score = positiveScore*(numberOfResponses-numberOfIncorrectResponses) + (negativeScore*numberOfIncorrectResponses);
-        System.out.println("score "+score);
         return score;
      
     }

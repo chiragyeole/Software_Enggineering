@@ -7,9 +7,7 @@ package eng.edu.ctrl;
 
 import static eng.edu.ctrl.QuestionController.incorrectlyAnsweredAssumptionsList;
 import static eng.edu.ctrl.QuestionController.toggleGroupList;
-import static eng.edu.ctrl.QuestionController.updatedScore;
 import eng.edu.utilities.Utilities;
-import eng.edu.view.OptionsResponseView;
 import eng.edu.view.ReasonsDisplayView;
 import java.io.BufferedReader;
 import java.util.ArrayList;
