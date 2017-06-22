@@ -19,25 +19,6 @@ import static org.junit.Assert.*;
  */
 public class ScoreComputationTest {
     
-    public ScoreComputationTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of calculateScore method, of class ScoreComputation.
      */
@@ -47,7 +28,7 @@ public class ScoreComputationTest {
         int numberOfIncorrectResponses = 1;
         int numberOfResponses = 3;
         String scoreEvaluationType = "assumption";
-        int expResult = 4;
+        int expResult = 2;
         int result = ScoreComputation.calculateScore(numberOfIncorrectResponses, numberOfResponses, scoreEvaluationType);
         assertEquals(expResult, result);
    
