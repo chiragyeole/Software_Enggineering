@@ -19,7 +19,7 @@
             </Glow>
          </effect>
          <children>
-            <Button layoutX="151.0" layoutY="177.0" mnemonicParsing="false" onAction="#handleMainPage" style="-fx-background-color: #A07C40;" text="Start tutorial" textFill="#00344d">
+            <Button layoutX="151.0" layoutY="177.0" mnemonicParsing="false" onAction="#handleMainPage" style="-fx-background-color: #A07C40;" text="Start Tutorial" textFill="#00344d">
                <font>
                   <Font name="Verdana" size="17.0" />
                </font>
