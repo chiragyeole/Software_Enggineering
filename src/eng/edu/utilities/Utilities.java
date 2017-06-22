@@ -71,7 +71,11 @@ public class Utilities {
         File file = new File(basePath + baseDirectory + "q" + number + "/" + imageType + number + fileType);
         return file.toURI().toString();
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 1c31831230f666d78ce3227c0b2d4e1e075aee8e
     public static BufferedReader getFileReader(String fileName) {
         BufferedReader bufferedReader = null;
         try {

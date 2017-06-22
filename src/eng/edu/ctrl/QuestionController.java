@@ -5,6 +5,10 @@ package eng.edu.ctrl;
 
 //import static eng.edu.ctrl.ReasonPageController.selectedReasons;
 import static eng.edu.ctrl.AssumptionsListener.response;
+<<<<<<< HEAD
+=======
+import java.util.HashMap;
+>>>>>>> 1c31831230f666d78ce3227c0b2d4e1e075aee8e
 import eng.edu.model.AssumptionsModel;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -49,6 +53,7 @@ public class QuestionController {
     private Button submitId;
 
     @FXML
+<<<<<<< HEAD
     public Button nextId;
 
     @FXML
@@ -61,9 +66,21 @@ public class QuestionController {
     public static boolean isAssumptionListener = true;
     public static ArrayList<ToggleGroup> toggleGroupList = new ArrayList<>();
 
+=======
+    public  ScrollPane scrollPane;
+    
+    public static int updatedScore;
+    
+    public static ArrayList<String> incorrectlyAnsweredAssumptionsList;
+    
+    public static boolean isAssumptionListener = true;
+    public static ArrayList<ToggleGroup> toggleGroupList = new ArrayList<>(); 
+    
+>>>>>>> 1c31831230f666d78ce3227c0b2d4e1e075aee8e
     public static int quesNo;
 
     public void initialize() throws MalformedURLException {
+<<<<<<< HEAD
 
         isAssumptionListener = true;
         updatedScore = readScore();
@@ -71,6 +88,12 @@ public class QuestionController {
         Utilities u = new Utilities();
         quesNo = u.number;
 
+=======
+       
+        Utilities u = new Utilities();
+        quesNo = u.number;
+       
+>>>>>>> 1c31831230f666d78ce3227c0b2d4e1e075aee8e
         //Real world image stored in users home location is displayed from here.
         String path = u.getPath("RealWorld", ".png");
         Image imageReal = new Image(path);
@@ -80,15 +103,27 @@ public class QuestionController {
         path = u.getPath("IdealizedModel", ".png");
         Image imageIdeal = new Image(path);
         idealizedImage.setImage(imageIdeal);
+<<<<<<< HEAD
     }
+=======
+    }   
+>>>>>>> 1c31831230f666d78ce3227c0b2d4e1e075aee8e
 
     public void setDataPane(Node node) {
         // update VBox with new form(FXML) depends on which button is clicked
         dataPane.getChildren().setAll(node);
     }
 
+<<<<<<< HEAD
     public static void closeWindow(ActionEvent event) {
         Button button = (Button) (event.getSource());
+=======
+    
+    
+    
+    public static void closeWindow(ActionEvent event){
+        Button button = (Button)(event.getSource());    
+>>>>>>> 1c31831230f666d78ce3227c0b2d4e1e075aee8e
         Window window = button.getScene().getWindow();
         Stage stage = (Stage) window;
         stage.close();
@@ -100,6 +135,7 @@ public class QuestionController {
 
         AssumptionsModel assumptionsDisplayModel = new AssumptionsModel();
         OptionsResponseView optionsResponseView = new OptionsResponseView();
+<<<<<<< HEAD
 
         //if submit is for assumptions or reasons
         if (isAssumptionListener) {
@@ -119,11 +155,31 @@ public class QuestionController {
                     submitId.setVisible(false);
                     nextId.setVisible(true);
                 } else {
+=======
+        
+        //if submit is for assumptions or reasons
+        if(isAssumptionListener){        
+            AssumptionsListener assumptionsListener = new AssumptionsListener();
+            boolean isAnswerSelected = assumptionsListener.checkIfAssumptionsMarked(event, submitId);           
+            //at least one assumption should be selected
+            if(isAnswerSelected){              
+                //so that next time the submit is for Reasons
+                isAssumptionListener = false;              
+                incorrectlyAnsweredAssumptionsList = AssumptionsListener.getIncorrectSelectedAssumption(submitId);                 
+                QuestionController.updatedScore = ScoreComputation.calculateScore(incorrectlyAnsweredAssumptionsList.size(), response.size(), "assumption");       
+                optionsResponseView.displayScore(submitId.getScene(), QuestionController.updatedScore);
+        
+                //student didn't mark any incorrect assumptions
+                if(incorrectlyAnsweredAssumptionsList.isEmpty()){
+                    QuestionController.closeWindow(event);
+                }else{
+>>>>>>> 1c31831230f666d78ce3227c0b2d4e1e075aee8e
                     //give reasons for the incorrectly selected assumptions
                     ReasonsListener rl = new ReasonsListener();
                     rl.reasonsListener(incorrectlyAnsweredAssumptionsList, submitId.getScene());
                     optionsResponseView.displayOptionIcon(assumptionsDisplayModel.assumptionsList, submitId.getScene());
                 }
+<<<<<<< HEAD
             } else {
                 optionsResponseView.showPopupForSelectingAtleastOneAssumption();
             }
@@ -194,6 +250,22 @@ public class QuestionController {
 
             while ((currentLine = br.readLine()) != null) {
                 score = currentLine;
+=======
+            }else{
+                optionsResponseView.showPopupForSelectingAtleastOneAssumption();
+            }
+        }else{
+            boolean result = ReasonsListener.checkIfAllReasonsAreSelected();
+            if(result){
+                ArrayList<String> correctReasonsList = ReasonsListener.getCorrectReasonsForIncorrectlySelectedReasons();
+                int numberOfWrongReasonsSelected = ReasonsListener.getNumberOfIncorrectReasons(correctReasonsList);
+                int score = ScoreComputation.calculateScore(numberOfWrongReasonsSelected, correctReasonsList.size(), "reasons");
+                updatedScore +=score;
+                optionsResponseView.displayScore(submitId.getScene(), updatedScore);
+                closeWindow(event);
+            }else{
+                optionsResponseView.showPopupForSelectingAllReasons();
+>>>>>>> 1c31831230f666d78ce3227c0b2d4e1e075aee8e
             }
 
         } catch (IOException e) {
