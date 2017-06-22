@@ -5,8 +5,9 @@
  */
 package eng.edu.view;
 
-import static eng.edu.ctrl.QuestionController.incorrectlyAnsweredAssumptionsList;
+
 import static eng.edu.ctrl.QuestionController.toggleGroupList;
+import eng.edu.model.AssumptionsModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.geometry.Insets;
@@ -21,27 +22,29 @@ import javafx.scene.layout.VBox;
  * @author Gayatri
  */
 public class ReasonsDisplayView {
+
     
-    public static void displayReasons(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, ScrollPane scrollPane){
+    public static void displayReasons(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, ArrayList<String> incorrectlyAnsweredAssumptionsList, ScrollPane scrollPane){
        
-        AssumptionsDisplayView adv = new AssumptionsDisplayView();
-        adv.displayAssumptions();  
+        AssumptionsModel adm = new AssumptionsModel();
+        adm.assignAssumptionsToCheckBoxes();  
+        adm.assignLablesToAssumptions();
         
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10, 10, 10, 20));    
-        
+        vbox.setPadding(new Insets(10, 10, 10, 20));            
         int count = 0;            
-        int i;
-        for(i = 0; i < adv.checkBoxes.size(); i++){
-            if(incorrectAssumptionReasonsMap.keySet().contains(adv.checkBoxes.get(i).getText())){
-                ArrayList<String> reasons = incorrectAssumptionReasonsMap.get(incorrectlyAnsweredAssumptionsList.get(count));
-               
+
+        for(int i = 0; i < adm.checkBoxes.size(); i++){
+            boolean reasonsToBeDisplayed = checkIfReasonsToBeDisplayedForCurrentAssumption(incorrectAssumptionReasonsMap, adm, i);
+            if(reasonsToBeDisplayed){
+                ArrayList<String> reasons = getReasonsForCurrentAssumption(incorrectAssumptionReasonsMap,incorrectlyAnsweredAssumptionsList, count);
+                
                 final VBox vbox1 = new VBox();
                 final HBox hbox = new HBox();
                 vbox.getChildren().addAll(hbox, vbox1);            
-                hbox.getChildren().addAll(adv.labels.get(i),adv.checkBoxes.get(i));
-                
+                hbox.getChildren().addAll(adm.labels.get(i),adm.checkBoxes.get(i));               
+
                 final ToggleGroup group = new ToggleGroup();
                 for (int j = 0; j < reasons.size(); j++) {
                     RadioButton radioButton = new RadioButton(reasons.get(j));
@@ -52,15 +55,31 @@ public class ReasonsDisplayView {
                 }
                 toggleGroupList.add(group);              
                 count++;    
-            }
-            else{
+            }else{
                 final HBox hbox = new HBox();
                 vbox.getChildren().add(hbox);
-                hbox.getChildren().addAll(adv.labels.get(i),adv.checkBoxes.get(i));
+                hbox.getChildren().addAll(adm.labels.get(i),adm.checkBoxes.get(i));
             }
-        } 
-        
+        }         
         scrollPane.setContent(vbox);
     }
+    
+     public static ArrayList<String> getReasonsForCurrentAssumption(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, ArrayList<String> incorrectlyAnsweredAssumptionsList, int count){
+        ArrayList<String> reasons = incorrectAssumptionReasonsMap.get(incorrectlyAnsweredAssumptionsList.get(count));
+        return reasons;
+    }
+    
+    //this method checks if reasons are to be displayed for current assumption
+    public static boolean checkIfReasonsToBeDisplayedForCurrentAssumption(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, AssumptionsModel adm, int i){
+        boolean reasonsToBeDisplayed = false;
+        if(incorrectAssumptionReasonsMap.keySet().contains(adm.checkBoxes.get(i).getText())){
+            reasonsToBeDisplayed = true;
+        }else{
+            reasonsToBeDisplayed = false;
+        }    
+        return reasonsToBeDisplayed; 
+    }
+    
+    
     
 }

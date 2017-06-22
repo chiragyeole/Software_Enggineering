@@ -1,4 +1,0 @@
-Hip acts as a pivot point (no lifting off the bed) | 1
-Lower leg remains approximately perpendicular to upper leg | 1
-Forces are reasonably approximated using static analysis | 1
-Patient does not slide on the bed | 1

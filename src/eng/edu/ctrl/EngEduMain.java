@@ -11,69 +11,34 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import eng.edu.view.AssumptionsDisplayView;
+
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.StageStyle;
 
 public class EngEduMain extends Application {
 
-    @FXML
-    public ScrollPane scroll;
-    @FXML
-    private Button submitId;
-
-    VBox vbox1;
-    Button submitButton;
-    AssumptionsDisplayView adv;
-
+    
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // load main form in to VBox (Root)
-        VBox mainPane = (VBox) FXMLLoader.load(getClass().getResource("/eng/edu/view/main.fxml"));
-        SplitPane split = (SplitPane) mainPane.getChildren().get(1);
-        AnchorPane anchor = (AnchorPane) split.getItems().get(0);
-        vbox1 = (VBox) anchor.getChildren().get(0);
-        scroll = (ScrollPane) vbox1.getChildren().get(2);
-        submitButton = (Button) vbox1.getChildren().get(3);
-
-        //get all the checkboxes
-        adv = new AssumptionsDisplayView();
-        adv.displayAssumptions();
-
-        final VBox vbox = new VBox();
-        vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10, 10, 10, 20));
-
-        //add these checkboxes to the vbox
-        int i;
-        for (i = 0; i < adv.checkBoxes.size(); i++) {
-            System.out.println("Iteration" + i);
-            final HBox hbox = new HBox();
-            vbox.getChildren().add(hbox);
-            hbox.getChildren().addAll(adv.labels.get(i), adv.checkBoxes.get(i));
-        }
-        //add vbox to scroll pane
-        scroll.setContent(vbox);
-
-        //group the images and checkboxes together
-        Group grp = new Group();
-        grp.getChildren().addAll(mainPane, vbox);
-
-        primaryStage.setTitle("Engineering Educators");
-        primaryStage.setScene(new Scene(grp));
-        primaryStage.setMaximized(true);    // make the main form fit to the screen
-        primaryStage.show();
-
+        
+       Parent root = FXMLLoader.load(getClass().getResource("/eng/edu/view/WelcomePage.fxml"));
+        
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setScene(scene);
+        //stage.setMaximized(true);
+        //stage.setFullScreen(true);
+        stage.setTitle("Engineering Educators");
+        stage.show();
     }
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
-
+    
 }

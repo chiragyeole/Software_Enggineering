@@ -5,11 +5,11 @@
  */
 package eng.edu.view;
 
+import eng.edu.ctrl.AssumptionsListener;
 import eng.edu.model.AssumptionsDAO;
-import eng.edu.ctrl.ReasonPageController;
+import eng.edu.model.AssumptionsModel;
 import eng.edu.utilities.Utilities;
 import java.io.File;
-import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -17,21 +17,24 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  *
  * @author deeptichavan
  */
 public class OptionsResponseView {
-    
+
+    //it shows correct and incorrect icons against each assumptions
     public void displayOptionIcon(ObservableList<AssumptionsDAO> assumptionsList, Scene scene) {
 
         int i;
         String img;
-               
-        displayStudentResponse(scene);
+
+        highlightSelectedOptions(scene);
         disableCheckBoxes(scene);
-        
+
         for (i = 0; i < assumptionsList.size(); i++) {
             String id = "#label" + i;
             Label lb = (Label) scene.lookup(id);
@@ -48,52 +51,51 @@ public class OptionsResponseView {
             lb.setGraphic(iv);
         }
     }
-    
-    
-    public void displayStudentResponse(Scene scene){
-        
+
+
+    public void highlightSelectedOptions(Scene scene) {
+
+        AssumptionsModel adm = new AssumptionsModel();
         int i;
-        for (i = 0; i < ReasonPageController.response.size(); i++) {
-            String id = "#checkbox" + ReasonPageController.response.get(i);
+        for (i = 0; i < AssumptionsListener.response.size(); i++) {
+
+            boolean isCorrect = adm.assumptionsList.get(AssumptionsListener.response.get(i)).getIsCorrect();
+            String id = "#checkbox" + AssumptionsListener.response.get(i);
             CheckBox cb = (CheckBox) scene.lookup(id);
+            cb.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
             cb.setSelected(true);
-            cb.setStyle("-fx-font-weight: bold;");
+            if (isCorrect) {   
+                cb.setStyle("-fx-text-fill: green;");
+            }else{
+                cb.setStyle("-fx-text-fill: red;");
+            }
         }
-        
+
     }
-    
-    public void disableCheckBoxes(Scene scene){
-        
+
+    public void disableCheckBoxes(Scene scene) {
+
         int i;
-        for(i = 0; i < ReasonPageController.aaumptionListSize; i++){
+        for (i = 0; i < AssumptionsListener.aaumptionListSize; i++) {
             String id = "#checkbox" + i;
             CheckBox cb = (CheckBox) scene.lookup(id);
             cb.setDisable(true);
         }
     }
-    
-    public void displayScore(ArrayList<String> incorrectResponse, Scene scene, ArrayList<Integer> response) {
 
-        //dummy logic for score
-        if (incorrectResponse.isEmpty()) {
-            Label lb1 = (Label) scene.lookup("#score");
-            lb1.setText("Score: 4");
-        } else if (incorrectResponse.size() == response.size()) {
-            Label lb1 = (Label) scene.lookup("#score");
-            lb1.setText("Score: 0");
-        } else {
-            Label lb1 = (Label) scene.lookup("#score");
-            lb1.setText("Score: 2");
-        }
-    }
     
+    public void displayScore(Scene scene, int score){
+        Label lb1 = (Label) scene.lookup("#score");
+        lb1.setText("Score: "+score);
+        System.out.println("updatedScore "+score);
+    }
+
     //Pops up a dialogue box to indicate that user needs to select atleast one assumption
-    public void showPopupForSelectingAtleastOneAssumption(){      
+    public void showPopupForSelectingAtleastOneAssumption() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        
+
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(
-                getClass().getResource("/eng/edu/view/dialogbox.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/eng/edu/view/dialogbox.css").toExternalForm());
         dialogPane.getStyleClass().add("myDialog");
 
         alert.setTitle("Warning");
@@ -107,8 +109,7 @@ public class OptionsResponseView {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(
-                getClass().getResource("/eng/edu/view/dialogbox.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/eng/edu/view/dialogbox.css").toExternalForm());
         dialogPane.getStyleClass().add("myDialog");
 
         alert.setTitle("Warning");
