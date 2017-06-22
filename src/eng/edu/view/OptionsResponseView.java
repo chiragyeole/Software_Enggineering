@@ -6,16 +6,20 @@
 package eng.edu.view;
 
 import eng.edu.ctrl.AssumptionsListener;
+import static eng.edu.ctrl.QuestionController.toggleGroupList;
 import eng.edu.model.AssumptionsDAO;
 import eng.edu.model.AssumptionsModel;
 import eng.edu.utilities.Utilities;
 import java.io.File;
+import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -73,6 +77,23 @@ public class OptionsResponseView {
 
     }
 
+    public static void highlightReasonResponse(ArrayList<String> correctReasonsList){
+        for (int i = 0; i < toggleGroupList.size(); i++) {
+            ToggleGroup group = toggleGroupList.get(i);
+            if(group.getSelectedToggle()!=null){
+                String selectedReason = group.getSelectedToggle().getUserData().toString();
+                RadioButton rb = (RadioButton)group.getSelectedToggle();
+                rb.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
+                if(selectedReason.equals(correctReasonsList.get(i))){
+                    rb.setStyle("-fx-text-fill: green;");
+                }
+                else{
+                    rb.setStyle("-fx-text-fill: red;");
+                }
+                
+            }
+        }  
+    }
     public void disableCheckBoxes(Scene scene) {
 
         int i;

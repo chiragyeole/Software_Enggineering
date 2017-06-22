@@ -126,7 +126,7 @@ public class QuestionController {
             if (result) {
                 ArrayList<String> correctReasonsList = ReasonsListener.getCorrectReasonsForIncorrectlySelectedReasons();
                 int numberOfWrongReasonsSelected = ReasonsListener.getNumberOfIncorrectReasons(correctReasonsList);
-                ReasonsListener.highlightReasonResponse(correctReasonsList);
+                optionsResponseView.highlightReasonResponse(correctReasonsList);
                 int score = ScoreComputation.calculateScore(numberOfWrongReasonsSelected, correctReasonsList.size(), "reasons");
                 updatedScore += score;
                 optionsResponseView.displayScore(submitId.getScene(), updatedScore);
