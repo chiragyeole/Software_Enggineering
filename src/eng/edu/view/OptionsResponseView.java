@@ -19,6 +19,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
@@ -84,6 +85,7 @@ public class OptionsResponseView {
                 String selectedReason = group.getSelectedToggle().getUserData().toString();
                 RadioButton rb = (RadioButton)group.getSelectedToggle();
                 rb.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
+                
                 if(selectedReason.equals(correctReasonsList.get(i))){
                     rb.setStyle("-fx-text-fill: green;");
                 }
@@ -92,8 +94,30 @@ public class OptionsResponseView {
                 }
                 
             }
+        }
+        
+        disableRadioButtons();
+    }
+    
+    
+    public static void disableRadioButtons(){
+        
+        for (int i = 0; i < toggleGroupList.size(); i++) {
+            ToggleGroup group = toggleGroupList.get(i);
+            if(group.getSelectedToggle()!=null){
+                
+                 ObservableList<Toggle> toggle = group.getToggles();
+                 for(int j = 0; j < toggle.size(); j++){
+                     
+                     RadioButton rb = (RadioButton)toggle.get(j);
+                     //rb.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
+                     rb.setDisable(true);
+                 }
+                 
+            }
         }  
     }
+    
     public void disableCheckBoxes(Scene scene) {
 
         int i;

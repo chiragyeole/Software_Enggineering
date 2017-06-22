@@ -38,7 +38,7 @@ public class ReasonsDisplayView {
         int count = 0;            
 
         for(int i = 0; i < adm.checkBoxes.size(); i++){
-            boolean reasonsToBeDisplayed = checkIfReasonsToBeDisplayedForCurrentAssumption(incorrectAssumptionReasonsMap, adm, i);
+            boolean reasonsToBeDisplayed = checkIfReasonsToBeDisplayedForCurrentAssumption(incorrectAssumptionReasonsMap, adm.checkBoxes.get(i).getText());
             if(reasonsToBeDisplayed){
                 ArrayList<String> reasons = getReasonsForCurrentAssumption(incorrectAssumptionReasonsMap,incorrectlyAnsweredAssumptionsList, count);
                 
@@ -73,9 +73,9 @@ public class ReasonsDisplayView {
     }
     
     //this method checks if reasons are to be displayed for current assumption
-    public static boolean checkIfReasonsToBeDisplayedForCurrentAssumption(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, AssumptionsModel adm, int i){
+    public static boolean checkIfReasonsToBeDisplayedForCurrentAssumption(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, String currentAssumption){
         boolean reasonsToBeDisplayed = false;
-        if(incorrectAssumptionReasonsMap.keySet().contains(adm.checkBoxes.get(i).getText())){
+        if(incorrectAssumptionReasonsMap.keySet().contains(currentAssumption)){
             reasonsToBeDisplayed = true;
         }else{
             reasonsToBeDisplayed = false;
