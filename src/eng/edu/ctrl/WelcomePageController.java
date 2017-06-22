@@ -57,11 +57,11 @@ public class WelcomePageController implements Initializable {
         HBox hbox1 = (HBox) mainPane.getChildren().get(0);
         Label label = (Label) hbox1.getChildren().get(0);
         label.setText("Score: " + QuestionController.updatedScore);
+        
         SplitPane split = (SplitPane) mainPane.getChildren().get(1);
         AnchorPane anchor = (AnchorPane) split.getItems().get(0);
         VBox vbox1 = (VBox) anchor.getChildren().get(2);
         ScrollPane scroll = (ScrollPane) vbox1.getChildren().get(2);
-        //submitButton = (Button) vbox1.getChildren().get(3);
 
         //get all the checkboxes
         adm = new AssumptionsModel();

@@ -122,16 +122,17 @@ public class QuestionController {
                 optionsResponseView.showPopupForSelectingAtleastOneAssumption();
             }
         } else {
-//            isAssumptionListener = true;
             boolean result = ReasonsListener.checkIfAllReasonsAreSelected();
             if (result) {
                 ArrayList<String> correctReasonsList = ReasonsListener.getCorrectReasonsForIncorrectlySelectedReasons();
                 int numberOfWrongReasonsSelected = ReasonsListener.getNumberOfIncorrectReasons(correctReasonsList);
+                ReasonsListener.highlightReasonResponse(correctReasonsList);
                 int score = ScoreComputation.calculateScore(numberOfWrongReasonsSelected, correctReasonsList.size(), "reasons");
                 updatedScore += score;
                 optionsResponseView.displayScore(submitId.getScene(), updatedScore);
                 submitId.setVisible(false);
                 nextId.setVisible(true);
+                
             } else {
                 optionsResponseView.showPopupForSelectingAllReasons();
             }
