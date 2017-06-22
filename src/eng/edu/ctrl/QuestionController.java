@@ -4,8 +4,9 @@
 package eng.edu.ctrl;
 
 //import static eng.edu.ctrl.ReasonPageController.selectedReasons;
+import static eng.edu.ctrl.AssumptionsListener.response;
 import java.util.HashMap;
-import eng.edu.model.AssumptionsDisplayModel;
+import eng.edu.model.AssumptionsModel;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -16,7 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
@@ -53,19 +53,16 @@ public class QuestionController {
     public static int quesNo;
     
     public void initialize() throws MalformedURLException {
-        /*
-        * real world image stored in users home location is displayed from here.
-         */
+       
         Utilities u = new Utilities();
         quesNo = u.number;
-        
+       
+        //Real world image stored in users home location is displayed from here.
         String path = u.getPath("RealWorld", ".png");
         Image imageReal = new Image(path);
         realWorldImage.setImage(imageReal);
 
-        /*
-        * Idealized model image stored in users home location is displayed from here.
-         */
+        //Idealized model image stored in users home location is displayed from here.
         path = u.getPath("IdealizedModel", ".png");
         Image imageIdeal = new Image(path);
         idealizedImage.setImage(imageIdeal);
@@ -77,61 +74,7 @@ public class QuestionController {
     }
 
     
-    /*
-    *Reasons should be selected for all the incorrectly answered assumptions
-    */
-    public boolean checkIfAllReasonsAreSelected(){
-        int numberOfselectedReasons = 0;
-        for (int i = 0; i < toggleGroupList.size(); i++) {
-            ToggleGroup group = toggleGroupList.get(i);
-            if(group.getSelectedToggle()!=null){
-                numberOfselectedReasons++;
-            }
-        }           
-        if(numberOfselectedReasons!=toggleGroupList.size()){
-            return false;
-        }
-        else{
-            return true;
-        } 
-    }
     
-    public ArrayList<String> getCorrectReasonsForIncorrectlySelectedReasons(){
-        HashMap<String,String> correctReasons = ReasonPageController.correctReasons;
-        ArrayList<String> correctReasonsList = new ArrayList<>();
-        for(int i=0; i< incorrectlyAnsweredAssumptionsList.size(); i++){
-            String currentAssumption = incorrectlyAnsweredAssumptionsList.get(i);
-            String currentReason = correctReasons.get(currentAssumption);
-            correctReasonsList.add(currentReason);
-        }
-        return correctReasonsList;
-    }
-    
-    public void verifySelectedReasons(ArrayList<String> correctReasonsList){
-        ArrayList<Integer> verificationResult = new ArrayList<>();
-        int numberOfWrongReasonsSelected = 0;
-        for (int i = 0; i < toggleGroupList.size(); i++) {
-            ToggleGroup group = toggleGroupList.get(i);
-            if(group.getSelectedToggle()!=null){
-                String selectedReason = group.getSelectedToggle().getUserData().toString();
-                if(selectedReason.equals(correctReasonsList.get(i))){
-                    verificationResult.add(1);
-                }
-                else{
-                    verificationResult.add(0);
-                    numberOfWrongReasonsSelected++;
-                }
-//                RadioButton radioButton = (RadioButton)group.getSelectedToggle();
-//                System.out.println("ID "+radioButton.getId());
-//                
-            }
-        }  
-       System.out.println("verificationResult "+verificationResult);
-       OptionsResponseView optionsResponseView = new OptionsResponseView();
-       int score = optionsResponseView.calculateScore(numberOfWrongReasonsSelected, correctReasonsList.size(), "reasons");
-       updatedScore +=score;
-       optionsResponseView.displayScore(submitId.getScene(), updatedScore);
-    }
     
     public static void closeWindow(ActionEvent event){
         Button button = (Button)(event.getSource());    
@@ -145,10 +88,9 @@ public class QuestionController {
     @FXML
     public void handleSubmitButtonAction(ActionEvent event) throws IOException {
 
-        AssumptionsDisplayModel assumptionsDisplayModel = new AssumptionsDisplayModel();
+        AssumptionsModel assumptionsDisplayModel = new AssumptionsModel();
         OptionsResponseView optionsResponseView = new OptionsResponseView();
-        ReasonPageController reasonPageController = new ReasonPageController();
-
+        
         //if submit is for assumptions or reasons
         if(isAssumptionListener){        
             AssumptionsListener assumptionsListener = new AssumptionsListener();
@@ -157,7 +99,10 @@ public class QuestionController {
             if(isAnswerSelected){              
                 //so that next time the submit is for Reasons
                 isAssumptionListener = false;              
-                incorrectlyAnsweredAssumptionsList = reasonPageController.getIncorrectSelectedAssumption(submitId);            
+                incorrectlyAnsweredAssumptionsList = AssumptionsListener.getIncorrectSelectedAssumption(submitId);                 
+                QuestionController.updatedScore = ScoreComputation.calculateScore(incorrectlyAnsweredAssumptionsList.size(), response.size(), "assumption");       
+                optionsResponseView.displayScore(submitId.getScene(), QuestionController.updatedScore);
+        
                 //student didn't mark any incorrect assumptions
                 if(incorrectlyAnsweredAssumptionsList.isEmpty()){
                     QuestionController.closeWindow(event);
@@ -171,10 +116,13 @@ public class QuestionController {
                 optionsResponseView.showPopupForSelectingAtleastOneAssumption();
             }
         }else{
-            boolean result = checkIfAllReasonsAreSelected();
+            boolean result = ReasonsListener.checkIfAllReasonsAreSelected();
             if(result){
-                ArrayList<String> correctReasonsList = getCorrectReasonsForIncorrectlySelectedReasons();
-                verifySelectedReasons(correctReasonsList);
+                ArrayList<String> correctReasonsList = ReasonsListener.getCorrectReasonsForIncorrectlySelectedReasons();
+                int numberOfWrongReasonsSelected = ReasonsListener.getNumberOfIncorrectReasons(correctReasonsList);
+                int score = ScoreComputation.calculateScore(numberOfWrongReasonsSelected, correctReasonsList.size(), "reasons");
+                updatedScore +=score;
+                optionsResponseView.displayScore(submitId.getScene(), updatedScore);
                 closeWindow(event);
             }else{
                 optionsResponseView.showPopupForSelectingAllReasons();

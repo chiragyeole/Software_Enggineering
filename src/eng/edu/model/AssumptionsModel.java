@@ -26,7 +26,7 @@ import javafx.scene.text.FontWeight;
  * This class reads the assumptions text file and stores them in a list, which
  * is then displayed from the AssumptionsTableView class
  */
-public class AssumptionsDisplayModel {
+public class AssumptionsModel {
 
     public String assumptionsTxt;
     public ObservableList<AssumptionsDAO> assumptionsList = FXCollections.observableArrayList();
@@ -35,7 +35,7 @@ public class AssumptionsDisplayModel {
 
     File fileReal = new File(Utilities.basePath + "/questions/correct.png");
 
-    public AssumptionsDisplayModel() {
+    public AssumptionsModel() {
 
         checkBoxes = new ArrayList<>();
         labels = new ArrayList<>();

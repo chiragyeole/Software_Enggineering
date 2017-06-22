@@ -5,13 +5,11 @@
  */
 package eng.edu.view;
 
+import eng.edu.ctrl.AssumptionsListener;
 import eng.edu.model.AssumptionsDAO;
-import eng.edu.ctrl.ReasonPageController;
-import eng.edu.model.AssumptionsDisplayModel;
+import eng.edu.model.AssumptionsModel;
 import eng.edu.utilities.Utilities;
-import java.io.BufferedReader;
 import java.io.File;
-import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -28,6 +26,7 @@ import javafx.scene.text.FontWeight;
  */
 public class OptionsResponseView {
 
+    //it shows correct and incorrect icons against each assumptions
     public void displayOptionIcon(ObservableList<AssumptionsDAO> assumptionsList, Scene scene) {
 
         int i;
@@ -56,12 +55,12 @@ public class OptionsResponseView {
 
     public void highlightSelectedOptions(Scene scene) {
 
-        AssumptionsDisplayModel adm = new AssumptionsDisplayModel();
+        AssumptionsModel adm = new AssumptionsModel();
         int i;
-        for (i = 0; i < ReasonPageController.response.size(); i++) {
+        for (i = 0; i < AssumptionsListener.response.size(); i++) {
 
-            boolean isCorrect = adm.assumptionsList.get(ReasonPageController.response.get(i)).getIsCorrect();
-            String id = "#checkbox" + ReasonPageController.response.get(i);
+            boolean isCorrect = adm.assumptionsList.get(AssumptionsListener.response.get(i)).getIsCorrect();
+            String id = "#checkbox" + AssumptionsListener.response.get(i);
             CheckBox cb = (CheckBox) scene.lookup(id);
             cb.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
             cb.setSelected(true);
@@ -77,53 +76,13 @@ public class OptionsResponseView {
     public void disableCheckBoxes(Scene scene) {
 
         int i;
-        for (i = 0; i < ReasonPageController.aaumptionListSize; i++) {
+        for (i = 0; i < AssumptionsListener.aaumptionListSize; i++) {
             String id = "#checkbox" + i;
             CheckBox cb = (CheckBox) scene.lookup(id);
             cb.setDisable(true);
         }
     }
 
-    
-    public int calculateScore(int numberOfIncorrectResponses, int numberOfResponses, String scoreEvaluationType) {
-        ArrayList<Integer> scoreWeightage = readScoreFile();
-        int score=0;
-        int positiveScore;
-        int negativeScore;
-        if(scoreEvaluationType.equals("assumption")){
-            positiveScore = scoreWeightage.get(0);
-            negativeScore = scoreWeightage.get(1);
-        }
-        else{
-            positiveScore = scoreWeightage.get(2);
-            negativeScore = scoreWeightage.get(3);
-        }
-        score = positiveScore*(numberOfResponses-numberOfIncorrectResponses) + (negativeScore*numberOfIncorrectResponses);
-        System.out.println("score "+score);
-        return score;
-     
-    }
-    
-    
-    public ArrayList<Integer> readScoreFile(){
-        ArrayList<Integer> scoreWeightage = new ArrayList<>();
-        try{
-            String fileName = "score";
-            BufferedReader bufferedReader = Utilities.getFileReader(fileName);
-            String currentLine;
-            while ((currentLine = bufferedReader.readLine()) != null) {
-                 String scoreAssignment[] = currentLine.split(":");
-                 String scores[] = scoreAssignment[1].split(",");
-                 for(int i=0; i<scores.length; i++){
-                     scoreWeightage.add(Integer.parseInt(scores[i]));
-                 }
-            }
-        }
-        catch(Exception exception){
-            exception.printStackTrace();
-        }
-        return scoreWeightage;
-    }
     
     public void displayScore(Scene scene, int score){
         Label lb1 = (Label) scene.lookup("#score");

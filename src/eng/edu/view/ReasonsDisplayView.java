@@ -7,7 +7,7 @@ package eng.edu.view;
 
 
 import static eng.edu.ctrl.QuestionController.toggleGroupList;
-import eng.edu.model.AssumptionsDisplayModel;
+import eng.edu.model.AssumptionsModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.geometry.Insets;
@@ -23,26 +23,10 @@ import javafx.scene.layout.VBox;
  */
 public class ReasonsDisplayView {
 
-    public static ArrayList<String> getReasonsForCurrentAssumption(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, ArrayList<String> incorrectlyAnsweredAssumptionsList, int count){
-        ArrayList<String> reasons = incorrectAssumptionReasonsMap.get(incorrectlyAnsweredAssumptionsList.get(count));
-        return reasons;
-    }
-    
-    public static boolean checkIfReasonsToBeDisplayedForCurrentAssumption(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, AssumptionsDisplayModel adm, int i){
-        boolean reasonsToBeDisplayed = false;
-        if(incorrectAssumptionReasonsMap.keySet().contains(adm.checkBoxes.get(i).getText())){
-            reasonsToBeDisplayed = true;
-        }else{
-            reasonsToBeDisplayed = false;
-        }    
-        return reasonsToBeDisplayed; 
-    }
-    
-    
     
     public static void displayReasons(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, ArrayList<String> incorrectlyAnsweredAssumptionsList, ScrollPane scrollPane){
        
-        AssumptionsDisplayModel adm = new AssumptionsDisplayModel();
+        AssumptionsModel adm = new AssumptionsModel();
         adm.assignAssumptionsToCheckBoxes();  
         adm.assignLablesToAssumptions();
         
@@ -79,5 +63,23 @@ public class ReasonsDisplayView {
         }         
         scrollPane.setContent(vbox);
     }
+    
+     public static ArrayList<String> getReasonsForCurrentAssumption(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, ArrayList<String> incorrectlyAnsweredAssumptionsList, int count){
+        ArrayList<String> reasons = incorrectAssumptionReasonsMap.get(incorrectlyAnsweredAssumptionsList.get(count));
+        return reasons;
+    }
+    
+    //this method checks if reasons are to be displayed for current assumption
+    public static boolean checkIfReasonsToBeDisplayedForCurrentAssumption(HashMap<String, ArrayList> incorrectAssumptionReasonsMap, AssumptionsModel adm, int i){
+        boolean reasonsToBeDisplayed = false;
+        if(incorrectAssumptionReasonsMap.keySet().contains(adm.checkBoxes.get(i).getText())){
+            reasonsToBeDisplayed = true;
+        }else{
+            reasonsToBeDisplayed = false;
+        }    
+        return reasonsToBeDisplayed; 
+    }
+    
+    
     
 }
