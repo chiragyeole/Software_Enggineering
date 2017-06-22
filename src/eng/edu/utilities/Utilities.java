@@ -74,18 +74,18 @@ public class Utilities {
         return exists;
     }
     
-    public static BufferedReader getFileReader() {
+    public static BufferedReader getFileReader(String fileName) {
         BufferedReader bufferedReader = null;
         try {
 
             int n1 = QuestionController.quesNo;
             System.out.println("n1: " + n1);
-            File file = new File(basePath + baseDirectory + "q" + n1 + "/" + "reasons" + n1 + ".txt");
-            String reasonsTxt = file.toURI().toString();
-            String[] split = reasonsTxt.split("file:");
-            reasonsTxt = split[1];
+            File file = new File(basePath + baseDirectory + "q" + n1 + "/" + fileName + n1 + ".txt");
+            String fileTxt = file.toURI().toString();
+            String[] split = fileTxt.split("file:");
+            fileTxt = split[1];
 
-            bufferedReader = new BufferedReader(new FileReader(reasonsTxt));
+            bufferedReader = new BufferedReader(new FileReader(fileTxt));
         } catch (Exception exception) {
             exception.printStackTrace();
         }

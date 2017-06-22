@@ -5,6 +5,8 @@
  */
 package eng.edu.ctrl;
 
+import static eng.edu.ctrl.QuestionController.incorrectlyAnsweredAssumptionsList;
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
@@ -15,7 +17,6 @@ import javafx.scene.control.Button;
 public class AssumptionsListener {
 
     public boolean checkIfAssumptionsMarked(ActionEvent event, Button submitId) {
-
         ReasonPageController reasonPageController = new ReasonPageController(submitId.getScene());
         int numberOfResponse = reasonPageController.response.size();
         if (numberOfResponse == 0) {
@@ -24,5 +25,5 @@ public class AssumptionsListener {
             return true;
         }
     }
-
+ 
 }

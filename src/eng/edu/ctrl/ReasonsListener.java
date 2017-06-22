@@ -32,7 +32,8 @@ public class ReasonsListener {
     
     public static void reasonsListener(ArrayList<String> incorrectlyAnsweredAssumptionsList, Scene scene){
         ReasonPageController reasonPageController = new ReasonPageController();
-        BufferedReader bufferedReader = Utilities.getFileReader();
+        String fileName = "reasons";
+        BufferedReader bufferedReader = Utilities.getFileReader(fileName);
         HashMap<String, ArrayList> assumptionReasonsMap = reasonPageController.readAllReasonsFromFile(bufferedReader);
                  
         HashMap<String, ArrayList> incorrectAssumptionReasonsMap = getReasonsForIncorrectAssumptions(assumptionReasonsMap, incorrectlyAnsweredAssumptionsList);      

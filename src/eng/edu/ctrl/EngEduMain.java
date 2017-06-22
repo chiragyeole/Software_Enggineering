@@ -39,7 +39,6 @@ public class EngEduMain extends Application {
         vbox1 = (VBox) anchor.getChildren().get(0);
         scroll = (ScrollPane) vbox1.getChildren().get(2);
         //submitButton = (Button) vbox1.getChildren().get(3);
-
         //get all the checkboxes
         adm = new AssumptionsDisplayModel();
         adm.assignAssumptionsToCheckBoxes();
@@ -63,12 +62,10 @@ public class EngEduMain extends Application {
         //group the images and checkboxes together
         Group grp = new Group();
         grp.getChildren().addAll(mainPane, vbox);
-
         primaryStage.setTitle("Engineering Educators");
         primaryStage.setScene(new Scene(grp));
         primaryStage.setMaximized(true);    // make the main form fit to the screen
         primaryStage.show();
-
     }
 
     /**

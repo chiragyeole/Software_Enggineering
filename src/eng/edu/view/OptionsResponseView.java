@@ -9,6 +9,7 @@ import eng.edu.model.AssumptionsDAO;
 import eng.edu.ctrl.ReasonPageController;
 import eng.edu.model.AssumptionsDisplayModel;
 import eng.edu.utilities.Utilities;
+import java.io.BufferedReader;
 import java.io.File;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
@@ -83,19 +84,51 @@ public class OptionsResponseView {
         }
     }
 
-    public void displayScore(ArrayList<String> incorrectResponse, Scene scene, ArrayList<Integer> response) {
-
-        //dummy logic for score
-        if (incorrectResponse.isEmpty()) {
-            Label lb1 = (Label) scene.lookup("#score");
-            lb1.setText("Score: 4");
-        } else if (incorrectResponse.size() == response.size()) {
-            Label lb1 = (Label) scene.lookup("#score");
-            lb1.setText("Score: 0");
-        } else {
-            Label lb1 = (Label) scene.lookup("#score");
-            lb1.setText("Score: 2");
+    
+    public int calculateScore(int numberOfIncorrectResponses, int numberOfResponses, String scoreEvaluationType) {
+        ArrayList<Integer> scoreWeightage = readScoreFile();
+        int score=0;
+        int positiveScore;
+        int negativeScore;
+        if(scoreEvaluationType.equals("assumption")){
+            positiveScore = scoreWeightage.get(0);
+            negativeScore = scoreWeightage.get(1);
         }
+        else{
+            positiveScore = scoreWeightage.get(2);
+            negativeScore = scoreWeightage.get(3);
+        }
+        score = positiveScore*(numberOfResponses-numberOfIncorrectResponses) + (negativeScore*numberOfIncorrectResponses);
+        System.out.println("score "+score);
+        return score;
+     
+    }
+    
+    
+    public ArrayList<Integer> readScoreFile(){
+        ArrayList<Integer> scoreWeightage = new ArrayList<>();
+        try{
+            String fileName = "score";
+            BufferedReader bufferedReader = Utilities.getFileReader(fileName);
+            String currentLine;
+            while ((currentLine = bufferedReader.readLine()) != null) {
+                 String scoreAssignment[] = currentLine.split(":");
+                 String scores[] = scoreAssignment[1].split(",");
+                 for(int i=0; i<scores.length; i++){
+                     scoreWeightage.add(Integer.parseInt(scores[i]));
+                 }
+            }
+        }
+        catch(Exception exception){
+            exception.printStackTrace();
+        }
+        return scoreWeightage;
+    }
+    
+    public void displayScore(Scene scene, int score){
+        Label lb1 = (Label) scene.lookup("#score");
+        lb1.setText("Score: "+score);
+        System.out.println("updatedScore "+score);
     }
 
     //Pops up a dialogue box to indicate that user needs to select atleast one assumption

@@ -6,6 +6,7 @@
 package eng.edu.ctrl;
 
 import eng.edu.model.AssumptionsDisplayModel;
+import eng.edu.view.OptionsResponseView;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import java.io.BufferedReader;
+import java.util.TreeMap;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 /**
  * FXML Controller class
@@ -21,8 +25,10 @@ import java.io.BufferedReader;
  * @author deeptichavan
  */
 public class ReasonPageController implements Initializable {
+//    @FXML
+//    private Button submitId;
 
-    ArrayList<String> correctReasons = new ArrayList<>();
+    public static HashMap<String,String> correctReasons = new HashMap<String,String>();
     public static HashMap<Integer, String> selectedReasons = new HashMap<>();
     public String reasonsTxt;
     public static ArrayList<Integer> response;
@@ -36,33 +42,34 @@ public class ReasonPageController implements Initializable {
         // TODO
     }
 
-    public ReasonPageController(){
-        
+
+    public ReasonPageController(){    
     }
     
     public ReasonPageController(Scene scene){
         response = getStudentsResponse(scene);
     }
     
-    public ArrayList<String> getIncorrectSelectedAssumption() {
-
+    public ArrayList<String> getIncorrectSelectedAssumption(Button submitId) {
         
         AssumptionsDisplayModel adm = new AssumptionsDisplayModel();
-
         //get the incorrect assumptions that the student selected
         ArrayList<String> incorrectSelectedResponse = new ArrayList<>();
         int i;
         for (i = 0; i < response.size(); i++) {
+
             String txt = adm.assumptionsList.get(response.get(i)).getAssumption();
 
             //verify against the correct result
             boolean res = adm.assumptionsList.get(response.get(i)).getIsCorrect();
-                        
             if (res == false) {
                 incorrectSelectedResponse.add(txt);
             } 
         }
-        
+
+        OptionsResponseView opr = new OptionsResponseView();
+        QuestionController.updatedScore = opr.calculateScore(incorrectSelectedResponse.size(), response.size(), "assumption");       
+        opr.displayScore(submitId.getScene(), QuestionController.updatedScore);
         return incorrectSelectedResponse;
     }
 
@@ -74,9 +81,7 @@ public class ReasonPageController implements Initializable {
     * get the option numbers that the student selected
      */
     public ArrayList<Integer> getStudentsResponse(Scene scene) {
-
         AssumptionsDisplayModel adm = new AssumptionsDisplayModel();
-
         ArrayList<Integer> response = new ArrayList<>();
         aaumptionListSize = adm.assumptionsList.size();
 
@@ -84,13 +89,10 @@ public class ReasonPageController implements Initializable {
         for (i = 0; i < aaumptionListSize; i++) {
             String id = "#checkbox" + i;
             CheckBox cb = (CheckBox) scene.lookup(id);
-
             if (cb.isSelected()) {
                 response.add(i);
             }
-
         }
-
         return response;
     }
 
@@ -114,7 +116,7 @@ public class ReasonPageController implements Initializable {
                         if (temp[i].contains("|")) {
                             String lastReason = temp[i];
                             String temp1[] = lastReason.split("\\|");
-                            correctReasons.add(temp1[1]);
+                            correctReasons.put(currentAssumption,temp1[1]);
                             reasons.add(temp1[0]);
                         } else {
                             reasons.add(temp[i]);
