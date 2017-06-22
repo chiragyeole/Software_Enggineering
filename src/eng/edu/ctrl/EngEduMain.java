@@ -12,14 +12,36 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1c31831230f666d78ce3227c0b2d4e1e075aee8e
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.StageStyle;
 
 public class EngEduMain extends Application {
 
+<<<<<<< HEAD
+    
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        
+       Parent root = FXMLLoader.load(getClass().getResource("/eng/edu/view/WelcomePage.fxml"));
+        
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setScene(scene);
+        //stage.setMaximized(true);
+        //stage.setFullScreen(true);
+        stage.setTitle("Engineering Educators");
+        stage.show();
+=======
     @FXML
     public ScrollPane scroll;
     @FXML
@@ -65,13 +87,10 @@ public class EngEduMain extends Application {
         primaryStage.setScene(new Scene(grp));
         primaryStage.setMaximized(true);    // make the main form fit to the screen
         primaryStage.show();
+>>>>>>> 1c31831230f666d78ce3227c0b2d4e1e075aee8e
     }
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
-
+    
 }
