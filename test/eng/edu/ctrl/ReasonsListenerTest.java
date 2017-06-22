@@ -5,13 +5,6 @@
  */
 package eng.edu.ctrl;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
-import java.util.HashMap;
-import org.junit.Test;
-import static org.junit.Assert.*;
-
-=======
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -21,13 +14,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 
->>>>>>> 1da8881684ff6b1d156a99136a3661cca4d2d514
 /**
  *
  * @author poojithadharmavaram
  */
 public class ReasonsListenerTest {
-<<<<<<< HEAD
 
     public static HashMap<String, ArrayList> assumptionReasonsMap;
 
@@ -37,7 +28,7 @@ public class ReasonsListenerTest {
     }
 
     public HashMap getMap() {
-=======
+
     
     public static HashMap<String, ArrayList> assumptionReasonsMap;
     
