@@ -8,10 +8,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="714.0" prefWidth="948.0" style="-fx-background-color: #00344D;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="eng.edu.ctrl.WelcomePageController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="948.0" style="-fx-background-color: #00344D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.WelcomePageController">
    <children>
-      <AnchorPane fx:id="anchorWelcome" layoutX="266.0" layoutY="234.0" prefHeight="247.0" prefWidth="403.0">
+      <AnchorPane fx:id="anchorWelcome" layoutX="239.0" layoutY="245.0" prefHeight="247.0" prefWidth="403.0">
          <effect>
             <Glow>
                <input>
@@ -20,7 +19,7 @@
             </Glow>
          </effect>
          <children>
-            <Button layoutX="151.0" layoutY="177.0" mnemonicParsing="false" onAction="#handleMainPage" style="-fx-background-color: #A07C40;" text="Start Tutorial" textFill="#00344d">
+            <Button layoutX="151.0" layoutY="177.0" mnemonicParsing="false" onAction="#handleMainPage" style="-fx-background-color: #A07C40;" text="Start tutorial" textFill="#00344d">
                <font>
                   <Font name="Verdana" size="17.0" />
                </font>
