@@ -1,6 +1,6 @@
 package eng.edu.ctrl;
 
-import eng.edu.model.AssumptionsDisplayModel;
+import eng.edu.model.AssumptionsModel;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -28,7 +28,7 @@ public class EngEduMain extends Application {
     VBox vbox1;
     Button submitButton;
     
-    AssumptionsDisplayModel adm;
+    AssumptionsModel adm;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -38,9 +38,9 @@ public class EngEduMain extends Application {
         AnchorPane anchor = (AnchorPane) split.getItems().get(0);
         vbox1 = (VBox) anchor.getChildren().get(0);
         scroll = (ScrollPane) vbox1.getChildren().get(2);
-        //submitButton = (Button) vbox1.getChildren().get(3);
+
         //get all the checkboxes
-        adm = new AssumptionsDisplayModel();
+        adm = new AssumptionsModel();
         adm.assignAssumptionsToCheckBoxes();
         adm.assignLablesToAssumptions();
 
@@ -51,7 +51,6 @@ public class EngEduMain extends Application {
         //add these checkboxes to the vbox
         int i;
         for (i = 0; i < adm.checkBoxes.size(); i++) {
-            System.out.println("Iteration" + i);
             final HBox hbox = new HBox();
             vbox.getChildren().add(hbox);
             hbox.getChildren().addAll(adm.labels.get(i), adm.checkBoxes.get(i));
