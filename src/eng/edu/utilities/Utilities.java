@@ -69,28 +69,9 @@ public class Utilities {
     public String getPath(String imageType, String fileType) {
 
         File file = new File(basePath + baseDirectory + "q" + number + "/" + imageType + number + fileType);
-        String filename = file.toURI().toString();
-        String parts[] = filename.split("file:");
-   
-        boolean exists = fileExists(parts[1]);
-        if(exists)
-            return filename;
-        else
-            return null;
+        return file.toURI().toString();
     }
-    
-    public boolean fileExists(String filename)
-    {
-        File varTmpDir = new File(filename);
-        boolean exists = varTmpDir.exists();
-        //System.out.println("exists: "+exists);
-        return exists;
-    }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 1c31831230f666d78ce3227c0b2d4e1e075aee8e
     public static BufferedReader getFileReader(String fileName) {
         BufferedReader bufferedReader = null;
         try {
