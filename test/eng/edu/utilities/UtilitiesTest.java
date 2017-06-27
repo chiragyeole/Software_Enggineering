@@ -54,7 +54,10 @@ public class UtilitiesTest {
     public void testFileExists() {
         System.out.println("fileExists");
         
-        String filename = "/Users/poojithadharmavaram/questions/q1/IdealizedModel1.png";
+        String basePath = System.getProperty("user.home");
+        String baseDirectory = "/questions/";
+        String filename = basePath + baseDirectory + "q1/IdealizedModel1.png";
+       
         Utilities instance = new Utilities();
         boolean expResult = true;
         boolean result = instance.fileExists(filename);
