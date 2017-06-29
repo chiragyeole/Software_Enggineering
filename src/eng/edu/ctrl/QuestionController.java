@@ -22,12 +22,24 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import eng.edu.utilities.Utilities;
+import eng.edu.view.GifDecoder;
 import eng.edu.view.OptionsResponseView;
+import java.awt.image.BufferedImage;
+import javafx.animation.Interpolator;
+import javafx.animation.Transition;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class QuestionController {
 
@@ -57,6 +69,10 @@ public class QuestionController {
     public static ArrayList<ToggleGroup> toggleGroupList = new ArrayList<>();
 
     public static int quesNo;
+    
+    javafx.scene.paint.Color fxColor = javafx.scene.paint.Color.rgb(8, 1, 94, 1);
+    private final Background focusBackground = new Background( new BackgroundFill( fxColor, CornerRadii.EMPTY, Insets.EMPTY ) );
+   
 
     public void initialize() throws MalformedURLException {
 
@@ -144,15 +160,51 @@ public class QuestionController {
         closeWindow(event);
 
         if (Utilities.questionAlreadyDone.size() == Utilities.max) {
-            AnchorPane root = FXMLLoader.load(getClass().getResource("/eng/edu/view/EndPage.fxml"));
-            AnchorPane anchor = (AnchorPane) root.getChildren().get(0);
+            AnchorPane root1 = FXMLLoader.load(getClass().getResource("/eng/edu/view/EndPage.fxml"));
+            
+            
+             HBox root = new HBox();
+
+        // TODO: provide gif file, ie exchange banana.gif with your file
+        Animation animation;
+        if(score >= 4){
+            animation = new AnimatedGif(getClass().getResource("o5.gif").toExternalForm(), 800);
+        }
+        else{
+            animation = new AnimatedGif(getClass().getResource("m.gif").toExternalForm(), 800);
+        }
+        
+        
+        animation.setCycleCount(10);
+        animation.play();
+
+        VBox vbox = new VBox(10);
+        vbox.getChildren().add(animation.getView());
+        vbox.setSpacing(2);
+        vbox.setMargin(animation.getView(), new Insets(50, 0, 0, 320));
+        vbox.setBackground( focusBackground );
+
+        
+    
+
+        VBox vbox2 = new VBox();
+        vbox2.getChildren().addAll(vbox, root1);
+        
+        root.getChildren().addAll(vbox2);
+
+        Scene scene = new Scene(root, 900, 650);
+            
+            
+            AnchorPane anchor = (AnchorPane) root1.getChildren().get(0);
             Label label = (Label) anchor.getChildren().get(1);
             label.setText("Your final score is " + score);
-            Scene scene = new Scene(root);
+//            Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UTILITY);
             stage.setScene(scene);
-            stage.setTitle("Engineering Educators");
+            stage.setTitle("Quiddz");
+            Image image = new Image("logo_trans.png");
+            stage.getIcons().add(image);
             stage.show();
         } else {
   
@@ -161,5 +213,77 @@ public class QuestionController {
 
         }
     }
+    
+    
+    
+    
+     public class AnimatedGif extends Animation {
+
+        public AnimatedGif( String filename, double durationMs) {
+
+            GifDecoder d = new GifDecoder();
+            d.read( filename);
+
+            Image[] sequence = new Image[ d.getFrameCount()];
+            for( int i=0; i < d.getFrameCount(); i++) {
+
+                WritableImage wimg = null;
+                BufferedImage bimg = d.getFrame(i);
+                sequence[i] = SwingFXUtils.toFXImage( bimg, wimg);
+
+            }
+
+            super.init( sequence, durationMs);
+        }
+
+    }
+
+    public class Animation extends Transition {
+
+        private ImageView imageView;
+        private int count;
+
+        private int lastIndex;
+
+        private Image[] sequence;
+
+        private Animation() {
+        }
+
+        public Animation( Image[] sequence, double durationMs) {
+            init( sequence, durationMs);
+        }
+
+        private void init( Image[] sequence, double durationMs) {
+            this.imageView = new ImageView(sequence[0]);
+            this.sequence = sequence;
+            this.count = sequence.length;
+
+            setCycleCount(1);
+            setCycleDuration(Duration.millis(durationMs));
+            setInterpolator(Interpolator.LINEAR);
+
+        }
+
+        protected void interpolate(double k) {
+
+            final int index = Math.min((int) Math.floor(k * count), count - 1);
+            //if (index != lastIndex) {
+                imageView.setImage(sequence[index]);
+                lastIndex = index;
+            //}
+
+        }
+
+        public ImageView getView() {
+            return imageView;
+        }
+
+    }
 
 }
+
+
+
+
+ 

@@ -15,7 +15,7 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="1200.0" style="-fx-background-color: #64D3C3;" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.QuestionController">
    <children>
-      <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="1200.0" style="-fx-background-color: #00344D;" styleClass="HBox" VBox.vgrow="NEVER">
+      <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="1200.0" style="-fx-background-color: #08015e;" styleClass="HBox" VBox.vgrow="NEVER">
          <VBox.margin>
             <Insets />
          </VBox.margin>
@@ -34,15 +34,15 @@
         <items>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1200.0" style="-fx-background-color: #c3c8cd;">
                <children>
-                  <Button fx:id="nextId" contentDisplay="CENTER" layoutX="197.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleNextPage" prefHeight="30.0" prefWidth="72.0" style="-fx-background-color: #00344D;" text="Next" textAlignment="CENTER" textFill="#9e7a41c7" visible="false">
+                  <Button fx:id="nextId" contentDisplay="CENTER" layoutX="197.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleNextPage" prefHeight="30.0" prefWidth="72.0" style="-fx-background-color: #08015e;" text="Next" textAlignment="CENTER" textFill="#9e7a41c7" visible="false">
                      <font>
-                        <Font size="15.0" />
+                        <Font size="16.0" />
                      </font>
                   </Button>
                  
-                                                                                          <Button fx:id="submitId" contentDisplay="CENTER" layoutX="40.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleSubmitButtonAction" prefHeight="30.0" prefWidth="72.0" style="-fx-background-color: #00344D;" text="Submit" textAlignment="CENTER" textFill="#9e7a41c7">
+                  <Button fx:id="submitId" contentDisplay="CENTER" layoutX="40.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleSubmitButtonAction" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: #08015e;" text="Submit" textAlignment="CENTER" textFill="#9e7a41c7">
                      <font>
-                        <Font size="15.0" />
+                        <Font size="16.0" />
                      </font>
                   </Button>
                   <VBox fx:id="dataPane" layoutX="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="1198.0" style="-fx-background-color: #C3C8CD;" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -62,7 +62,7 @@
                               
                                  </children>
                         </AnchorPane>
-                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="1200.0" style="-fx-background-color: #00344D;">
+                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="1200.0" style="-fx-background-color: #08015e;">
                            <children>
                               <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutY="11.0" text=" Select appropriate assumptions to reach idealized model" textFill="#a07c40">
                                  <font>

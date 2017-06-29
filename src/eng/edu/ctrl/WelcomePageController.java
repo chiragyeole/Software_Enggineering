@@ -21,6 +21,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -87,6 +89,7 @@ public class WelcomePageController implements Initializable {
         //add vbox to scroll pane
         scroll.setContent(vbox);
         scroll.setStyle("-fx-background: #C3C8CD; -fx-background-color: #C3C8CD;");
+            
         //group the images and checkboxes together
         Group grp = new Group();
         grp.getChildren().addAll(mainPane, vbox);

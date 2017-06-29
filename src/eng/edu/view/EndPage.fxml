@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="948.0" style="-fx-background-color: #00344D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.EndPageController">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="948.0" style="-fx-background-color: #08015e;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.EndPageController">
    <children>
       <AnchorPane layoutX="127.0" layoutY="234.0" prefHeight="247.0" prefWidth="403.0">
          <effect>
@@ -19,22 +19,22 @@
             </Glow>
          </effect>
          <children>
-            <Button layoutX="256.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleEndPage" style="-fx-background-color: #A07C40;" text="Close Tutorial" textFill="#00344d">
+            <Button layoutX="240.0" layoutY="0.0" mnemonicParsing="false" onAction="#handleEndPage" style="-fx-background-color: #A07C40;" text="Close Tutorial" textFill="#08015e">
                <font>
                   <Font name="Verdana" size="17.0" />
                </font>
             </Button>
-            <Label fx:id="anchorScore" contentDisplay="CENTER" layoutX="183.0" layoutY="45.0" text="Your final score is " textAlignment="CENTER" textFill="#a07c40">
+            <Label fx:id="anchorScore" contentDisplay="CENTER" layoutX="183.0" layoutY="-160.0" text="Your final score is " textAlignment="CENTER" textFill="#a07c40">
                <font>
                   <Font name="Verdana" size="25.0" />
                </font>
             </Label>
-            <Label contentDisplay="CENTER" layoutX="11.0" layoutY="87.0" text="Please don't close the window till TA records the score" textAlignment="CENTER" textFill="#a07c40">
+            <Label contentDisplay="CENTER" layoutX="11.0" layoutY="-110.0" text="Please don't close the window till TA records the score" textAlignment="CENTER" textFill="#a07c40">
                <font>
                   <Font name="Verdana" size="25.0" />
                </font>
             </Label>
-            <Label contentDisplay="CENTER" layoutX="183.0" layoutY="135.0" text="See you next time :) " textAlignment="CENTER" textFill="#a07c40">
+            <Label contentDisplay="CENTER" layoutX="183.0" layoutY="-55.0" text="See you next time :) " textAlignment="CENTER" textFill="#a07c40">
                <font>
                   <Font name="Verdana" size="25.0" />
                </font>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -8,9 +10,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="948.0" style="-fx-background-color: #00344D;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.WelcomePageController">
+<AnchorPane id="AnchorPane" prefHeight="100.0" prefWidth="948.0" style="-fx-background-color: #08015e;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eng.edu.ctrl.WelcomePageController">
    <children>
-      <AnchorPane fx:id="anchorWelcome" layoutX="239.0" layoutY="245.0" prefHeight="247.0" prefWidth="403.0">
+      <AnchorPane fx:id="anchorWelcome" layoutX="230.0" layoutY="-20.0" prefHeight="470.0" prefWidth="403.0">
          <effect>
             <Glow>
                <input>
@@ -18,23 +20,34 @@
                </input>
             </Glow>
          </effect>
+<!--         <children>
+            <ImageView id="natureImage">    
+                <image>
+                    <Image url="@nature.jpg" />
+                </image>
+            </ImageView>  
+         </children>-->
          <children>
-            <Button layoutX="151.0" layoutY="177.0" mnemonicParsing="false" onAction="#handleMainPage" style="-fx-background-color: #A07C40;" text="Start Tutorial" textFill="#00344d">
+                       
+            <Button layoutX="151.0" layoutY="177.0" mnemonicParsing="false" onAction="#handleMainPage" style="-fx-background-color: #A07C40;" text="Start Tutorial" textFill="#08015e">
                <font>
                   <Font name="Verdana" size="17.0" />
                </font>
             </Button>
-            <Label contentDisplay="CENTER" layoutX="92.0" layoutY="41.0" text="Welcome To" textAlignment="CENTER" textFill="#a07c40">
+            <Label contentDisplay="CENTER" layoutX="107.0" layoutY="41.0" text="Welcome to" textAlignment="CENTER" textFill="#a07c40">
                <font>
                   <Font name="Verdana" size="36.0" />
                </font>
             </Label>
-            <Label contentDisplay="CENTER" layoutX="11.0" layoutY="87.0" text="Engineering Educators" textAlignment="CENTER" textFill="#a07c40">
+            <Label contentDisplay="CENTER" layoutX="150.0" layoutY="87.0" text="Quiddz!" textAlignment="CENTER" textFill="#a07c40">
                <font>
                   <Font name="Verdana" size="36.0" />
                </font>
             </Label>
+            
+            
          </children>
+         
       </AnchorPane>
    </children>
 </AnchorPane>
