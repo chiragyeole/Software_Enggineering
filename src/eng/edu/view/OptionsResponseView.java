@@ -9,8 +9,6 @@ import eng.edu.ctrl.AssumptionsListener;
 import static eng.edu.ctrl.QuestionController.toggleGroupList;
 import eng.edu.model.AssumptionsDAO;
 import eng.edu.model.AssumptionsModel;
-import eng.edu.utilities.Utilities;
-import java.io.File;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -21,7 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -37,9 +34,12 @@ public class OptionsResponseView {
         int i;
         String img;
 
-        highlightSelectedOptions(scene);
+        
+        highlightAllCorrectAssumptions(scene);
+        highlightSelectedOptionsWithTick(scene);
         disableCheckBoxes(scene);
 
+        /*
         for (i = 0; i < assumptionsList.size(); i++) {
             String id = "#label" + i;
             Label lb = (Label) scene.lookup(id);
@@ -55,15 +55,14 @@ public class OptionsResponseView {
             iv.setFitWidth(15);
             lb.setGraphic(iv);
         }
+*/
     }
 
-
-    public void highlightSelectedOptions(Scene scene) {
+    public void highlightSelectedOptionsWithTick(Scene scene) {
 
         AssumptionsModel adm = new AssumptionsModel();
         int i;
         for (i = 0; i < AssumptionsListener.response.size(); i++) {
-
             boolean isCorrect = adm.assumptionsList.get(AssumptionsListener.response.get(i)).getIsCorrect();
             String id = "#checkbox" + AssumptionsListener.response.get(i);
             CheckBox cb = (CheckBox) scene.lookup(id);
@@ -78,46 +77,66 @@ public class OptionsResponseView {
 
     }
 
-    public static void highlightReasonResponse(ArrayList<String> correctReasonsList){
+    public void highlightAllCorrectAssumptions(Scene scene) {
+
+        AssumptionsModel adm = new AssumptionsModel();
+        int i;
+        for (i = 0; i < adm.assumptionsList.size(); i++) {
+
+            boolean isCorrect = adm.assumptionsList.get(i).getIsCorrect();
+            String id = "#checkbox" + i;
+            CheckBox cb = (CheckBox) scene.lookup(id);
+            if (isCorrect) {
+                cb.setStyle("-fx-text-fill: green;");
+            }else{
+                cb.setStyle("-fx-text-fill: grey;");
+            }
+
+        }
+    }
+
+    public static void highlightReasonResponse(ArrayList<String> correctReasonsList) {
+        
+        System.out.println("correctReasonsList :: " + correctReasonsList);
         for (int i = 0; i < toggleGroupList.size(); i++) {
             ToggleGroup group = toggleGroupList.get(i);
-            if(group.getSelectedToggle()!=null){
+            if (group.getSelectedToggle() != null) {
                 String selectedReason = group.getSelectedToggle().getUserData().toString();
-                RadioButton rb = (RadioButton)group.getSelectedToggle();
+                RadioButton rb = (RadioButton) group.getSelectedToggle();
                 rb.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
-                
-                if(selectedReason.equals(correctReasonsList.get(i))){
+
+                if (selectedReason.equals(correctReasonsList.get(i))) {
                     rb.setStyle("-fx-text-fill: green;");
-                }
-                else{
+                } else {
                     rb.setStyle("-fx-text-fill: red;");
                 }
-                
+
             }
         }
-        
-        disableRadioButtons();
+
+        //disableRadioButtons();
     }
-    
-    
-    public static void disableRadioButtons(){
-        
+
+    public static void disableRadioButtons(ArrayList<String> correctReasonsList) {
+
         for (int i = 0; i < toggleGroupList.size(); i++) {
             ToggleGroup group = toggleGroupList.get(i);
-            if(group.getSelectedToggle()!=null){
-                
-                 ObservableList<Toggle> toggle = group.getToggles();
-                 for(int j = 0; j < toggle.size(); j++){
-                     
-                     RadioButton rb = (RadioButton)toggle.get(j);
-                     //rb.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
-                     rb.setDisable(true);
-                 }
-                 
+            if (group.getSelectedToggle() != null) {
+
+                ObservableList<Toggle> toggle = group.getToggles();
+                for (int j = 0; j < toggle.size(); j++) {
+
+                    RadioButton rb = (RadioButton) toggle.get(j);
+                    if(rb.getText().equals(correctReasonsList.get(i))){
+                        rb.setStyle("-fx-text-fill: green;");
+                    }
+                    rb.setDisable(true);
+                }
+
             }
-        }  
+        }
     }
-    
+
     public void disableCheckBoxes(Scene scene) {
 
         int i;
@@ -128,11 +147,10 @@ public class OptionsResponseView {
         }
     }
 
-    
-    public void displayScore(Scene scene, int score){
+    public void displayScore(Scene scene, int score) {
         Label lb1 = (Label) scene.lookup("#score");
-        lb1.setText("Score: "+score);
-        System.out.println("updatedScore "+score);
+        lb1.setText("Score: " + score);
+        System.out.println("updatedScore " + score);
     }
 
     //Pops up a dialogue box to indicate that user needs to select atleast one assumption
