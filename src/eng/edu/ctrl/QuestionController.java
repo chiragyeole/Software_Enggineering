@@ -125,14 +125,14 @@ public class QuestionController {
 
                 //student didn't mark any incorrect assumptions
                 if (incorrectlyAnsweredAssumptionsList.isEmpty()) {
-                    optionsResponseView.displayOptionIcon(assumptionsDisplayModel.assumptionsList, submitId.getScene());
+                    optionsResponseView.displayAssumptions(assumptionsDisplayModel.assumptionsList, submitId.getScene());
                     submitId.setVisible(false);
                     nextId.setVisible(true);
                 } else {
                     //give reasons for the incorrectly selected assumptions
                     ReasonsListener rl = new ReasonsListener();
                     rl.reasonsListener(incorrectlyAnsweredAssumptionsList, submitId.getScene());
-                    optionsResponseView.displayOptionIcon(assumptionsDisplayModel.assumptionsList, submitId.getScene());
+                    optionsResponseView.displayAssumptions(assumptionsDisplayModel.assumptionsList, submitId.getScene());
                 }
             } else {
                 optionsResponseView.showPopupForSelectingAtleastOneAssumption();

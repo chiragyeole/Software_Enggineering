@@ -50,7 +50,7 @@ public class ReasonsDisplayView {
                 final ToggleGroup group = new ToggleGroup();
                 for (int j = 0; j < reasons.size(); j++) {
                     RadioButton radioButton = new RadioButton(reasons.get(j));
-                    radioButton.setFont(Font.font("Tahoma", FontWeight.NORMAL, 12));
+                    radioButton.setFont(Font.font("Tahoma", FontWeight.NORMAL, 13));
                     radioButton.setUserData(reasons.get(j));
                     vbox1.getChildren().add(radioButton);
                     vbox1.setMargin(radioButton, new Insets(0, 0, 0, 50));
