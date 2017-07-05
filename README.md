@@ -11,6 +11,42 @@ Project Description: This specifies the basic requirements of the project. <br /
 User Stories: This describes all the user stories pertaining to this project. <br />
 src: This directory has the application logic <br /> 
 
+
+Questions folder format:
+The questions folder consists of separate folders for each question. <br />
+
+(n) : Denotes the question number. <br />
+
+Each question folder consists of the following files: <br />
+IdealizedModel(n).png <br />
+RealWorld(n).png <br />
+assumptions(n).txt <br />
+reasons(n).txt <br />
+score(n).txt <br />
+
+The format of the files is as follows: <br/>
+
+assumptions(n).txt : <br/>
+Assumption text | 1/0    1:If the assumption is correct; 0:otherwise.<br />
+
+reasons(n).txt : <br />
+Incorrect assumption text on one line. List of reasons associated separated by a ";" on the next immediate line. <br />
+The correct reason is separated from the list of reasons using a |. <br />
+
+Example: <br />
+Incorrect assumption <br />
+Reason 1;Reason 2;Correct Reason 3;Reason 4|Correct Reason 3 <br />
+
+
+score(n).txt: <br />
+assumptions: correct score,incorrect score
+reasons: corect reason score,incorrect reason score
+
+
+
+
+
+
 <br />
 Team Members:
 
