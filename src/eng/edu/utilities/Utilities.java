@@ -87,13 +87,10 @@ public class Utilities {
         return exists;
     }
 
-    public static BufferedReader getFileReader(String fileName) {
+    public static BufferedReader getFileReader(String fileName, int n1) {
         BufferedReader bufferedReader = null;
         try {
 
-            int n1 = QuestionController.quesNo;
-            //int n1 = 1;
-            System.out.println("n1: " + n1);
             File file = new File(basePath + baseDirectory + "q" + n1 + "/" + fileName + n1 + ".txt");
             String fileTxt = file.toURI().toString();
             String[] split = fileTxt.split("file:");

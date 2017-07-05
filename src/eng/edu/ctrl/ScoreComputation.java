@@ -15,8 +15,8 @@ import java.util.ArrayList;
  */
 public class ScoreComputation {
     
-    public static int calculateScore(int numberOfIncorrectResponses, int numberOfResponses, String scoreEvaluationType) {
-        ArrayList<Integer> scoreWeightage = readScoreFile();
+    public static int calculateScore(int numberOfIncorrectResponses, int numberOfResponses, String scoreEvaluationType, int quesNo) {
+        ArrayList<Integer> scoreWeightage = readScoreFile(quesNo);
         int score=0;
         int positiveScore;
         int negativeScore;
@@ -34,11 +34,14 @@ public class ScoreComputation {
     }
     
     
-    public static ArrayList<Integer> readScoreFile(){
+    /*
+    * read the scores text file and get the weightage
+    */
+    public static ArrayList<Integer> readScoreFile(int quesNo){
         ArrayList<Integer> scoreWeightage = new ArrayList<>();
         try{
             String fileName = "score";
-            BufferedReader bufferedReader = Utilities.getFileReader(fileName);
+            BufferedReader bufferedReader = Utilities.getFileReader(fileName, quesNo);
             String currentLine;
             while ((currentLine = bufferedReader.readLine()) != null) {
                  String scoreAssignment[] = currentLine.split(":");
