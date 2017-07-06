@@ -13,6 +13,7 @@ src: This directory has the application logic <br />
 
 
 Questions folder format:
+The questions folder should be in the user's Home directory.
 The questions folder consists of separate folders for each question. <br />
 
 (n) : Denotes the question number. <br />
