@@ -41,5 +41,10 @@
             </Label>
          </children>
       </AnchorPane>
+      <Label fx:id="anchorScore1" contentDisplay="CENTER" layoutX="285.0" layoutY="-228.0" prefHeight="32.0" prefWidth="574.0" textAlignment="RIGHT" textFill="#a07c40">
+         <font>
+            <Font name="Verdana" size="25.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
