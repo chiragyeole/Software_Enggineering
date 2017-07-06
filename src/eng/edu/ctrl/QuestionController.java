@@ -121,19 +121,19 @@ public class QuestionController {
                 //so that next time the submit is for Reasons
                 isAssumptionListener = false;
                 incorrectlyAnsweredAssumptionsList = AssumptionsListener.getIncorrectSelectedAssumption(submitId);
-                QuestionController.updatedScore += ScoreComputation.calculateScore(incorrectlyAnsweredAssumptionsList.size(), response.size(), "assumption");
+                QuestionController.updatedScore += ScoreComputation.calculateScore(incorrectlyAnsweredAssumptionsList.size(), response.size(), "assumption", QuestionController.quesNo);
                 optionsResponseView.displayScore(submitId.getScene(), QuestionController.updatedScore);
 
                 //student didn't mark any incorrect assumptions
                 if (incorrectlyAnsweredAssumptionsList.isEmpty()) {
-                    optionsResponseView.displayOptionIcon(assumptionsDisplayModel.assumptionsList, submitId.getScene());
+                    optionsResponseView.displayAssumptions(assumptionsDisplayModel.assumptionsList, submitId.getScene());
                     submitId.setVisible(false);
                     nextId.setVisible(true);
                 } else {
                     //give reasons for the incorrectly selected assumptions
                     ReasonsListener rl = new ReasonsListener();
                     rl.reasonsListener(incorrectlyAnsweredAssumptionsList, submitId.getScene());
-                    optionsResponseView.displayOptionIcon(assumptionsDisplayModel.assumptionsList, submitId.getScene());
+                    optionsResponseView.displayAssumptions(assumptionsDisplayModel.assumptionsList, submitId.getScene());
                 }
             } else {
                 optionsResponseView.showPopupForSelectingAtleastOneAssumption();
@@ -141,10 +141,10 @@ public class QuestionController {
         } else {
             boolean result = ReasonsListener.checkIfAllReasonsAreSelected();
             if (result) {
-                ArrayList<String> correctReasonsList = ReasonsListener.getCorrectReasonsForIncorrectlySelectedReasons();
+                ArrayList<String> correctReasonsList = ReasonsListener.getCorrectReasonsForIncorrectlySelectedReasons(incorrectlyAnsweredAssumptionsList,  ReasonsListener.correctReasons);
                 int numberOfWrongReasonsSelected = ReasonsListener.getNumberOfIncorrectReasons(correctReasonsList);
                 optionsResponseView.disableRadioButtons(correctReasonsList);
-                int score = ScoreComputation.calculateScore(numberOfWrongReasonsSelected, correctReasonsList.size(), "reasons");
+                int score = ScoreComputation.calculateScore(numberOfWrongReasonsSelected, correctReasonsList.size(), "reasons", QuestionController.quesNo);
                 updatedScore += score;
                 optionsResponseView.displayScore(submitId.getScene(), updatedScore);
                 submitId.setVisible(false);

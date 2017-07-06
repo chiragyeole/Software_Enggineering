@@ -28,36 +28,19 @@ import javafx.scene.text.FontWeight;
  */
 public class OptionsResponseView {
 
-    //it shows correct and incorrect icons against each assumptions
-    public void displayOptionIcon(ObservableList<AssumptionsDAO> assumptionsList, Scene scene) {
+    public void displayAssumptions(ObservableList<AssumptionsDAO> assumptionsList, Scene scene) {
 
-        int i;
-        String img;
-
-        
         highlightAllCorrectAssumptions(scene);
         highlightSelectedOptionsWithTick(scene);
         disableCheckBoxes(scene);
 
-        /*
-        for (i = 0; i < assumptionsList.size(); i++) {
-            String id = "#label" + i;
-            Label lb = (Label) scene.lookup(id);
-            lb.setVisible(true);
-
-            if (assumptionsList.get(i).getIsCorrect() == true) {
-                img = new File(Utilities.basePath + "/questions/correct.png").toURI().toString();
-            } else {
-                img = new File(Utilities.basePath + "/questions/cross.png").toURI().toString();
-            }
-            ImageView iv = new ImageView(img);
-            iv.setFitHeight(15);
-            iv.setFitWidth(15);
-            lb.setGraphic(iv);
-        }
-*/
     }
 
+    /*
+    * this method will display the assumptions that the student has selected
+    * with a tick mark against them
+    * incorrectly answered assumptions will be in red
+     */
     public void highlightSelectedOptionsWithTick(Scene scene) {
 
         AssumptionsModel adm = new AssumptionsModel();
@@ -66,17 +49,19 @@ public class OptionsResponseView {
             boolean isCorrect = adm.assumptionsList.get(AssumptionsListener.response.get(i)).getIsCorrect();
             String id = "#checkbox" + AssumptionsListener.response.get(i);
             CheckBox cb = (CheckBox) scene.lookup(id);
-            cb.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
+            cb.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
             cb.setSelected(true);
-            if (isCorrect) {   
-                cb.setStyle("-fx-text-fill: green;");
-            }else{
+            if (!isCorrect) {
                 cb.setStyle("-fx-text-fill: red;");
             }
         }
 
     }
 
+    /*
+    *this method will highlight all the correct assumptions in green
+    *and will fade out the incorrect ones
+     */
     public void highlightAllCorrectAssumptions(Scene scene) {
 
         AssumptionsModel adm = new AssumptionsModel();
@@ -88,22 +73,26 @@ public class OptionsResponseView {
             CheckBox cb = (CheckBox) scene.lookup(id);
             if (isCorrect) {
                 cb.setStyle("-fx-text-fill: green;");
-            }else{
+            } else {
                 cb.setStyle("-fx-text-fill: grey;");
             }
 
         }
     }
 
+    /*
+    * this method will highlight the selected reason as green or red 
+    * depending on whether it's correct or incorrect
+    */
     public static void highlightReasonResponse(ArrayList<String> correctReasonsList) {
-        
+
         System.out.println("correctReasonsList :: " + correctReasonsList);
         for (int i = 0; i < toggleGroupList.size(); i++) {
             ToggleGroup group = toggleGroupList.get(i);
             if (group.getSelectedToggle() != null) {
                 String selectedReason = group.getSelectedToggle().getUserData().toString();
                 RadioButton rb = (RadioButton) group.getSelectedToggle();
-                rb.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
+                rb.setFont(Font.font("Tahoma", FontWeight.NORMAL, 13));
 
                 if (selectedReason.equals(correctReasonsList.get(i))) {
                     rb.setStyle("-fx-text-fill: green;");
@@ -113,10 +102,11 @@ public class OptionsResponseView {
 
             }
         }
-
-        //disableRadioButtons();
     }
 
+    /*
+    * disable the options with fading out the incorrect ones
+    */
     public static void disableRadioButtons(ArrayList<String> correctReasonsList) {
 
         for (int i = 0; i < toggleGroupList.size(); i++) {
@@ -127,8 +117,12 @@ public class OptionsResponseView {
                 for (int j = 0; j < toggle.size(); j++) {
 
                     RadioButton rb = (RadioButton) toggle.get(j);
-                    if(rb.getText().equals(correctReasonsList.get(i))){
+                    if (rb.getText().equals(correctReasonsList.get(i))) {
                         rb.setStyle("-fx-text-fill: green;");
+                    } else {
+                        if (!rb.isSelected()) {
+                            rb.setStyle("-fx-text-fill: grey;");
+                        }
                     }
                     rb.setDisable(true);
                 }

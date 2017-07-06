@@ -84,6 +84,28 @@ public class ReasonsListenerTest {
         //fail("The test case is a prototype.");
     }
 
+    @Test
+    public void testGetCorrectReasonsForIncorrectlySelectedReasons(){
+        
+        System.out.println("getCorrectReasonsForIncorrectlySelectedReasons");
+        
+        ArrayList<String> incorrectlyAnsweredAssumptionsList = new ArrayList<>();
+        incorrectlyAnsweredAssumptionsList.add("Incorrect Assumption #1.1");
+        HashMap<String,String> correctReasons = new HashMap<>();
+        correctReasons.put("Incorrect Assumption #1.1", "Valid Reason #1.1.1");
+        correctReasons.put("Incorrect Assumption #1.2", "Valid Reason #1.2.4");
+        correctReasons.put("Complicating Assumption #Who Cares I Am Making All This Up?", "Valid");
+        correctReasons.put("Incorrect Assumption that includes a lot of text to make certain you can handle it #1.3", "Valid Reason #ExamplesAreHard");
+        
+        ArrayList<String> expResult = new ArrayList<>();
+        expResult.add("Valid Reason #1.1.1");
+        
+        ArrayList<String> result = new ArrayList<>();
+        result = ReasonsListener.getCorrectReasonsForIncorrectlySelectedReasons(incorrectlyAnsweredAssumptionsList, correctReasons);
+        
+        assertEquals(expResult, result);
+    }
+    
     /**
      * Test of readAllReasonsFromFile method, of class ReasonsListener.
      */

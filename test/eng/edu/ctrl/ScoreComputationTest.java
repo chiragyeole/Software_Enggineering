@@ -6,10 +6,6 @@
 package eng.edu.ctrl;
 
 import java.util.ArrayList;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -23,17 +19,54 @@ public class ScoreComputationTest {
      * Test of calculateScore method, of class ScoreComputation.
      */
     @Test
-    public void testCalculateScore() {
+    public void testCalculateScoreForAssumptions() {
         System.out.println("calculateScore");
         int numberOfIncorrectResponses = 1;
         int numberOfResponses = 3;
         String scoreEvaluationType = "assumption";
         int expResult = 2;
-        int result = ScoreComputation.calculateScore(numberOfIncorrectResponses, numberOfResponses, scoreEvaluationType);
+        int result = ScoreComputation.calculateScore(numberOfIncorrectResponses, numberOfResponses, scoreEvaluationType, 1);
         assertEquals(expResult, result);
    
     }
 
+    @Test
+    public void testCalculateScoreForReasons() {
+        System.out.println("calculateScore");
+        int numberOfIncorrectResponses = 1;
+        int numberOfResponses = 3;
+        String scoreEvaluationType = "reason";
+        int expResult = 1;
+        int result = ScoreComputation.calculateScore(numberOfIncorrectResponses, numberOfResponses, scoreEvaluationType, 1);
+        assertEquals(expResult, result);
+   
+    }
     
+    @Test
+    public void testReadScoreFile1(){
+        
+        ArrayList<Integer> expResult = new ArrayList<>();
+        expResult.add(2);
+        expResult.add(-2);
+        expResult.add(1);
+        expResult.add(-1);
+        
+        ArrayList<Integer> result = ScoreComputation.readScoreFile(1);
+        
+        assertEquals(expResult, result);
+        
+    }
     
+    @Test
+    public void testReadScoreFile2(){
+        
+        ArrayList<Integer> expResult = new ArrayList<>();
+        expResult.add(2);
+        expResult.add(-2);
+        
+        ArrayList<Integer> result = ScoreComputation.readScoreFile(2);
+        
+        assertEquals(expResult, result);
+        
+    }
 }

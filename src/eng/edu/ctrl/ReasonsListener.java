@@ -5,19 +5,16 @@
  */
 package eng.edu.ctrl;
 
-import static eng.edu.ctrl.QuestionController.incorrectlyAnsweredAssumptionsList;
 import static eng.edu.ctrl.QuestionController.toggleGroupList;
 import eng.edu.utilities.Utilities;
 import eng.edu.view.ReasonsDisplayView;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 /**
  *
@@ -44,7 +41,7 @@ public class ReasonsListener {
     
     public static void reasonsListener(ArrayList<String> incorrectlyAnsweredAssumptionsList, Scene scene){
         String fileName = "reasons";
-        BufferedReader bufferedReader = Utilities.getFileReader(fileName);
+        BufferedReader bufferedReader = Utilities.getFileReader(fileName, QuestionController.quesNo);
         HashMap<String, ArrayList> assumptionReasonsMap = readAllReasonsFromFile(bufferedReader);
                  
         HashMap<String, ArrayList> incorrectAssumptionReasonsMap = getReasonsForIncorrectAssumptions(assumptionReasonsMap, incorrectlyAnsweredAssumptionsList);      
@@ -72,8 +69,9 @@ public class ReasonsListener {
         } 
     }
     
-    public static ArrayList<String> getCorrectReasonsForIncorrectlySelectedReasons(){
-        HashMap<String,String> correctReasons = ReasonsListener.correctReasons;
+    public static ArrayList<String> getCorrectReasonsForIncorrectlySelectedReasons(ArrayList<String> incorrectlyAnsweredAssumptionsList, HashMap<String,String> correctReasons){
+        //HashMap<String,String> correctReasons = ReasonsListener.correctReasons;
+       
         ArrayList<String> correctReasonsList = new ArrayList<>();
         for(int i=0; i< incorrectlyAnsweredAssumptionsList.size(); i++){
             String currentAssumption = incorrectlyAnsweredAssumptionsList.get(i);
@@ -134,7 +132,7 @@ public class ReasonsListener {
                 }
                 count++;
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return assumptionsReasonsMap;
