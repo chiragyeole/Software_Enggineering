@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
+ * http://www.java2s.com/Code/Java/2D-Graphics-GUI/DecodesaGIFfileintooneormoreframes.htm
  * Class GifDecoder - Decodes a GIF file into one or more frames.
  * <br><pre>
  * Example:

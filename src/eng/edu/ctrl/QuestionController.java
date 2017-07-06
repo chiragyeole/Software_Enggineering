@@ -229,7 +229,9 @@ public class QuestionController {
     
     
     
-    
+    /*
+    https://stackoverflow.com/questions/28183667/how-i-can-stop-an-animated-gif-in-javafx
+    */
      public class AnimatedGif extends Animation {
 
         public AnimatedGif( String filename, double durationMs) {
