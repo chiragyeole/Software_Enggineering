@@ -63,6 +63,7 @@ public class EngEduMain extends Application {
 
         Image image = new Image("logo_trans.png");
         
+        
 
         VBox vbox2 = new VBox();
         vbox2.getChildren().addAll( vbox, root1);
@@ -82,7 +83,7 @@ public class EngEduMain extends Application {
         launch(args);
     }
 
-    public class AnimatedGif extends Animation {
+     class AnimatedGif extends Animation {
 
         public AnimatedGif( String filename, double durationMs) {
 
@@ -103,7 +104,7 @@ public class EngEduMain extends Application {
 
     }
 
-    public class Animation extends Transition {
+     class Animation extends Transition {
 
         private ImageView imageView;
         private int count;

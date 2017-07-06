@@ -15,18 +15,23 @@ import java.util.ArrayList;
  */
 public class ScoreComputation {
     
+    public static int ASSUMPTION_PLUS = 0;
+    public static int ASSUMPTION_MINUS = 1;
+    public static int REASONS_PLUS = 2;
+    public static int REASONS_MINUS = 3;
+    
     public static int calculateScore(int numberOfIncorrectResponses, int numberOfResponses, String scoreEvaluationType, int quesNo) {
         ArrayList<Integer> scoreWeightage = readScoreFile(quesNo);
         int score=0;
         int positiveScore;
         int negativeScore;
         if(scoreEvaluationType.equals("assumption")){
-            positiveScore = scoreWeightage.get(0);
-            negativeScore = scoreWeightage.get(1);
+            positiveScore = scoreWeightage.get(ASSUMPTION_PLUS);
+            negativeScore = scoreWeightage.get(ASSUMPTION_MINUS);
         }
         else{
-            positiveScore = scoreWeightage.get(2);
-            negativeScore = scoreWeightage.get(3);
+            positiveScore = scoreWeightage.get(REASONS_PLUS);
+            negativeScore = scoreWeightage.get(REASONS_MINUS);
         }
         score = positiveScore*(numberOfResponses-numberOfIncorrectResponses) + (negativeScore*numberOfIncorrectResponses);
         return score;
