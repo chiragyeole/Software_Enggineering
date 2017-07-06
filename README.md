@@ -28,7 +28,7 @@ score(n).txt <br />
 The format of the files is as follows: <br/>
 
 assumptions(n).txt : <br/>
-Assumption text | 1/0    1:If the assumption is correct; 0:otherwise.<br />
+Assumption text | true/false    true:If the assumption is correct; false:otherwise.<br />
 
 reasons(n).txt : <br />
 Incorrect assumption text on one line. List of reasons associated separated by a ";" on the next immediate line. <br />
