@@ -30,6 +30,7 @@ import javafx.animation.Transition;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.WritableImage;
@@ -157,7 +158,7 @@ public class QuestionController {
 
     public void handleNextPage(ActionEvent event) throws IOException {
         int score = updatedScore;
-        closeWindow(event);
+        boolean quoteDisplayFlag = false;
 
         if (Utilities.questionAlreadyDone.size() == Utilities.max) {
             AnchorPane root1 = FXMLLoader.load(getClass().getResource("/eng/edu/view/EndPage.fxml"));
@@ -165,13 +166,17 @@ public class QuestionController {
             
              HBox root = new HBox();
 
+             
         // TODO: provide gif file, ie exchange banana.gif with your file
         Animation animation;
         if(score >= 4){
-            animation = new AnimatedGif(getClass().getResource("o5.gif").toExternalForm(), 800);
+//            animation = new AnimatedGif(getClass().getResource("o5.gif").toExternalForm(), 800);
+            animation = new AnimatedGif(getClass().getResource("pooh_lastpg.gif").toExternalForm(), 2500);
+            quoteDisplayFlag=true;
         }
         else{
-            animation = new AnimatedGif(getClass().getResource("m.gif").toExternalForm(), 800);
+//            animation = new AnimatedGif(getClass().getResource("m.gif").toExternalForm(), 800);
+            animation = new AnimatedGif(getClass().getResource("pooh_lowscore3.gif").toExternalForm(), 1800);
         }
         
         
@@ -181,19 +186,26 @@ public class QuestionController {
         VBox vbox = new VBox(10);
         vbox.getChildren().add(animation.getView());
         vbox.setSpacing(2);
-        vbox.setMargin(animation.getView(), new Insets(50, 0, 0, 320));
+        vbox.setMargin(animation.getView(), new Insets(80, 0, 0, 280));
         vbox.setBackground( focusBackground );
 
-        
+//        Label quoteLabel = new Label("Better luck next time");
     
 
         VBox vbox2 = new VBox();
-        vbox2.getChildren().addAll(vbox, root1);
+        vbox2.getChildren().addAll( vbox, root1);
         
         root.getChildren().addAll(vbox2);
 
         Scene scene = new Scene(root, 900, 650);
             
+            Label label1 = (Label) root1.getChildren().get(1);
+            if(quoteDisplayFlag==true){
+                label1.setText("Excellent Work! Keep it up!!");
+            }
+            else{
+                label1.setText("     Nice try! Good luck!");
+            }
             
             AnchorPane anchor = (AnchorPane) root1.getChildren().get(0);
             Label label = (Label) anchor.getChildren().get(1);
@@ -212,6 +224,7 @@ public class QuestionController {
             w.handleMainPage(event);
 
         }
+        closeWindow(event);
     }
     
     

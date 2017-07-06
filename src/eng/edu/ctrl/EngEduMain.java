@@ -49,19 +49,26 @@ public class EngEduMain extends Application {
         HBox root = new HBox();
 
         // TODO: provide gif file, ie exchange banana.gif with your file
-        Animation ani = new AnimatedGif(getClass().getResource("pop-quiz.gif").toExternalForm(), 1000);
+//        Animation ani = new AnimatedGif(getClass().getResource("pop-quiz.gif").toExternalForm(), 1000);
+        Animation ani = new AnimatedGif(getClass().getResource("pooh_firstpg.gif").toExternalForm(), 1000);
+        
         ani.setCycleCount(10);
         ani.play();
 
         VBox vbox = new VBox(10);
         vbox.getChildren().add(ani.getView());
         vbox.setSpacing(2);
-        vbox.setMargin(ani.getView(), new Insets(0, 0, 0, 250));
+        vbox.setMargin(ani.getView(), new Insets(100, 0, 0, 260));
         vbox.setBackground( focusBackground );
 
         Image image = new Image("logo_trans.png");
         
-      
+        Image image1 = new Image(new FileInputStream("C:\\Users\\Gayatri\\Desktop\\gifs\\quiztime4.png"));
+        ImageView imageView = new ImageView(image1);
+        VBox vbox1 = new VBox();
+        vbox1.getChildren().add(imageView);
+        vbox1.setMargin(imageView, new Insets(50, 0, 0, 350));
+        vbox1.setBackground( focusBackground );
 //        Button btPause = new Button( "Pause");
 //        btPause.setOnAction( e -> ani.pause());
 //
@@ -69,7 +76,7 @@ public class EngEduMain extends Application {
 //        btResume.setOnAction( e -> ani.play());
 
         VBox vbox2 = new VBox();
-        vbox2.getChildren().addAll(vbox, root1);
+        vbox2.getChildren().addAll( vbox, root1);
         
         root.getChildren().addAll(vbox2);
 
